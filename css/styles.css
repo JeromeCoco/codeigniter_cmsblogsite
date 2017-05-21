@@ -1,0 +1,188 @@
+*{
+	font-family: "Lato";
+}
+body{
+	margin: 0;
+	padding: 0;
+}
+ul{
+	margin: 0;
+}
+ul#topnavs{
+	background-color: #263238;
+	position: fixed;
+	width: 100%;
+	z-index: 1000;
+	padding-left: 0;
+}
+a.toplink, a#webname{
+	color: white;
+	list-style-type: none;
+	display: inline-block;
+	padding: 10px;
+}
+a#webname:hover, a.toplink:hover{
+	color: white;
+}
+a.toplink{
+	float: right;
+}
+a:hover{
+	text-decoration: none;
+}
+div.sidenav{
+	-webkit-user-select: none;
+	transition: .325s;
+	font-size: 14px;
+	z-index: 0;
+	position: fixed;
+	top: 43px;
+	background-color: #37474F;
+	height: 1050px;
+	width: 150px;
+}
+div.sidelink{
+	list-style-type: none;
+	color: white;
+	margin-left: 0;
+	margin: 15px 0px 0px 10px;
+}
+div.sidelink:hover{
+	text-decoration: underline;
+}
+div.active{
+	transition: .325s;
+	padding: 10px 10px 10px 10px;
+	margin: 15px 0px 0px 0px;
+	border-left: 2px solid white;
+	background-color: #2980b9;
+	width: 150px;
+	color: white;
+}
+div.containerko{
+	position: relative;
+	top: 60px;
+	left: 170px;
+	font-size: 13px;
+	width: 1160px;
+}
+div#path{
+	padding: 10px;
+	background-color: #37474F;
+	color: white;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border-radius: 2px;
+}
+@media (max-width: 1300px){
+	div.containerko{
+		width: 1000px;
+		transition: .325s;
+	}
+}
+@media (max-width: 1200px){
+	div.containerko{
+		width: 800px;
+		transition: .325s;
+	}
+}
+@media (max-width: 1000px){
+	div.containerko{
+		width: 545px;
+		transition: .325s;
+	}
+}
+span#btnmin, span#btnmax{
+	float: right;
+	margin-left: 11px;
+}
+span#btnmin:hover, span#btnmax:hover{
+	color: dodgerblue;
+	cursor: pointer;
+}
+div#recentPosts{
+	padding: 10px;
+	background-color: whitesmoke;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	border-radius: 2px;
+}
+div#recentPostHeader{
+	padding-left: 30px;
+}
+span#recentPostDate{
+	font-size: 12px;
+	padding-left: 5px;
+	color: dodgerblue;
+}
+div#recentPostContent{
+	color: gray;
+	padding-left: 30px;
+}
+div#recentActivities, div#uploadedFiles{
+	padding: 10px;
+	background-color: whitesmoke;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	border-radius: 2px;
+}
+textarea#mytextarea{
+	height: 250px;
+	border-radius: 2px;
+}
+div#publishSettings{
+	margin-top: 20px;
+	padding: 10px;
+	background-color: whitesmoke;
+	border-radius: 2px;
+	border: 1px solid lightgray;
+}
+.fa{
+	padding-right: 10px;
+}
+.addBtns{
+	padding: 20px;
+}
+div#uploadDiv{
+	border: 3px dashed gray;
+	padding: 10px;
+}
+div#logInHeader{
+	background-color: #2c3e50;
+	color: white;
+	padding: 5px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+div#logInContent{
+	margin: auto;
+	margin-top: 70px;
+	width: 400px;
+	height: 450px;
+	background-color: whitesmoke;
+	border: 1px solid lightgray;
+}
+div#logInForm{
+	margin: auto;
+	margin-top: 40px;
+	width: 300px;
+}
+
+div#cmsHeader{
+	font-family: "Forte";
+	color:#3498db;
+	text-align: center;
+	font-size: 100px;
+}
+
+a#btnKolaps:hover{
+	cursor: pointer;
+}
+
+div.layoutPanels{
+	text-align: center;
+}
+
+span#datePrev, span#timePrev{
+	color: blue;
+}
+
+span#errpass{
+	font-style: italic;
+}
