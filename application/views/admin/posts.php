@@ -112,6 +112,24 @@
 			        }
 				});
 			});
+			$("#searchtext").keyup(function(){
+				var tosearch = $(this).val();
+				var searchcategory = $("#searchcategory").val();
+				$.ajax({
+					url: "filtersearchpost",
+			        type: "POST",
+			        data: { 
+			        	tosearch:tosearch,
+			        	searchcategory:searchcategory
+			        },
+			        dataType: "json",
+			        success: function(data)
+			        {
+			        	$("tbody").html("<tr> <td>"+data[0]['date_posted']+"</td> <td>"+data[0]['post_title']+"</td> <td>"+data[0]['author_name']+"</td> <td>"+data[0]['post_status']+"</td> </tr>");
+			        }
+				});
+
+			});
 			$("#btnKolaps").click(function(){
 				$(".sidenav").toggleClass('sidenavtago');
 				$(".linkLabel").toggleClass('linkLabelTago');
@@ -276,12 +294,12 @@
 					<div class="col-sm-6">
 						<div class="form-inline">
 							Search by: &nbsp;
-							<select class="form-control" placeholder="Search by...">
-								<option>Date</option>
-								<option>Post</option>
-								<option>Author</option>
+							<select id="searchcategory" class="form-control" placeholder="Search by...">
+								<option>date_posted</option>
+								<option>post_title</option>
+								<option>author_name</option>
 							</select> &nbsp;
-							<input type="text" class="form-control" placeholder="..."/>
+							<input id="searchtext" type="text" class="form-control" placeholder="..."/>
 						</div>
 						<br/>
 					</div>

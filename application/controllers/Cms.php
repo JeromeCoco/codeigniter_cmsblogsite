@@ -5,6 +5,7 @@
 		{
 			parent::__construct();
 			$this->load->helper('url');
+                  $this->load->helper('form');
                   $this->load->library('session');
                   $this->load->model('Cms_model');
 
@@ -22,6 +23,14 @@
             }
 
             /*Admin links*/
+            public function filtersearchpost()
+            {
+                  $postsearch = array();
+                  $postsearch = $this->Cms_model->searchpost($_POST);
+                  echo json_encode($postsearch);
+                  exit;
+            }
+
             public function dashboard()
             {
                   $data['recent_posts'] = $this->getrecentpostlist();

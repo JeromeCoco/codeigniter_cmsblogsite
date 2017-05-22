@@ -76,6 +76,10 @@
 			        }
 				});
 			});
+			$("#btnUpload").click(function(){
+			    var filename = $('#file')[0].files[0];
+				var filedesc = $("#filedesc").val();
+			});
 			$("#btnKolaps").click(function(){
 				$(".sidenav").toggleClass('sidenavtago');
 				$(".linkLabel").toggleClass('linkLabelTago');
@@ -227,12 +231,12 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<div id="uploadDiv">
-							<input id="fileDiv" type="file" />
+							<input id="file" type="file" id="file" />
 						</div>
 						<br/>
-						<input type="text" class="form-control" placeholder="File Description..."/>
+						<input id="filedesc" type="text" class="form-control" placeholder="File Description..."/>
 						<br/>
-						<input type="button" class="btn btn-success" value="Upload..."/> 
+						<input id="btnUpload" type="button" class="btn btn-success" value="Upload..."/>
 					</div>
 				</div>
 			</div>

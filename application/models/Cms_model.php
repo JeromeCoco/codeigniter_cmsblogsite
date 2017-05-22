@@ -130,5 +130,12 @@
         $selek = $this->pdo->query("SELECT post_title, date_posted, post_content FROM tbl_posts WHERE post_status = 'Immediate' ORDER BY id DESC LIMIT 3");
         return $selek;
     }
+
+    public function searchpost($data)
+    {
+        extract($data);
+        $selek = $this->pdo->query("SELECT id, author_name, post_title, date_posted, post_status FROM tbl_posts WHERE $searchcategory LIKE '%$tosearch%' ");
+        return $selek->result();
+    }
   }
 ?>
