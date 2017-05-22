@@ -63,6 +63,18 @@
 		        	$("#activeuser").html(data["uname"]);
 		        }
 			});
+			$("#btnlogout").click(function(){
+				$.ajax({
+					url: "removesession",
+			        type: "POST",
+			        data: { },
+			        dataType: "json",
+			        success: function(data)
+			        {
+			        	
+			        }
+				});
+			});
 			$("#btnKolaps").click(function(){
 				$(".sidenav").toggleClass('sidenavtago');
 				$(".linkLabel").toggleClass('linkLabelTago');
@@ -187,7 +199,7 @@
 						</span>
 					</div>
 				</a>
-				<a href="<?php echo base_url(); ?>index.php/cms/admins">
+				<a id="btnlogout" href="<?php echo base_url(); ?>index.php/cms/admin">
 					<div class="sidelink">
 						<span class="linkIcons">
 							<i class="fa fa-sign-out" aria-hidden="true"></i>
@@ -195,7 +207,6 @@
 						<span class="linkLabel">
 							Log out
 						</span>
-						
 					</div>
 				</a>
 			</div>
@@ -220,18 +231,10 @@
 						<br/>
 					</div>
 					<div class="col-sm-12">
-						| &nbsp; All <span class="badge badge-primary" style="font-size:14px;">0</span> &nbsp; |
-						Trash <span class="badge badge-warning" style="font-size:14px;">0</span> &nbsp; |
-						<br/><br/>
 						<table class="table table-bordered">
 							<thead>
 								<tr>
-									<th class="form-inline">
-										<label class="custom-control custom-checkbox">
-										  <input type="checkbox" class="custom-control-input">
-										  <span class="custom-control-indicator"></span>
-										</label>Date
-									</th>
+									<th>Date</th>
 									<th>In response to</th>
 									<th>Author</th>
 									<th>Content</th>

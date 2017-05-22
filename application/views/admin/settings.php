@@ -95,7 +95,7 @@
 		        		$("#timecustselected")[0].checked = true;
 		        		$("#timeformat").val("g:i A");
 		        		$("#timeformat").attr("disabled", "disabled");
-		        		$("#setcustomtime").val(data[0]['time_formats']);
+		        		$("#setcustomtime").val(data[0]['time_format']);
 		        	}
 		        	else
 		        	{
@@ -104,6 +104,18 @@
 		        	}
 		        }
 		    });
+			$("#btnlogout").click(function(){
+				$.ajax({
+					url: "removesession",
+			        type: "POST",
+			        data: { },
+			        dataType: "json",
+			        success: function(data)
+			        {
+			        	
+			        }
+				});
+			});
 			$("#dateoptselected").change(function(){
 				$("#setcustomdate").attr("disabled", "disabled");
 				$("#dateformat").removeAttr("disabled");
@@ -357,7 +369,7 @@
 						</span>
 					</div>
 				</a>
-				<a href="<?php echo base_url(); ?>index.php/cms/admin">
+				<a id="btnlogout" href="<?php echo base_url(); ?>index.php/cms/admin">
 					<div class="sidelink">
 						<span class="linkIcons">
 							<i class="fa fa-sign-out" aria-hidden="true"></i>

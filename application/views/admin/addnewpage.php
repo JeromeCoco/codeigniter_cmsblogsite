@@ -65,6 +65,18 @@
 		        	$("#activeuser").html(data["uname"]);
 		        }
 			});
+			$("#btnlogout").click(function(){
+				$.ajax({
+					url: "removesession",
+			        type: "POST",
+			        data: { },
+			        dataType: "json",
+			        success: function(data)
+			        {
+			        	
+			        }
+				});
+			});
 			$("#btnKolaps").click(function(){
 				$(".sidenav").toggleClass('sidenavtago');
 				$(".linkLabel").toggleClass('linkLabelTago');
@@ -209,7 +221,7 @@
 						</span>
 					</div>
 				</a>
-				<a href="<?php echo base_url(); ?>index.php/cms/admin">
+				<a id="btnlogout" href="<?php echo base_url(); ?>index.php/cms/admin">
 					<div class="sidelink">
 						<span class="linkIcons">
 							<i class="fa fa-sign-out" aria-hidden="true"></i>
