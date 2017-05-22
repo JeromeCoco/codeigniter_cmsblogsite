@@ -239,12 +239,7 @@
 						<table class="table table-bordered">
 							<thead>
 								<tr>
-									<th class="form-inline">
-										<label class="custom-control custom-checkbox">
-										  <input type="checkbox" class="custom-control-input">
-										  <span class="custom-control-indicator"></span>
-										</label>Date
-									</th>
+									<th>Date</th>
 									<th>Panel</th>
 									<th>Status</th>
 									<th>Actions</th>

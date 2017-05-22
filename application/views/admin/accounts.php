@@ -398,7 +398,7 @@
 								<input id="confirmPass" type="password" class="form-control"/>
 								<br/>
 							</div>
-							<input id="btnupdusers" type="button" class="btn btn-primary" value="Save Changes..."/>
+							<input id="btnupdusers" type="button" class="btn btn-success" value="Save Changes..."/>
 							<div id="err"></div>
 						</div>
 					</div>

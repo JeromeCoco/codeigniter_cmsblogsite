@@ -127,7 +127,7 @@
 
     public function getrecentpost()
     {
-        $selek = $this->pdo->query("SELECT post_title, date_posted, post_content FROM tbl_posts WHERE post_status = 'Immediate' LIMIT 3");
+        $selek = $this->pdo->query("SELECT post_title, date_posted, post_content FROM tbl_posts WHERE post_status = 'Immediate' ORDER BY id DESC LIMIT 3");
         return $selek;
     }
   }

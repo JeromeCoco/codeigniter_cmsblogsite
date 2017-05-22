@@ -5,9 +5,9 @@
 	</span>
 </div>
 <div id="recentPostContent">
-	<?php 
+	<?php 	
 		$display = html_entity_decode($post_content);
 		echo substr($display, 0, 200). ".....";
 	?>
 </div>
-<br/>
+<hr/>

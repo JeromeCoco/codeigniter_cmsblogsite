@@ -259,7 +259,7 @@
 								<option>Pending Panel</option>
 							</select>
 							<br/>
-							<input type="button" value="Add Panel" class="btn btn-primary">
+							<input type="button" value="Add Panel" class="btn btn-success">
 						</div>
 					</div>
 				</div>

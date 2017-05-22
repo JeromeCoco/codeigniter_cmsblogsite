@@ -298,7 +298,7 @@
 								<option>Pending Page</option>
 							</select>
 							<br/>
-							<input type="button" value="Add Page" class="btn btn-primary">
+							<input type="button" value="Add Page" class="btn btn-success">
 						</div>
 					</div>
 				</div>

@@ -58,13 +58,8 @@
 					<input type="password" id="pword" class="form-control" placeholder="Password..."/>
 					<br/>
 					<input type="button" id="btnLogs" style="float:right;" class="btn btn-primary" value="Log In"/>
-					<div class="form-check mb-2 mr-sm-2 mb-sm-0">
-						<label class="form-check-label">
-							<input class="form-check-input" type="checkbox"> Remember me
-					    </label>
-					</div>
 					<br/>
-					<a style="float:right;" href="#">Forgot password?</a>
+					<a href="#">Forgot password?</a>
 				</div>
 				<br/><br/><hr/>
 			</div>

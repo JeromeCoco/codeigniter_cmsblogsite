@@ -330,7 +330,7 @@
 							Confirm Password:
 							<input id="confirmpass" type="password" class="form-control"/>
 							<br/>
-							<input id="btnAddNew" type="button" class="btn btn-primary" value="Add Account"/>
+							<input id="btnAddNew" type="button" class="btn btn-success" value="Add Account"/>
 							<div id="err"></div>
 						</div>
 					</div>

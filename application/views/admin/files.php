@@ -240,12 +240,7 @@
 						<table class="table table-bordered">
 							<thead>
 								<tr>
-									<th class="form-inline">
-										<label class="custom-control custom-checkbox">
-										  <input type="checkbox" class="custom-control-input">
-										  <span class="custom-control-indicator"></span>
-										</label>Date Uploaded
-									</th>
+									<th>Date Uploaded</th>
 									<th>File Name</th>
 									<th>Description</th>
 									<th>Actions</th>
