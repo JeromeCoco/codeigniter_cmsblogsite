@@ -13,7 +13,7 @@
 	</td> 
 	<td> 
 		<input data-id="<?php echo $id; ?>" type='button' id='btnview' value='View' class='btn btn-sm btn-default'/> 
-		&nbsp; <input type='button' value='Edit' class='btn btn-sm btn-default'/> 
+		&nbsp; <input data-id="<?php echo $id; ?>" id="btnedit" type='button' value='Edit' class='btn btn-sm btn-default'/> 
 		&nbsp; <input data-id="<?php echo $id; ?>" id='btnremove' type='button' value='Remove' class='btn btn-sm btn-danger'/> 
 	</td> 
 </tr>

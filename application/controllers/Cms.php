@@ -22,6 +22,27 @@
             }
 
             /*Admin links*/
+            public function dashboard()
+            {
+                  $data['recent_posts'] = $this->getrecentpostlist();
+                  $this->load->view('admin/dashboard', $data);
+                  
+                  //var_dump($GLOBALS['params']);
+            }
+
+            public function getrecentpostlist()
+            {
+                  $list = '';
+                  $postdetails = array();
+                  $postdetails = $this->Cms_model->getrecentpost();
+                  foreach ($postdetails->result() as $row) 
+                  {
+                        $data = (array) $row;
+                        $list .= $this->load->view('admin/recentposts', $data, true);
+                  }
+                  return $list;
+            }
+
             public function retrievecontent()
             {
                   $data = array();
@@ -39,6 +60,12 @@
                   exit;  
             }
 
+            public function posts()
+            {
+                  $data['post_list'] = $this->retrievepost();
+                  $this->load->view('admin/posts', $data);
+            }
+
             public function retrievepost()
             {
                   $list = '';
@@ -47,7 +74,7 @@
                   foreach ($postdetails->result() as $row) 
                   {
                         $data = (array) $row;
-                        $list .= $this->load->view('admin/postlist',$data,true);
+                        $list .= $this->load->view('admin/postlist', $data, true);
                   }
                   return $list;
             }
@@ -157,18 +184,6 @@
             public function admin()
             {
                   $this->load->view('admin/admin');
-            }
-
-            public function dashboard()
-            {
-                  $this->load->view('admin/dashboard');
-                  //var_dump($GLOBALS['params']);
-            }
-
-            public function posts()
-            {
-                  $data['post_list'] = $this->retrievepost();
-                  $this->load->view('admin/posts',$data);
             }
 
             public function addnewpost()

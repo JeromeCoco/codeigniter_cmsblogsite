@@ -256,27 +256,7 @@
 					<div class="col-sm-5"><br/>
 						<div id="recentPosts">
 							<i class="fa fa-th-list" aria-hidden="true"></i> Recent Posts <hr/>
-							<div id="recentPostHeader">
-								Sample Post Header
-								<span id="recentPostDate">
-									May 8, 2017
-								</span>
-							</div>
-							<div id="recentPostContent">Sample post content...</div><br/>
-							<div id="recentPostHeader">
-								Sample Post Header
-								<span id="recentPostDate">
-									May 8, 2017
-								</span>
-							</div>
-							<div id="recentPostContent">Sample post content...</div><br/>
-							<div id="recentPostHeader">
-								Sample Post Header
-								<span id="recentPostDate">
-									May 8, 2017
-								</span>
-							</div>
-							<div id="recentPostContent">Sample post content...</div>
+							<?php echo $recent_posts; ?>
 						</div>
 					</div>
 					<div class="col-sm-3"><br/>

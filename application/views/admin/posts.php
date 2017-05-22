@@ -56,28 +56,6 @@
 		<script type="text/javascript">
 		$(document).ready(function(){
 			$.ajax({
-				url: "retrievepost",
-		        type: "POST",
-		        data: { },
-		        dataType: "json",
-		        success: function(data)
-		        {
-		        	for (var i = 0; i < data.length; i++)
-		        	{
-		        		var stat;
-		        		if (data[i]["post_status"] == "Pending Post")
-		        		{
-		        			stat = "<font color='red'>&#10007; "+data[i]["post_status"]+"</font>";
-		        		}
-		        		else
-		        		{
-		        			stat = "<font color='green'>&#10003; "+data[i]["post_status"]+"</font>";
-		        		}
-		        		$("tbody").append("<tr id='row"+data[i]["id"]+"'> <td>"+data[i]["date_posted"]+"</td> <td>"+data[i]["post_title"]+"</td> <td>"+data[i]["author_name"]+"</td> <td>"+stat+"</td> <td> <input data-id='"+data[i]["id"]+"' type='button' id='btnview' value='View' class='btn btn-sm btn-default'/> &nbsp; <input type='button' value='Edit' class='btn btn-sm btn-default'/> &nbsp; <input data-id='"+data[i]["id"]+"' id='btnremove' type='button' value='Remove' class='btn btn-sm btn-danger'/> </td> </tr> ");
-		        	}
-		        }
-			});
-			$.ajax({
 				url: "retrievesession",
 		        type: "POST",
 		        data: { },
@@ -97,8 +75,6 @@
 			        dataType: "json",
 			        success: function(data)
 			        {
-			        	console.log(data);
-			        	
 			        	$(".modal-body").html(data.decoded);
 			        }
 				});
@@ -119,6 +95,10 @@
 				        }
 					});
 				}
+			});
+			$(document).on( "click", "#btnedit", function(){
+				var id = $(this).attr("data-id");
+				
 			});
 			$("#btnlogout").click(function(){
 				$.ajax({
