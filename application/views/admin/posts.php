@@ -116,7 +116,6 @@
 				        success: function(data)
 				        {
 				        	$("#row"+id).fadeOut('slow');
-				        	location.reload();
 				        }
 					});
 				}
