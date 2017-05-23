@@ -49,7 +49,6 @@
 				}
 			}
 		</style>
-		<script src="<?php echo base_url(); ?>js/Chart.js"></script>
 		<script src="<?php echo base_url(); ?>js/jquery-3.1.1.min.js"></script>
 		<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
 		<script src="<?php echo base_url(); ?>js/bootstrap.min.js"></script>
@@ -98,7 +97,6 @@
 			});
 			$(document).on( "click", "#btnedit", function(){
 				var id = $(this).attr("data-id");
-				
 			});
 			$("#btnlogout").click(function(){
 				$.ajax({
@@ -156,7 +154,7 @@
 	</head>
 	<body>
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
+			<div class="modal-dialog modal-lg" role="document">
 		    	<div class="modal-content">
 		      		<div class="modal-header">
 			        	<h5 class="modal-title" id="exampleModalLabel"></h5>

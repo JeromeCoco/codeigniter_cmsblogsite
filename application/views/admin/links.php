@@ -49,8 +49,9 @@
 				}
 			}
 		</style>
-		<script src="<?php echo base_url(); ?>js/Chart.js"></script>
 		<script src="<?php echo base_url(); ?>js/jquery-3.1.1.min.js"></script>
+		<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+		<script src="<?php echo base_url(); ?>js/bootstrap.min.js"></script>
 		<script type="text/javascript">
 		$(document).ready(function(){
 			$.ajax({
@@ -91,10 +92,46 @@
 				$(".col-sm-5").fadeIn('slow');
 				$(".col-sm-3").fadeIn('slow');
 			});
+			$("#btnviewadding").click(function(){
+				$('#myModal').modal('toggle');
+			});
 		});
 		</script>
 	</head>
 	<body>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+		    	<div class="modal-content">
+		      		<div class="modal-header">
+			        	<h5 class="modal-title" id="exampleModalLabel">
+			        		Add New Link
+			        	</h5>
+			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          		<span aria-hidden="true">&times;</span>
+			        	</button>
+		      		</div>
+		      		<div class="modal-body">
+		      			<div class="container">
+			      			<div class="row">
+			      				Link name:
+		      					<input type="text" class="form-control" placeholder="Link Name..."/>
+		      					Page:
+		      					<select class="form-control">
+		      						<option>sample page</option>
+		      						<option>sample page</option>
+		      					</select>
+		      					URL:
+		      					<input type="text" class="form-control" placeholder="/sampleurl"/>
+			      			</div>
+		      			</div>
+			      	</div>
+		      		<div class="modal-footer">
+		      			<button type="button" class="btn btn-success">Save</button>
+		        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
 		<nav>
 			<ul id="topnavs">
 				<a href="#" id="webname">
@@ -226,7 +263,6 @@
 				<li class="breadcrumb-item"><a href="#">Home</a></li>
 				<li class="breadcrumb-item active">Links</li>
 			</ol>
-			<div class="container">
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-inline">
@@ -240,7 +276,7 @@
 						<br/>
 					</div>
 					<div class="col-sm-6">
-						<a href="<?php echo base_url();?>index.php/cms/addnewlink">
+						<a id="btnviewadding">
 							<button class="btn btn-md btn-primary" style="float:right"> Add New Link </button>
 						</a>
 					</div>
@@ -249,11 +285,17 @@
 							<thead>
 								<tr>
 									<th>Name</th>
-									<th>Url</th>
 									<th>Page</th>
+									<th>URL</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
+							<tbody>
+
+							</tbody>
+							<tfoot>
+
+							</tfoot>
 						</table>
 					</div>
 				</div>
