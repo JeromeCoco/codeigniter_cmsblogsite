@@ -228,7 +228,34 @@
 			</ol>
 			<div class="container">
 				<div class="row">
-					
+					<div class="col-sm-6">
+						<div class="form-inline">
+							Search by: &nbsp;
+							<select id="searchcategory" class="form-control" placeholder="Search by...">
+								<option>Name</option>
+								<option>Url</option>
+							</select> &nbsp;
+							<input id="searchtext" type="text" class="form-control" placeholder="..."/>
+						</div>
+						<br/>
+					</div>
+					<div class="col-sm-6">
+						<a href="<?php echo base_url();?>index.php/cms/addnewlink">
+							<button class="btn btn-md btn-primary" style="float:right"> Add New Link </button>
+						</a>
+					</div>
+					<div class="col-sm-12">
+						<table class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Url</th>
+									<th>Page</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
