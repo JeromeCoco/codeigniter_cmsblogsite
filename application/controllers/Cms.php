@@ -224,6 +224,11 @@
                   $this->load->view('admin/panels');
             }
 
+            public function links()
+            {
+                  $this->load->view('admin/links');
+            }
+
             public function addnewpanel()
             {
                   $this->load->view('admin/addnewpanel');

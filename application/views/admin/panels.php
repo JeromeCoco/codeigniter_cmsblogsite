@@ -170,6 +170,16 @@
 						</span>
 					</div>
 				</a>
+				<a href="<?php echo base_url(); ?>index.php/cms/links">
+					<div class="sidelink">
+						<span class="linkIcons">
+							<i class="fa fa-external-link" aria-hidden="true"></i>
+						</span>
+						<span class="linkLabel">
+							Links
+						</span>
+					</div>
+				</a>
 				<a href="<?php echo base_url(); ?>index.php/cms/files">
 					<div class="sidelink">
 						<span class="linkIcons">

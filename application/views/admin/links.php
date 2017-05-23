@@ -49,22 +49,21 @@
 				}
 			}
 		</style>
-		<script src='<?php echo base_url(); ?>js/tinymce/tinymce.min.js'></script>
 		<script src="<?php echo base_url(); ?>js/Chart.js"></script>
 		<script src="<?php echo base_url(); ?>js/jquery-3.1.1.min.js"></script>
 		<script type="text/javascript">
-			$(document).ready(function(){
-				$.ajax({
-					url: "retrievesession",
-			        type: "POST",
-			        data: { },
-			        dataType: "json",
-			        success: function(data)
-			        {
-			        	$("#activeuser").html(data["uname"]);
-			        }
-				});
-				$("#btnlogout").click(function(){
+		$(document).ready(function(){
+			$.ajax({
+				url: "retrievesession",
+		        type: "POST",
+		        data: { },
+		        dataType: "json",
+		        success: function(data)
+		        {
+		        	$("#activeuser").html(data["uname"]);
+		        }
+			});
+			$("#btnlogout").click(function(){
 				$.ajax({
 					url: "removesession",
 			        type: "POST",
@@ -76,23 +75,23 @@
 			        }
 				});
 			});
-				$("#btnKolaps").click(function(){
-					$(".sidenav").toggleClass('sidenavtago');
-					$(".linkLabel").toggleClass('linkLabelTago');
-					$(".active").toggleClass('activeLiit');
-					$(".containerko").toggleClass('containerko1');
-				});
-				$("#btnmin").click(function(){
-					$(".col-sm-4").fadeOut('slow');
-					$(".col-sm-5").fadeOut('slow');
-					$(".col-sm-3").fadeOut('slow');
-				});
-				$("#btnmax").click(function(){
-					$(".col-sm-4").fadeIn('slow');
-					$(".col-sm-5").fadeIn('slow');
-					$(".col-sm-3").fadeIn('slow');
-				});
+			$("#btnKolaps").click(function(){
+				$(".sidenav").toggleClass('sidenavtago');
+				$(".linkLabel").toggleClass('linkLabelTago');
+				$(".active").toggleClass('activeLiit');
+				$(".containerko").toggleClass('containerko1');
 			});
+			$("#btnmin").click(function(){
+				$(".col-sm-4").fadeOut('slow');
+				$(".col-sm-5").fadeOut('slow');
+				$(".col-sm-3").fadeOut('slow');
+			});
+			$("#btnmax").click(function(){
+				$(".col-sm-4").fadeIn('slow');
+				$(".col-sm-5").fadeIn('slow');
+				$(".col-sm-3").fadeIn('slow');
+			});
+		});
 		</script>
 	</head>
 	<body>
@@ -171,7 +170,7 @@
 					</div>
 				</a>
 				<a href="<?php echo base_url(); ?>index.php/cms/links">
-					<div class="sidelink">
+					<div class="active" class="sidelink">
 						<span class="linkIcons">
 							<i class="fa fa-external-link" aria-hidden="true"></i>
 						</span>
@@ -181,7 +180,7 @@
 					</div>
 				</a>
 				<a href="<?php echo base_url(); ?>index.php/cms/files">
-					<div class="active" class="sidelink">
+					<div class="sidelink">
 						<span class="linkIcons">
 							<i class="fa fa-folder-open-o" aria-hidden="true"></i>
 						</span>
@@ -210,15 +209,14 @@
 						</span>
 					</div>
 				</a>
-				<a id="btnlogout" href="<?php echo base_url(); ?>index.php/cms/admin">
+				<a href="<?php echo base_url(); ?>index.php/cms/admin">
 					<div class="sidelink">
 						<span class="linkIcons">
 							<i class="fa fa-sign-out" aria-hidden="true"></i>
 						</span>
-						<span class="linkLabel">
+						<span id="btnlogout" class="linkLabel">
 							Log out
 						</span>
-						
 					</div>
 				</a>
 			</div>
@@ -226,44 +224,11 @@
 		<div class="containerko">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="#">Home</a></li>
-				<li class="breadcrumb-item active">Files</li>
+				<li class="breadcrumb-item active">Links</li>
 			</ol>
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-6">
-						<div class="form-inline">
-							Search by: &nbsp;
-							<select class="form-control" placeholder="Search by...">
-								<option>Date</option>
-								<option>File Name</option>
-							</select> &nbsp;
-							<input type="text" class="form-control" placeholder="..."/>
-						</div>
-						<br/>
-					</div>
-					<div class="col-sm-6">
-						<a href="<?php echo base_url();?>index.php/cms/addnewfile">
-							<button class="btn btn-primary" style="float:right"> <i class="fa fa-file-o" aria-hidden="true"></i> Upload File </button>
-						</a>
-					</div>
-					<div class="col-sm-12">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th>Date Uploaded</th>
-									<th>File Name</th>
-									<th>Description</th>
-									<th>Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								
-							</tbody>
-							<tfoot>
-								
-							</tfoot>
-						</table>
-					</div>
+					
 				</div>
 			</div>
 		</div>

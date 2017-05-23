@@ -125,7 +125,12 @@
 			        dataType: "json",
 			        success: function(data)
 			        {
-			        	$("tbody").html("<tr> <td>"+data[0]['date_posted']+"</td> <td>"+data[0]['post_title']+"</td> <td>"+data[0]['author_name']+"</td> <td>"+data[0]['post_status']+"</td> </tr>");
+			        	$("tr").remove();
+			        	$("tbody").append("<tr> <th>Date</th> <th>Title</th> <th>Author</th> <th>Status</th> <th>Actions</th> </tr> ");
+			        	for (var i = 0; i < data.length; i++)
+			        	{
+			        		$("tbody").append("<tr> <td>"+data[i]['date_posted']+"</td> <td>"+data[i]['post_title']+"</td> <td>"+data[i]['author_name']+"</td> <td>"+data[i]['post_status']+"</td> <td> <input data-id="+data[i]['id']+" type='button' id='btnview' value='View' class='btn btn-sm btn-default'/> &nbsp; <input data-id="+data[i]['id']+" id='btnedit' type='button' value='Edit' class='btn btn-sm btn-default'/> &nbsp; <input data-id="+data[i]['id']+" id='btnremove' type='button' value='Remove' class='btn btn-sm btn-danger'/> </td> </tr>");
+			        	}
 			        }
 				});
 
@@ -239,6 +244,16 @@
 						</span>
 						<span class="linkLabel">
 							Panels
+						</span>
+					</div>
+				</a>
+				<a href="<?php echo base_url(); ?>index.php/cms/links">
+					<div class="sidelink">
+						<span class="linkIcons">
+							<i class="fa fa-external-link" aria-hidden="true"></i>
+						</span>
+						<span class="linkLabel">
+							Links
 						</span>
 					</div>
 				</a>
