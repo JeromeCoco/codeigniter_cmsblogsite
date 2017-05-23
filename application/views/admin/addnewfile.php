@@ -55,6 +55,19 @@
 		<script type="text/javascript">
 		$(document).ready(function(){
 			$.ajax({
+				url: "loaddatetime",
+		        type: "POST",
+		        data: { },
+		        dataType: "json",
+		        success: function(data)
+		        {
+		        	var dateform = data[0]['date_format'];
+		        	var timeform = data[0]['time_format'];
+		        	$("#date").val(dateform);
+		        	$("#time").val(timeform);
+		        }
+	    	});
+			$.ajax({
 				url: "retrievesession",
 		        type: "POST",
 		        data: { },
@@ -62,6 +75,7 @@
 		        success: function(data)
 		        {
 		        	$("#activeuser").html(data["uname"]);
+		        	$("#activeuser2").val(data["uname"]);
 		        }
 			});
 			$("#btnlogout").click(function(){
@@ -76,9 +90,36 @@
 			        }
 				});
 			});
-			$("#btnUpload").click(function(){
-			    var filename = $('#file')[0].files[0];
-				var filedesc = $("#filedesc").val();
+			$("#file").change(function(){
+			    var file = $("#file")[0].files[0];
+			    $("#filename").val(file.name);
+				/*var filedesc = $("#filedesc").val();
+				var dates = $("#date").val();
+				var times = $("#time").val();
+				var author = $("#activeuser").html();
+				if (filedesc == "")
+				{
+					alert("Please enter a description...");
+				}
+				else
+				{
+					$.ajax({
+						url: "uploadfile",
+				        type: "POST",
+				        data: {
+				        	name:name,
+				        	filedesc:filedesc,
+				        	dates:dates,
+				        	times:times,
+				        	author:author
+				        },
+				        dataType: "json",
+				        success: function(data)
+				        {
+				        	console.log(data);
+				        }
+					});
+				}*/
 			});
 			$("#btnKolaps").click(function(){
 				$(".sidenav").toggleClass('sidenavtago');
@@ -240,13 +281,20 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-6">
-						<div id="uploadDiv">
-							<input id="file" type="file" id="file" />
-						</div>
-						<br/>
-						<input id="filedesc" type="text" class="form-control" placeholder="File Description..."/>
-						<br/>
-						<input id="btnUpload" type="button" class="btn btn-success" value="Upload..."/>
+						<?php echo $error;?>
+						<?php echo form_open_multipart('cms/uploadfile');?>
+							<input type="hidden" name="author" id="activeuser2"/>
+							<input type="hidden" name="date" id="date"/>
+							<input type="hidden" name="filename" id="filename"/>
+							<input type="hidden" name="time" id="time"/>
+							<div id="uploadDiv">
+								<input id="file" name="userfile" type="file"/>
+							</div>
+							<br/>
+							<input id="filedesc" name="filedesc" type="text" class="form-control" placeholder="File Description..."/>
+							<br/>
+							<input id="btnuploads" type="submit" class="btn btn-success" value="Upload..."/>
+						</form>
 					</div>
 				</div>
 			</div>

@@ -137,5 +137,14 @@
         $selek = $this->pdo->query("SELECT id, author_name, post_title, date_posted, post_status FROM tbl_posts WHERE $searchcategory LIKE '%$tosearch%' ");
         return $selek->result();
     }
+
+    public function uploadnewfile($data)
+    {
+        extract($data);
+        $sql = "INSERT INTO tbl_files(author, file_content, file_desc, file_date_uploaded, file_time_uploaded) VALUES(?, ?, ?, ?, ?)";
+        $realdate = date($date);
+        $realtime = date($time);
+        $this->pdo->query($sql, array($author, $filename, $filedesc, $realdate, $realtime));
+    }
   }
 ?>

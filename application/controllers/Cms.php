@@ -23,6 +23,30 @@
             }
 
             /*Admin links*/
+            public function uploadfile()
+            {
+                  $config['upload_path']          = './system/uploads/';
+                  $config['allowed_types']        = 'gif|jpg|png|docx';
+                  $config['max_size']             = 1000;
+                  $config['max_width']            = 2000;
+                  $config['max_height']           = 2000;
+
+                  $this->load->library('upload', $config);
+
+                  if ( ! $this->upload->do_upload('userfile') || $_POST['filedesc'] == "")
+                  {
+                        $error = array('error' => "<div class='alert alert-warning errmess' role='alert'><center>Please upload a valid file...</center></div>");
+                        $this->load->view('admin/addnewfile', $error);
+                  }
+                  else
+                  {
+                        $success = array('error' => "<div class='alert alert-success errmess' role='alert'><center>Successfully uploaded.</center></div>");
+                        $this->load->view('admin/addnewfile', $success);
+                        $upload = array();
+                        $upload = $this->Cms_model->uploadnewfile($_POST);
+                  }
+            }
+
             public function filtersearchpost()
             {
                   $postsearch = array();
@@ -241,7 +265,7 @@
 
             public function addnewfile()
             {
-                  $this->load->view('admin/addnewfile');
+                  $this->load->view('admin/addnewfile', array("error"=>''));
             }
 
             public function settings()
