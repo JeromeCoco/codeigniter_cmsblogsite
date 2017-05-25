@@ -23,6 +23,41 @@
             }
 
             /*Admin links*/
+            public function removefile()
+            {
+                  $filebasis = array();
+                  $filebasis = $this->Cms_model->deletefile($_POST);
+                  echo json_encode($filebasis);
+                  exit;
+            }
+
+            public function searchfile()
+            {
+                  $filedetails = array();
+                  $filedetails = $this->Cms_model->getfiledetails($_POST);
+                  echo json_encode($filedetails);
+                  exit;
+            }
+
+            public function files()
+            {
+                  $data['file_list'] = $this->getfilelist();
+                  $this->load->view('admin/files', $data);
+            }
+
+            public function getfilelist()
+            {
+                  $files = '';
+                  $filedetails = array();
+                  $filedetails = $this->Cms_model->getfiles();
+                  foreach ($filedetails->result() as $row) 
+                  {
+                        $data = (array) $row;
+                        $files .= $this->load->view('admin/filelist', $data, true);
+                  }
+                  return $files;
+            }
+
             public function updatepost()
             {
                   $updatedetails = array();
@@ -33,8 +68,8 @@
 
             public function uploadfile()
             {
-                  $config['upload_path']          = './system/uploads/';
-                  $config['allowed_types']        = 'gif|jpg|png|docx';
+                  $config['upload_path']          = './www/images/';
+                  $config['allowed_types']        = 'gif|jpg|png';
                   $config['max_size']             = 1000;
                   $config['max_width']            = 2000;
                   $config['max_height']           = 2000;
@@ -67,7 +102,6 @@
             {
                   $data['recent_posts'] = $this->getrecentpostlist();
                   $this->load->view('admin/dashboard', $data);
-                  
                   //var_dump($GLOBALS['params']);
             }
 
@@ -264,11 +298,6 @@
             public function addnewpanel()
             {
                   $this->load->view('admin/addnewpanel');
-            }
-
-            public function files()
-            {
-                  $this->load->view('admin/files');
             }
 
             public function addnewfile()

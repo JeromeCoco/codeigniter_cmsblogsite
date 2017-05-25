@@ -65,17 +65,56 @@
 			        }
 				});
 				$("#btnlogout").click(function(){
-				$.ajax({
-					url: "removesession",
-			        type: "POST",
-			        data: { },
-			        dataType: "json",
-			        success: function(data)
-			        {
-			        	
-			        }
+					$.ajax({
+						url: "removesession",
+				        type: "POST",
+				        data: { },
+				        dataType: "json",
+				        success: function(data)
+				        {
+				        	
+				        }
+					});
 				});
-			});
+				$(document).on( "click", "#btnremove", function(){
+					var check = confirm("Are you sure you want to delete this file?");
+					var id = $(this).attr("data-id");
+					if (check == true)
+					{
+						$.ajax({
+							url: "removefile",
+					        type: "POST",
+					        data: { id:id },
+					        dataType: "json",
+					        success: function(data)
+					        {
+					        	$("#file"+id).fadeOut('slow');
+					        }
+						});
+					}
+				});
+				$("#searchtext").keyup(function(){
+					var searchtext = $(this).val();
+					var searchcategory = $("#searchcategory").val();
+					$.ajax({
+						url: "searchfile",
+				        type: "POST",
+				        data: {
+				        	searchtext:searchtext,
+				        	searchcategory:searchcategory
+				        },
+				        dataType: "json",
+				        success: function(data)
+				        {
+				        	$("tr").remove();
+				        	$("tbody").append("<tr> <th>Date Uploaded</th> <th>File Name</th> <th>Description</th> <th>Preview</th> <th>Actions</th> </tr> ");
+				        	for (var i = 0; i < data.length; i++)
+				        	{
+				        		$("tbody").append("<tr id="+data[i]['id']+"> <td> "+data[i]['file_date_uploaded']+"</td> <td> "+data[i]['file_content']+"</td> <td> "+data[i]['file_desc']+"</td> <td class='text-center'> <a href='../../www/images/"+data[i]['file_content']+"'> <img style='border:1px solid lightgray;border-radius:2px;width:50px;' src='../../www/images/"+data[i]['file_content']+"'> </a> </td> <td> <input data-id="+data[i]['id']+" id='btnremove' type='button' class='btn btn-sm btn-danger' value='Remove Image'/> </td> </tr> ");
+				        	}
+				        }
+					});
+				});
 				$("#btnKolaps").click(function(){
 					$(".sidenav").toggleClass('sidenavtago');
 					$(".linkLabel").toggleClass('linkLabelTago');
@@ -218,7 +257,6 @@
 						<span class="linkLabel">
 							Log out
 						</span>
-						
 					</div>
 				</a>
 			</div>
@@ -233,11 +271,11 @@
 					<div class="col-sm-6">
 						<div class="form-inline">
 							Search by: &nbsp;
-							<select class="form-control" placeholder="Search by...">
-								<option>Date</option>
-								<option>File Name</option>
+							<select id="searchcategory" class="form-control" placeholder="Search by...">
+								<option>file_content</option>
+								<option>file_date_uploaded</option>
 							</select> &nbsp;
-							<input type="text" class="form-control" placeholder="..."/>
+							<input id="searchtext" type="text" class="form-control" placeholder="..."/>
 						</div>
 						<br/>
 					</div>
@@ -247,17 +285,18 @@
 						</a>
 					</div>
 					<div class="col-sm-12">
-						<table class="table table-bordered">
+						<table class="table table-bordered table-striped">
 							<thead>
 								<tr>
 									<th>Date Uploaded</th>
 									<th>File Name</th>
 									<th>Description</th>
+									<th>Preview</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
 							<tbody>
-								
+								<?php echo $file_list;?>
 							</tbody>
 							<tfoot>
 								

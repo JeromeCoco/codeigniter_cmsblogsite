@@ -155,5 +155,26 @@
         $this->pdo->query($sql, array($title, $contentnewencode, $status, $id));
         return $data;
     }
+
+    public function getfiles()
+    {
+        $selek = $this->pdo->query("SELECT id, file_content, file_desc, file_date_uploaded FROM tbl_files");
+        return $selek;
+    }
+
+    public function getfiledetails($data)
+    {
+        extract($data);
+        $selek = $this->pdo->query("SELECT id, file_content, file_desc, file_date_uploaded FROM tbl_files WHERE $searchcategory LIKE '%$searchtext%' ");
+        return $selek->result();
+    }
+
+    public function deletefile($data)
+    {
+        extract($data);
+        $sql = "DELETE FROM tbl_files WHERE id = ?";
+        $this->pdo->query($sql, array($id));
+        return true;
+    }
   }
 ?>
