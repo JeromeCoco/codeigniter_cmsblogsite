@@ -23,6 +23,14 @@
             }
 
             /*Admin links*/
+            public function updatepost()
+            {
+                  $updatedetails = array();
+                  $updatedetails = $this->Cms_model->setnewpostdetails($_POST);
+                  echo json_encode($updatedetails);
+                  exit;
+            }
+
             public function uploadfile()
             {
                   $config['upload_path']          = './system/uploads/';
@@ -90,7 +98,7 @@
                   $removebasis = array();
                   $removebasis = $this->Cms_model->postremove($_POST);
                   echo json_encode($removebasis);
-                  exit;  
+                  exit;
             }
 
             public function posts()

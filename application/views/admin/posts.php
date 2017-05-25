@@ -49,10 +49,20 @@
 				}
 			}
 		</style>
+		<script src='<?php echo base_url(); ?>js/tinymce/tinymce.min.js'></script>
 		<script src="<?php echo base_url(); ?>js/jquery-3.1.1.min.js"></script>
 		<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
 		<script src="<?php echo base_url(); ?>js/bootstrap.min.js"></script>
 		<script type="text/javascript">
+		tinymce.init({
+		    selector: "textarea",
+		    plugins: [
+		        "advlist autolink lists link image charmap print preview anchor",
+		        "searchreplace visualblocks code fullscreen",
+		        "insertdatetime media table contextmenu paste"
+		    ],
+		    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+		});
 		$(document).ready(function(){
 			$.ajax({
 				url: "retrievesession",
@@ -65,7 +75,7 @@
 		        }
 			});
 			$(document).on( "click", "#btnview", function(){
-				$('#myModal').modal('toggle');
+				$('#myModalView').modal('toggle');
 				var id = $(this).attr("data-id");
 				$.ajax({
 					url: "retrievecontent",
@@ -74,7 +84,7 @@
 			        dataType: "json",
 			        success: function(data)
 			        {
-			        	$(".modal-body").html(data.decoded);
+			        	$(".modal-bodyview").html(data.decoded);
 			        }
 				});
 			});
@@ -97,6 +107,51 @@
 			});
 			$(document).on( "click", "#btnedit", function(){
 				var id = $(this).attr("data-id");
+				$('#myModalEdit').modal('toggle');
+				$.ajax({
+					url: "retrievecontent",
+			        type: "POST",
+			        data: { id:id },
+			        dataType: "json",
+			        success: function(data)
+			        {
+			        	$("#id").val(id);
+			        	tinyMCE.activeEditor.setContent(data.decoded);
+			        	$("#title").val($("#title"+id).text());
+			        	$("#status").val($("#status"+id).html());
+			        	$("#err").html("");
+			        }
+				});
+			});
+			$("#btnUpdate").click(function(){
+				var id = $("#id").val();
+				var title = $("#title").val();
+				var content = tinyMCE.activeEditor.getContent();
+				var status = $("#stat").val();
+				if (title == "" || content == "")
+				{
+					$("#err").html("<br/><div class='alert alert-warning errmess' role='alert'><center>Please enter the needed information.</center></div>");
+				}
+				else
+				{
+					$.ajax({
+						url: "updatepost",
+				        type: "POST",
+				        data: {
+				        	id:id,
+				        	title:title,
+				        	content:content,
+				        	status:status
+				        },
+				        dataType: "json",
+				        success: function(data)
+				        {
+				        	$("#title"+id).html(data['title']);
+				        	$("#status"+id).html(data['status']);
+				        	$("#err").html("<br/><div class='alert alert-success errmess' role='alert'><center>Post details successfully updated.</center></div>");
+				        }
+					});
+				}
 			});
 			$("#btnlogout").click(function(){
 				$.ajax({
@@ -127,11 +182,10 @@
 			        	$("tbody").append("<tr> <th>Date</th> <th>Title</th> <th>Author</th> <th>Status</th> <th>Actions</th> </tr> ");
 			        	for (var i = 0; i < data.length; i++)
 			        	{
-			        		$("tbody").append("<tr> <td>"+data[i]['date_posted']+"</td> <td>"+data[i]['post_title']+"</td> <td>"+data[i]['author_name']+"</td> <td>"+data[i]['post_status']+"</td> <td> <input data-id="+data[i]['id']+" type='button' id='btnview' value='View' class='btn btn-sm btn-default'/> &nbsp; <input data-id="+data[i]['id']+" id='btnedit' type='button' value='Edit' class='btn btn-sm btn-default'/> &nbsp; <input data-id="+data[i]['id']+" id='btnremove' type='button' value='Remove' class='btn btn-sm btn-danger'/> </td> </tr>");
+			        		$("tbody").append("<tr id=row"+data[i]['id']+"> <td>"+data[i]['date_posted']+"</td> <td id=title"+data[i]['id']+">"+data[i]['post_title']+"</td> <td>"+data[i]['author_name']+"</td> <td id=status"+data[i]['id']+">"+data[i]['post_status']+"</td> <td> <input data-id="+data[i]['id']+" type='button' id='btnview' value='View' class='btn btn-sm btn-default'/> &nbsp; <input data-id="+data[i]['id']+" id='btnedit' type='button' value='Edit' class='btn btn-sm btn-default'/> &nbsp; <input data-id="+data[i]['id']+" id='btnremove' type='button' value='Remove' class='btn btn-sm btn-danger'/> </td> </tr>");
 			        	}
 			        }
 				});
-
 			});
 			$("#btnKolaps").click(function(){
 				$(".sidenav").toggleClass('sidenavtago');
@@ -153,7 +207,46 @@
 		</script>
 	</head>
 	<body>
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="myModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+		    	<div class="modal-content">
+		      		<div class="modal-header">
+			        	<h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
+			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          		<span aria-hidden="true">&times;</span>
+			        	</button>
+		      		</div>
+		      		<div class="modal-body">
+		        		<div class="row">
+		        			<input id="id" type="hidden"/>
+		        			<div class="col-sm-6">
+		        				Title:
+		        				<input id="title" type="text" class="form-control" />
+		        			</div>
+		        			<div class="col-sm-6">
+		        				Status:
+		        				<select id="stat" class="form-control">
+		        					<option>Immediate</option>
+		        					<option>Pending Post</option>
+		        				</select>
+		        			</div>
+		        			<div class="col-sm-12">
+		        				<br/>
+		        				<textarea id="mytextarea">
+						    	</textarea>
+						    	<br/>
+						    	<div id="err"></div>
+		        			</div>
+		        		</div>
+			      	</div>
+		      		<div class="modal-footer">
+		      			<button id="btnUpdate" type="button" class="btn btn-success">Update Post</button>
+		        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
+		<div class="modal fade" id="myModalView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg" role="document">
 		    	<div class="modal-content">
 		      		<div class="modal-header">
@@ -162,7 +255,7 @@
 			          		<span aria-hidden="true">&times;</span>
 			        	</button>
 		      		</div>
-		      		<div class="modal-body">
+		      		<div class="modal-bodyview" style="padding:10px;">
 		        		
 			      	</div>
 		      		<div class="modal-footer">

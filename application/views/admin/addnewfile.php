@@ -93,33 +93,6 @@
 			$("#file").change(function(){
 			    var file = $("#file")[0].files[0];
 			    $("#filename").val(file.name);
-				/*var filedesc = $("#filedesc").val();
-				var dates = $("#date").val();
-				var times = $("#time").val();
-				var author = $("#activeuser").html();
-				if (filedesc == "")
-				{
-					alert("Please enter a description...");
-				}
-				else
-				{
-					$.ajax({
-						url: "uploadfile",
-				        type: "POST",
-				        data: {
-				        	name:name,
-				        	filedesc:filedesc,
-				        	dates:dates,
-				        	times:times,
-				        	author:author
-				        },
-				        dataType: "json",
-				        success: function(data)
-				        {
-				        	console.log(data);
-				        }
-					});
-				}*/
 			});
 			$("#btnKolaps").click(function(){
 				$(".sidenav").toggleClass('sidenavtago');

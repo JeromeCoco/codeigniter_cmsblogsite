@@ -282,7 +282,6 @@
 						<span class="linkLabel">
 							Log out
 						</span>
-						
 					</div>
 				</a>
 			</div>

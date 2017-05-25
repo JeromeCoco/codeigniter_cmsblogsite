@@ -146,5 +146,14 @@
         $realtime = date($time);
         $this->pdo->query($sql, array($author, $filename, $filedesc, $realdate, $realtime));
     }
+
+    public function setnewpostdetails($data)
+    {
+        extract($data);
+        $contentnewencode = htmlentities($content);
+        $sql = "UPDATE tbl_posts SET post_title = ?, post_content = ?, post_status = ? WHERE id = ?";
+        $this->pdo->query($sql, array($title, $contentnewencode, $status, $id));
+        return $data;
+    }
   }
 ?>
