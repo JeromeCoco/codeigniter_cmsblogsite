@@ -16,12 +16,6 @@
                   }
 		}
 
-            /*User links*/
-            public function index()
-            {
-                  $this->load->view('index');
-            }
-
             /*Admin links*/
             public function loaddata()
             {
@@ -109,8 +103,22 @@
             public function dashboard()
             {
                   $data['recent_posts'] = $this->getrecentpostlist();
+                  $data['upload_list'] = $this->getuploadedfiles();
                   $this->load->view('admin/dashboard', $data);
                   //var_dump($GLOBALS['params']);
+            }
+
+            public function getuploadedfiles()
+            {
+                  $list = '';
+                  $files = array();
+                  $files = $this->Cms_model->getfilesuploaded();
+                  foreach ($files->result() as $row) 
+                  {
+                        $data = (array) $row;
+                        $list .= $this->load->view('admin/filelistuploaded', $data, true);
+                  }
+                  return $list;
             }
 
             public function getrecentpostlist()

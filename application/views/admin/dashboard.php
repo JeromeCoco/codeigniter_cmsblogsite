@@ -284,9 +284,11 @@
 						<br/>
 						<div id="uploadedFiles">
 							<i class="fa fa-file-o" aria-hidden="true"></i> Uploaded Files <hr/>
+							<?php echo $upload_list; ?>
 						</div>
 					</div>
-				</div><br/>
+				</div>
+				<br/>
 			</div>
 		</div>
 	</body>

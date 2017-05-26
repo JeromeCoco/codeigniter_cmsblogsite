@@ -182,5 +182,11 @@
         $selek = $this->pdo->query("SELECT (SELECT COUNT(id) FROM tbl_posts) AS posts, (SELECT COUNT(id) FROM tbl_comments) AS comments, (SELECT COUNT(id) FROM tbl_users) AS users ");
         return $selek->result();
     }
+
+    public function getfilesuploaded()
+    {
+        $selek = $this->pdo->query("SELECT file_name, file_date_uploaded FROM tbl_files LIMIT 5");
+        return $selek;
+    }
   }
 ?>
