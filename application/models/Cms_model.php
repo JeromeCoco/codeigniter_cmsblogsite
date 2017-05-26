@@ -141,7 +141,7 @@
     public function uploadnewfile($data)
     {
         extract($data);
-        $sql = "INSERT INTO tbl_files(author, file_content, file_desc, file_date_uploaded, file_time_uploaded) VALUES(?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO tbl_files(author, file_name, file_desc, file_date_uploaded, file_time_uploaded) VALUES(?, ?, ?, ?, ?)";
         $realdate = date($date);
         $realtime = date($time);
         $this->pdo->query($sql, array($author, $filename, $filedesc, $realdate, $realtime));
@@ -158,14 +158,14 @@
 
     public function getfiles()
     {
-        $selek = $this->pdo->query("SELECT id, file_content, file_desc, file_date_uploaded FROM tbl_files");
+        $selek = $this->pdo->query("SELECT id, file_name, file_desc, file_date_uploaded FROM tbl_files");
         return $selek;
     }
 
     public function getfiledetails($data)
     {
         extract($data);
-        $selek = $this->pdo->query("SELECT id, file_content, file_desc, file_date_uploaded FROM tbl_files WHERE $searchcategory LIKE '%$searchtext%' ");
+        $selek = $this->pdo->query("SELECT id, file_name, file_desc, file_date_uploaded FROM tbl_files WHERE $searchcategory LIKE '%$searchtext%' ");
         return $selek->result();
     }
 
@@ -175,6 +175,12 @@
         $sql = "DELETE FROM tbl_files WHERE id = ?";
         $this->pdo->query($sql, array($id));
         return true;
+    }
+
+    public function getdataforchart()
+    {
+        $selek = $this->pdo->query("SELECT (SELECT COUNT(id) FROM tbl_posts) AS posts, (SELECT COUNT(id) FROM tbl_comments) AS comments, (SELECT COUNT(id) FROM tbl_users) AS users ");
+        return $selek->result();
     }
   }
 ?>

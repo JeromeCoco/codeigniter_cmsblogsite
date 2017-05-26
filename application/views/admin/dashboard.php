@@ -75,6 +75,41 @@
 			        }
 				});
 			});
+			$.ajax({
+				url: "loaddata",
+		        type: "POST",
+		        data: { },
+		        dataType: "json",
+		        success: function(data)
+		        {
+		        	var ctx = document.getElementById("myChart1");
+					var myChart = new Chart(ctx, {
+					    type: 'doughnut',
+					    data: {
+					        labels: [
+						        "Posts",
+						        "Comments",
+						        "Users"
+						    ],
+						    datasets: [
+						        {
+						            data: [data[0]['posts'], data[0]['comments'], data[0]['users']],
+						            backgroundColor: [
+						                "#2980b9",
+						                "#27ae60",
+						                "#2c3e50"
+						            ],
+						            hoverBackgroundColor: [
+						                "#3498db",
+						                "#2ecc71",
+						                "#34495e"
+						            ]
+						        }
+						   	]
+					    }
+					});
+		        }
+			});
 			$("#btnKolaps").click(function(){
 				$(".sidenav").toggleClass('sidenavtago');
 				$(".linkLabel").toggleClass('linkLabelTago');
@@ -235,33 +270,6 @@
 				<div class="row">
 					<div class="col-sm-4 text-center"><br/>
 						<canvas id="myChart1" width="200" height="200"></canvas>
-						<script>
-							var ctx = document.getElementById("myChart1");
-							var myChart = new Chart(ctx, {
-							    type: 'doughnut',
-							    data: {
-							        labels: [
-								        "Posts",
-								        "Comments",
-								        "Users"
-								    ],
-								    datasets: [
-								        {
-								            data: [200, 150, 100],
-								            backgroundColor: [
-								                "#2980b9",
-								                "#27ae60",
-								                "#2c3e50"
-								            ],
-								            hoverBackgroundColor: [
-								                "#3498db",
-								                "#2ecc71",
-								                "#34495e"
-								            ]
-								        }]
-							    }
-							});
-						</script>
 					</div>
 					<div class="col-sm-5"><br/>
 						<div id="recentPosts">

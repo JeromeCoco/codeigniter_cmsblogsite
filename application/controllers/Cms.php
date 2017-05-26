@@ -23,6 +23,14 @@
             }
 
             /*Admin links*/
+            public function loaddata()
+            {
+                  $data = array();
+                  $data = $this->Cms_model->getdataforchart($_POST);
+                  echo json_encode($data);
+                  exit;
+            }
+
             public function removefile()
             {
                   $filebasis = array();

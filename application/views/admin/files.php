@@ -272,7 +272,7 @@
 						<div class="form-inline">
 							Search by: &nbsp;
 							<select id="searchcategory" class="form-control" placeholder="Search by...">
-								<option>file_content</option>
+								<option>file_name</option>
 								<option>file_date_uploaded</option>
 							</select> &nbsp;
 							<input id="searchtext" type="text" class="form-control" placeholder="..."/>
