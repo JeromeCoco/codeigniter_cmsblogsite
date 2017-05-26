@@ -187,15 +187,13 @@ span#datePrev, span#timePrev{
 span#errpass{
 	font-style: italic;
 }
-a#btnshowjs:hover{
+a#btnshowjs:hover, a#btnshowcss:hover{
 	cursor: pointer;
 }
-span#jslist{
+span#jslist, span#csslist{
 	display: none;
 }
-a#btnshowcss:hover{
-	cursor: pointer;
-}
-span#csslist{
-	display: none;
+ul#listofjs, ul#listofcss{
+	list-style: none;
+	cursor: n-resize;
 }

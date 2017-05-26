@@ -50,9 +50,8 @@
 			}
 		</style>
 		<script src='<?php echo base_url(); ?>js/tinymce/tinymce.min.js'></script>
-		
-		<script src="<?php echo base_url(); ?>js/Chart.js"></script>
-		<script src="<?php echo base_url(); ?>js/jquery-3.1.1.min.js"></script>
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script type="text/javascript">
 		$(document).ready(function(){
 			$.ajax({
@@ -108,8 +107,12 @@
 			  a_plugin_option: true,
 			  a_configuration_option: 400
 			});
-
 			$(document).ready(function(){
+				$(function(){
+					$("#listofjs, #listofcss").sortable({
+						revert: true
+					});
+				});
 				$("#collapseMenu").click(function(){
 					$("#sidenav").fadeOut('fast');	
 				});
@@ -125,6 +128,47 @@
 				$("#btnhidecss").click(function(){
 					$("#csslist").fadeOut('slow');
 				});
+
+				var numjs = 0;
+				var numcss = 0;
+				var js = new Array();
+				var css = new Array();
+
+				$("#btnaddjs").click(function(){
+					numjs++;
+					$("#listofjs").append("<li id='"+numjs+"' value='"+$("#jsname").val()+"'><i class='fa fa-arrows-v' aria-hidden='true'></i> "+$("#jsname").val()+" <input id='removejs' class='btn btn-sm btn-danger' type='button' value='x' data-yes='"+$("#jsname").val()+"' data-id='"+numjs+"'> </li>");
+					js.push($("#jsname").val());
+				});
+				$(document).on( "click", "#removejs", function(){
+					var id = $(this).attr("data-id");
+					var val = $(this).attr("data-yes");
+					$("#"+id).remove();
+					var index = js.indexOf(val);
+					if (index > -1)
+					{
+					    js.splice(index, 1);
+					}
+				});
+
+				$("#btnaddcss").click(function(){
+					numcss++;
+					$("#listofcss").append("<li id='"+numcss+"' value='"+$("#cssname").val()+"'><i class='fa fa-arrows-v' aria-hidden='true'></i> "+$("#cssname").val()+" <input id='removecss' class='btn btn-sm btn-danger' type='button' value='x' data-yes='"+$("#cssname").val()+"' data-id='"+numcss+"'> </li>");
+					css.push($("#cssname").val());
+				});
+				$(document).on( "click", "#removecss", function(){
+					var id = $(this).attr("data-id");
+					var val = $(this).attr("data-yes");
+					$("#"+id).remove();
+					var index = css.indexOf(val);
+					if (index > -1)
+					{
+					    css.splice(index, 1);
+					}
+					console.log(css);
+				});
+				// To get values of list css and js
+				/*var jslist = $( "#listofjs" ).sortable("toArray", {attribute: 'value'});
+				var csslist = $( "#listofcss" ).sortable("toArray", {attribute: 'value'});*/
 			});
 		</script>
 	</head>
@@ -276,18 +320,22 @@
 					<div class="col-sm-4">
 						<b>JavaScript</b> - <a style="color:blue;" id="btnshowjs">Add New</a><br/>
 						<span id="jslist">
-							<select style="padding:3px;">
+							<select id="jsname" style="padding:3px;">
 								<?php
 									$dir = FCPATH."/js/";
 									$files1 = scandir($dir);
 									for ($i=0; $i < count($files1); $i++)
-									{ 
+									{
 										echo "<option>".$files1[$i]."</option>";
 									}
 								?>
 							</select>
-							<input type="button" value="Add"/>
+							<input id="btnaddjs" type="button" value="Add"/>
 							<input id="btnhidejs" type="button" value="Cancel"/>
+							<br/><br/>
+							<ul id="listofjs">
+								
+							</ul>
 						</span>
 						<hr/>
 					</div>
@@ -306,7 +354,7 @@
 					<div class="col-sm-4">
 						<b>CSS</b> - <a style="color:blue;" id="btnshowcss">Add New</a><br/>
 						<span id="csslist">
-							<select style="padding:3px;">
+							<select id="cssname" style="padding:3px;">
 								<?php
 									$dir = FCPATH."/css/";
 									$files1 = scandir($dir);
@@ -316,8 +364,12 @@
 									}
 								?>
 							</select>
-							<input type="button" value="Add"/>
+							<input id="btnaddcss" type="button" value="Add"/>
 							<input id="btnhidecss" type="button" value="Cancel"/>
+							<br/><br/>
+							<ul id="listofcss">
+								
+							</ul>
 						</span>
 						<hr/>
 					</div>
