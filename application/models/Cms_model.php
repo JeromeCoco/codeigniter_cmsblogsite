@@ -9,6 +9,7 @@
       $this->pdo = $this->load->database('pdo', true);
     }
 
+    // Admin
     public function checkLogIn($data)
     {
     	extract($data);
@@ -188,5 +189,7 @@
         $selek = $this->pdo->query("SELECT file_name, file_date_uploaded FROM tbl_files LIMIT 5");
         return $selek;
     }
+
+    // Users
   }
 ?>

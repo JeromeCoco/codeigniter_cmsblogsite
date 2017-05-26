@@ -113,6 +113,18 @@
 				$("#collapseMenu").click(function(){
 					$("#sidenav").fadeOut('fast');	
 				});
+				$("#btnshowjs").click(function(){
+					$("#jslist").fadeIn('slow');
+				});
+				$("#btnhidejs").click(function(){
+					$("#jslist").fadeOut('slow');
+				});
+				$("#btnshowcss").click(function(){
+					$("#csslist").fadeIn('slow');
+				});
+				$("#btnhidecss").click(function(){
+					$("#csslist").fadeOut('slow');
+				});
 			});
 		</script>
 	</head>
@@ -239,7 +251,6 @@
 						<span class="linkLabel">
 							Log out
 						</span>
-						
 					</div>
 				</a>
 			</div>
@@ -256,29 +267,71 @@
 			</ol>
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" placeholder="Page Name..."/><br/>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" placeholder="Page Title..."/><br/>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-4">
+						<b>JavaScript</b> - <a style="color:blue;" id="btnshowjs">Add New</a><br/>
+						<span id="jslist">
+							<select style="padding:3px;">
+								<?php
+									$dir = FCPATH."/js/";
+									$files1 = scandir($dir);
+									for ($i=0; $i < count($files1); $i++)
+									{ 
+										echo "<option>".$files1[$i]."</option>";
+									}
+								?>
+							</select>
+							<input type="button" value="Add"/>
+							<input id="btnhidejs" type="button" value="Cancel"/>
+						</span>
+						<hr/>
+					</div>
+					<div class="col-sm-4">
 						Page Description:
 						<textarea class="form-control">
 								
 						</textarea><br/>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-4">
 						Page Keywords:
 						<textarea class="form-control">
 								
 						</textarea><br/>
 					</div>
-					<div class="col-sm-12">
+					<div class="col-sm-4">
+						<b>CSS</b> - <a style="color:blue;" id="btnshowcss">Add New</a><br/>
+						<span id="csslist">
+							<select style="padding:3px;">
+								<?php
+									$dir = FCPATH."/css/";
+									$files1 = scandir($dir);
+									for ($i=0; $i < count($files1); $i++)
+									{ 
+										echo "<option>".$files1[$i]."</option>";
+									}
+								?>
+							</select>
+							<input type="button" value="Add"/>
+							<input id="btnhidecss" type="button" value="Cancel"/>
+						</span>
+						<hr/>
+					</div>
+					<div class="col-sm-4">
 						Layout:
-						<select class="col-sm-4 form-control">
-							<option>index.php</option>
-							<option>bloglist.php</option>
+						<select class="form-control">
+							<?php
+								$dir = FCPATH."/application/views/users";
+								$files1 = scandir($dir);
+								for ($i=0; $i < count($files1); $i++)
+								{ 
+									echo "<option>".$files1[$i]."</option>";
+								}
+							?>
 						</select>
 						<br/>
 					</div>
@@ -289,14 +342,6 @@
 							Please select a layout...
 							<br/><br/>
 						</div>
-					</div>
-					<div class="col-sm-4">
-						<b>CSS</b> - <a href="#">Add New</a> | <a href="#">View Existing Styles</a>
-						<hr/>
-					</div>
-					<div class="col-sm-4">
-						<b>JavaScript</b> - <a href="#">Add New</a> | <a href="#">View Existing Script</a>
-						<hr/>
 					</div>
 					<div class="col-sm-5">
 						<div id="publishSettings">
