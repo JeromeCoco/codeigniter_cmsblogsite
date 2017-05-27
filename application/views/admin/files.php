@@ -110,7 +110,7 @@
 				        	$("tbody").append("<tr> <th>Date Uploaded</th> <th>File Name</th> <th>Description</th> <th>Preview</th> <th>Actions</th> </tr> ");
 				        	for (var i = 0; i < data.length; i++)
 				        	{
-				        		$("tbody").append("<tr id="+data[i]['id']+"> <td> "+data[i]['file_date_uploaded']+"</td> <td> "+data[i]['file_content']+"</td> <td> "+data[i]['file_desc']+"</td> <td class='text-center'> <a href='../../www/images/"+data[i]['file_content']+"'> <img style='border:1px solid lightgray;border-radius:2px;width:50px;' src='../../www/images/"+data[i]['file_content']+"'> </a> </td> <td> <input data-id="+data[i]['id']+" id='btnremove' type='button' class='btn btn-sm btn-danger' value='Remove Image'/> </td> </tr> ");
+				        		$("tbody").append("<tr id=file"+data[i]['id']+"> <td> "+data[i]['file_date_uploaded']+"</td> <td> "+data[i]['file_name']+"</td> <td> "+data[i]['file_desc']+"</td> <td class='text-center'> <a href='../../www/images/"+data[i]['file_name']+"'> <img style='border:1px solid lightgray;border-radius:2px;width:50px;' src='../../www/images/"+data[i]['file_name']+"'> </a> </td> <td> <input data-id="+data[i]['id']+" id='btnremove' type='button' class='btn btn-sm btn-danger' value='Remove Image'/> </td> </tr> ");
 				        	}
 				        }
 					});
