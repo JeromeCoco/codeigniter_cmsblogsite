@@ -1,0 +1,36 @@
+*{
+	font-family: "Arial";
+}
+html, body {
+	margin: 0;
+	padding: 0;
+    height: 100%;
+}
+div#sitename{
+	color: white;
+	font-size: 180px;
+	text-align: center;
+	position: relative;
+	top: 150px;
+	text-shadow: 2px 2px black;
+	font-family: 'Indie Flower', cursive;
+}
+div.sec{
+	color: white;
+	opacity: .8;
+	background-color: black;
+	padding: 10px;
+	padding-top: 60px;
+	padding-bottom: 60px;
+	margin-top: 200px;
+	text-align: center;
+}
+img.icons{
+	width: 175px;
+}
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -31px; 
+}

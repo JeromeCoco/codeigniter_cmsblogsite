@@ -1,0 +1,30 @@
+*{
+	font-family: Arial;
+}
+html, body {
+	margin: 0;
+	padding: 0;
+    height: 100%;
+}
+div#listheader{
+	position: relative;
+	top: 100px;
+	text-align: center;
+	font-size: 20px;
+	border-bottom: 1px solid #34495e;
+}
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto 120px; 
+}
+div.blogtitle{
+	position: relative;
+	top: 120px;
+	font-weight: bold;
+}
+div.blogdate, div.blogcontent{
+	position: relative;
+	top: 120px;
+}

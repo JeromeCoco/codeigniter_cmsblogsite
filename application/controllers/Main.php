@@ -5,20 +5,18 @@
         {
             parent::__construct();
             $this->load->helper('url');
-            $this->load->library('session');
             $this->load->model('Cms_model');
-
-            $path = explode("/", $_SERVER['PATH_INFO']);
-            if ($path[2] != "admin" && $this->session->uname == null)
-            {
-                  header('Location: admin');      
-            }
         }
 
       /*User links*/
       public function index()
       {
-            $this->load->view('index');
+            $this->load->view('users/index');
+      }
+
+      public function bloglist()
+      {
+            $this->load->view('users/bloglist');
       }
     }
 ?>

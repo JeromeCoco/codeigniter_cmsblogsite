@@ -13,7 +13,7 @@
     public function checkLogIn($data)
     {
     	extract($data);
-    	$pass = hash('sha256', $pword);
+    	$pass = hash('md5', $pword);
     	$selek = $this->pdo->query("SELECT * FROM tbl_users WHERE username = '$uname' AND password = '$pass' ");
     	return $selek->result();
     }
@@ -63,7 +63,7 @@
     public function checkpass($data)
     {
     	extract($data);
-    	$pass = hash('sha256', $current);
+    	$pass = hash('md5', $current);
     	$selek = $this->pdo->query("SELECT password FROM tbl_users WHERE id = '$id' AND password = '$pass' ");
     	return $selek->result();
     }
@@ -71,7 +71,7 @@
     public function updatepasswithdetails($data)
     {
     	extract($data);
-    	$newpass = hash('sha256', $pass);
+    	$newpass = hash('md5', $pass);
     	$sql = "UPDATE tbl_users SET first_name = ?, last_name = ?, password = ?, email_address = ?, mobile_number = ? WHERE id = ?";
     	$this->pdo->query($sql, array($fname, $lname, $newpass, $emailadd, $contactnum, $id));
     	return $data;
@@ -80,7 +80,7 @@
     public function addnewaccount($data)
     {
     	extract($data);
-    	$pword = hash('sha256', $pass);
+    	$pword = hash('md5', $pass);
     	$realdate = date($date);
     	$realtime = date($time);
     	$sql = "INSERT INTO tbl_users(username, first_name, last_name, password, user_type, date_registered, time_registered, email_address, mobile_number) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";

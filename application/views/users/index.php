@@ -1,102 +1,134 @@
 <!DOCTYPE html>
 <html>
-	<!--Header Panel-->
 	<head>
-		<title>Web Name</title>
-		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/pages_styles.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/navbar.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/index-style.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/font-awesome.css">
-		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/font-awesome.min.css">
-		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-		<script src="<?php echo base_url(); ?>js/jquery-3.1.1.min.js"></script>
-		<style type="text/css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/footer.css">
+		<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+		<style>
 			body{
-				background-image: url("<?php echo base_url(); ?>img/laptop.jpg");
-				background-size: cover;
+				background-image: url("<?php echo base_url(); ?>/img/cat.png");
+				background-size: 100%;
+				background-attachment: fixed;
 				background-repeat: no-repeat;
-				background-position: fixed;
 			}
 		</style>
-		<script type="text/javascript">
-			
-		</script>
 	</head>
-	<!--Header Panel End-->
 	<body>
+		<!-- {Navbar} -->
 		<nav>
-			<ul id="topnavbar">
-				<a href="<?php echo base_url(); ?>index.php/cms/" class="topnavlist"><li>
-					<i class="fa fa-home" aria-hidden="true"></i>
-				</li></a>
-				<a href="<?php echo base_url(); ?>index.php/blogs/" class="topnavlist"><li>
-					<i class="fa fa-bookmark-o" aria-hidden="true"></i>
-				</li></a>
-				<a href="#" class="topnavlist"><li>
-					<i class="fa fa-facebook-f" aria-hidden="true"></i>
-				</li></a>
-				<a href="#" class="topnavlist"><li>
-					<i class="fa fa-twitter" aria-hidden="true"></i>
-				</li></a>
+			<ul id="navbar">
+				<a class="navbar-link" href="<?php echo base_url(); ?>index.php/main/"><li>Home</li></a>
+				<a class="navbar-link" href="<?php echo base_url(); ?>index.php/main/bloglist"><li>Blogs</li></a>
 			</ul>
 		</nav>
-		<div class="container text-center title">
-			<!-- Loaded Site Name -->
-			Site Name
-			<!-- Loaded Site Name End -->
+		<div id="sitename">
+			writer
 		</div>
-		<br/><br/><br/>
-		<!-- About Panel -->
-		<div class="jumbotron" style="border-radius:0;background-color:white;">
-			<div class="container">
-				<h3>
-					<i class="fa fa-info-circle" aria-hidden="true"></i> About
-				</h3>
-			  	<p>
-			  		Sample site description site description site description site description
-			  		site description site description site description site description
-			  		site description site description site description site description
-			  		site description site description site description site description
-			  		site description site description site description site description
-			  		site description site description site description site description
-			  		site description site description site description site description
-			  		site description site description site description site description
-			  	</p>
-			  	<p class="lead">
-			    	<a class="btn btn-primary" href="#">Learn more</a>
-			  	</p>
+		<div class="wrapper">
+			<div class="jumbotron jumbotron-fluid sec">
+	  			<div class="container">
+	  				{About}
+	  				<h2>About Us</h2>
+					<br/>
+					<div class="row">
+						<div class="col-sm-4">
+							<img class="icons" src="<?php echo base_url();?>/img/monitor.png">
+							<br/>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+							Nunc gravida vitae ante sit amet sollicitudin. Nullam 
+							bibendum eget nisi sit amet suscipit. Phasellus eu tristique sem.
+						</div>
+						<div class="col-sm-4">
+							<img class="icons" src="<?php echo base_url();?>/img/blogging.png">
+							<br/>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+							Nunc gravida vitae ante sit amet sollicitudin. Nullam 
+							bibendum eget nisi sit amet suscipit. Phasellus eu tristique sem. 
+						</div>
+						<div class="col-sm-4">
+							<img class="icons" src="<?php echo base_url();?>/img/reading-glasses.png">
+							<br/>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+							Nunc gravida vitae ante sit amet sollicitudin. Nullam 
+							bibendum eget nisi sit amet suscipit. Phasellus eu tristique sem. 
+						</div>
+					</div>
+		    		{Location}
+		    		<div class="row">
+						<div class="col-sm-12">
+							<br/>
+							<h2>Visit Our Location</h2>
+							<br/>
+						</div>
+						<div class="col-sm-12">
+							<div id="googleMap" style="width:100%;height:400px;"></div>
+							<script>
+								function myMap() {
+									var mapProp= {
+									    center:new google.maps.LatLng(51.508742,-0.120850),
+									    zoom:5,
+									};
+									var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+								}
+							</script>
+							<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
+						</div>
+					</div>
+		    		{Contact}
+		    		<div class="row">
+						<div class="col-sm-12">
+							<br/>
+							<h2>Contact Us</h2>
+							<br/>
+						</div>
+						<div class="col-sm-4">
+							Your Name
+							<input type="text" class="form-control" placeholder="Full Name..."/>
+							<br/>
+							Email Address
+							<input type="text" class="form-control" placeholder="sample@example.com..."/>
+						</div>
+						<div class="col-sm-8">
+							Message
+							<textarea style="width:100%;height:122px;" class="form-control"></textarea>
+							<br/>
+							<input style="float:right;" type="button" class="btn btn-primary" value="Send Message"/>
+						</div>
+					</div>
+
+	  			</div>
 			</div>
 		</div>
-		<!-- About Panel End -->
-		<!-- Contact Form -->
-		<div class="container">
-			<h3 style="color:white;">
-				<i class="fa fa-envelope-open-o" aria-hidden="true"></i> Contact<br/>
-			</h3>
-			<div class="row">
-				<div class="col-sm-6" style="color:white;">
-					Email address:
-					<input type="text" class="form-control" placeholder="sample@example.com"/>
-				</div>
-				<div class="col-sm-6" style="color:white;">
-					Your name:
-					<input type="text" class="form-control" placeholder="Surname, Firstname">
-				</div>
-				<div class="col-sm-12" style="color:white;">
-					Message:
-					<textarea class="form-control" style="height:150px;">
-						
-					</textarea>
-				</div>
-			</div>
-		</div>
-		<br/><br/>
-		<!-- Contact Form End -->
-		<!-- Footer Panel -->
 		<footer>
-			Footer
+			<!--{Footer}-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<br/>
+						<h4>More About Writer</h4>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+						Donec tincidunt nibh eu diam malesuada tempus vel nec velit.
+						Suspendisse potenti.
+					</div>
+					<div class="col-sm-4">
+						<br/>
+						<h4>Visit Our Pages</h4><br/>
+						<img class="iconfoot" src="<?php echo base_url(); ?>/img/facebook.png">&nbsp;
+						<img class="iconfoot" src="<?php echo base_url(); ?>/img/twitter.png">&nbsp;
+						<img class="iconfoot" src="<?php echo base_url(); ?>/img/gmail.png">&nbsp;
+						<img class="iconfoot" src="<?php echo base_url(); ?>/img/instagram.png">&nbsp;
+						<img class="iconfoot" src="<?php echo base_url(); ?>/img/youtube.png">
+					</div>
+					<div class="col-sm-4">
+						<br/>
+						<h4>Writer <?php echo date("Y");?> &copy;</h4>
+						All rights reserved.
+					</div>
+				</div>
+			</div>
 		</footer>
-		<br/>
-		<!-- Footer Panel End -->
 	</body>
 </html>
