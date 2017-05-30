@@ -9,13 +9,11 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/font-awesome.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
-		<script src="<?php echo base_url(); ?>js/Chart.js"></script>
 		<script src="<?php echo base_url(); ?>js/jquery-3.1.1.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/styles.css">
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$('#btnLogs').click(function(){
-					//console.log(1);
 					var uname = $("#uname").val();
 					var pword = $("#pword").val();
 					$.ajax({
@@ -32,7 +30,6 @@
 				        	}
 				        	else
 				        	{
-				        		console.log("mali");
 				        		$("#logInFooter").html("<br/><div class='alert alert-danger' role='alert'><center>Account does not exist. <b>Please try again.</b></center></div>");
 				        	}
 				        }

@@ -10,13 +10,56 @@
                   $this->load->model('Cms_model');
 
                   $path = explode("/", $_SERVER['PATH_INFO']);
-                  if ($path[2] != "admin" && $this->session->uname == null)
+                  if ($path[2] != "admin" && $this->session->uname == NULL)
                   {
-                        header('Location: admin');      
+                        header('Location: admin');
+                        //$this->load->view('admin/admin');
                   }
 		}
 
             /*Admin links*/
+
+            public function parselayout()
+            {
+                  $layout = FCPATH."application/views/users/bloglist.php";
+                  $html = file_get_contents($layout);
+                  $panels = array();
+                  $pattern = "/{(.*)}(.*){\\/\\1}/s";
+                  $match_count = preg_match_all($pattern, $html, $matches);
+                  if($match_count)
+                  {
+                        for($ctr = 0; $ctr < $match_count; $ctr++)
+                        {
+                              // $matches[0] full pattern matches
+                              // $matches[1] subpattern name
+                              // $matches[2] sub-view
+                              $sub_key = $matches[0][$ctr];
+                              $sub_tag = $matches[1][$ctr];
+                              $sub_view = $matches[2][$ctr];
+
+                              $panels[] = array('name' => $sub_tag);
+
+                              $html = str_replace($sub_key, "", $html);
+                        }
+                  }
+                  $pattern = "/{(.*)}/";
+                  $match_count = preg_match_all($pattern, $html, $matches);
+                  if($match_count)
+                  {
+                        for($ctr = 0; $ctr < $match_count; $ctr++)
+                        {
+                            // $matches[0] full pattern matches
+                            // $matches[1] subpattern name
+                            // $matches[2] sub-view
+                            $sub_key = $matches[0][$ctr];
+                            $sub_tag = $matches[1][$ctr];
+
+                            $panels[] = array('name' => $sub_tag);
+                        }
+                  }
+                  var_dump($panels);
+            }
+            
             public function loaddata()
             {
                   $data = array();
@@ -173,6 +216,9 @@
             public function removesession()
             {
                   $this->session->unset_userdata("uname");
+                  $uname = $this->session->uname;
+                  var_dump($uname);
+                  exit;
             }
 
             public function retrievesession()
@@ -265,7 +311,7 @@
 
 		public function loadsettings()
 		{
-      		$this->load->view('admin/admin');
+      		$this->load->view('admin/settings');
                   $settings = array();
                   $settings = $this->Cms_model->loadset();
                   echo json_encode($settings);
