@@ -218,6 +218,62 @@
         $this->pdo->query($sql, array($id));
         return true;
     }
+
+    public function panelupdate($data)
+    {
+        extract($data);
+        $encodecontent = htmlentities($content);
+        $sql = "UPDATE tbl_panels SET panel_name = ?, panel_content = ? WHERE id = ?";
+        $this->pdo->query($sql, array($name, $encodecontent, $id));
+        return $data;
+    }
+
+    public function getpanelsections($data)
+    {
+        extract($data);
+        $layout = FCPATH."application/views/users/".$layout;
+        $html = file_get_contents($layout);
+        $panels = array();
+        $pattern = "/{(.*)}(.*){\\/\\1}/s";
+        $match_count = preg_match_all($pattern, $html, $matches);
+        if($match_count)
+        {
+            for($ctr = 0; $ctr < $match_count; $ctr++)
+            {
+                // $matches[0] full pattern matches
+                // $matches[1] subpattern name
+                // $matches[2] sub-view
+                $sub_key = $matches[0][$ctr];
+                $sub_tag = $matches[1][$ctr];
+                $sub_view = $matches[2][$ctr];
+
+                $panels[] = array('name' => $sub_tag);
+
+                $html = str_replace($sub_key, "", $html);
+            }
+        }
+        $pattern = "/{(.*)}/";
+        $match_count = preg_match_all($pattern, $html, $matches);
+        if($match_count)
+        {
+            for($ctr = 0; $ctr < $match_count; $ctr++)
+            {
+                // $matches[0] full pattern matches
+                // $matches[1] subpattern name
+                // $matches[2] sub-view
+                $sub_key = $matches[0][$ctr];
+                $sub_tag = $matches[1][$ctr];
+
+                $panels[] = array('section' => $sub_tag);
+            }
+        }
+
+        $selek = $this->pdo->query("SELECT panel_name FROM tbl_panels ");
+        
+        $panelinfo['query'] = $selek->result();
+        $panelinfo['sections'] = $panels;
+        return $panelinfo;
+    }
     // Users
   }
 ?>

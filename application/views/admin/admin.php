@@ -23,7 +23,6 @@
 				        dataType: "json",
 				        success: function(data)
 				        {
-				        	console.log(data);
 				        	if (data.length == 1)
 				        	{
 				        		window.location.assign("../../index.php/cms/dashboard");

@@ -116,27 +116,34 @@
 				$("#collapseMenu").click(function(){
 					$("#sidenav").fadeOut('fast');	
 				});
+
+				var js = new Array();
+				var css = new Array();
+
 				$("#btnshowjs").click(function(){
 					$("#jslist").fadeIn('slow');
 				});
 				$("#btnhidejs").click(function(){
 					$("#jslist").fadeOut('slow');
+					$("#listofjs").fadeOut('slow');
+					$("#listofjs").html("");
+					js = [];
 				});
 				$("#btnshowcss").click(function(){
 					$("#csslist").fadeIn('slow');
 				});
 				$("#btnhidecss").click(function(){
 					$("#csslist").fadeOut('slow');
+					$("#listofcss").fadeOut('slow');
+					$("#listofcss").html("");
+					js = [];
 				});
 
-				var numjs = 0;
-				var numcss = 0;
-				var js = new Array();
-				var css = new Array();
+				var num = 0;
 
 				$("#btnaddjs").click(function(){
-					numjs++;
-					$("#listofjs").append("<li id='"+numjs+"' value='"+$("#jsname").val()+"'><i class='fa fa-arrows-v' aria-hidden='true'></i> "+$("#jsname").val()+" <input id='removejs' class='btn btn-sm btn-danger' type='button' value='x' data-yes='"+$("#jsname").val()+"' data-id='"+numjs+"'> </li>");
+					num++;
+					$("#listofjs").append("<li id='"+num+"' value='"+$("#jsname").val()+"'><i class='fa fa-arrows-v' aria-hidden='true'></i> "+$("#jsname").val()+" <input id='removejs' class='btn btn-sm btn-danger' type='button' value='x' data-yes='"+$("#jsname").val()+"' data-id='"+num+"'> </li>");
 					js.push($("#jsname").val());
 				});
 				$(document).on( "click", "#removejs", function(){
@@ -151,8 +158,8 @@
 				});
 
 				$("#btnaddcss").click(function(){
-					numcss++;
-					$("#listofcss").append("<li id='"+numcss+"' value='"+$("#cssname").val()+"'><i class='fa fa-arrows-v' aria-hidden='true'></i> "+$("#cssname").val()+" <input id='removecss' class='btn btn-sm btn-danger' type='button' value='x' data-yes='"+$("#cssname").val()+"' data-id='"+numcss+"'> </li>");
+					num++;
+					$("#listofcss").append("<li id='"+num+"' value='"+$("#cssname").val()+"'><i class='fa fa-arrows-v' aria-hidden='true'></i> "+$("#cssname").val()+" <input id='removecss' class='btn btn-sm btn-danger' type='button' value='x' data-yes='"+$("#cssname").val()+"' data-id='"+num+"'> </li>");
 					css.push($("#cssname").val());
 				});
 				$(document).on( "click", "#removecss", function(){
@@ -164,7 +171,36 @@
 					{
 					    css.splice(index, 1);
 					}
-					console.log(css);
+				});
+				$("#layoutname").change(function(){
+					/*$(".panel-item").each(function(){
+				        		$(this).
+				        	})*/
+					var layout = $("#layoutname").val();
+					$.ajax({
+						url: "getsections",
+				        type: "POST",
+				        data: { layout:layout },
+				        dataType: "json",
+				        success: function(data)
+				        {
+				        	$("#hint").remove();
+				        	$(".layoutPanels").html("");
+				        	for (var i = 0; i < data.sections.length; i++)
+				        	{
+				        		$(".layoutPanels").append("<div  class='panel-item"+i+" panel-item-container'></div>");
+				        	}
+				        	for (var i = 0; i < data.sections.length; i++)
+				        	{
+				        		$(".panel-item"+i).append("<div class='panel-name'>"+data.sections[i]['section']+"</div>");
+				        		$(".panel-item"+i).append("<select id='panel-option' class='form-control'></select>");
+				        	}
+				        	for (var j = 0; j < data.query.length; j++)
+				        	{
+				        		$("select#panel-option").append("<option>"+data.query[j]['panel_name']+"</option>");
+				        	}
+				        }
+				    });
 				});
 				// To get values of list css and js
 				/*var jslist = $( "#listofjs" ).sortable("toArray", {attribute: 'value'});
@@ -311,11 +347,23 @@
 			</ol>
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-6">
 						<input type="text" class="form-control" placeholder="Page Name..."/><br/>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-6">
 						<input type="text" class="form-control" placeholder="Page Title..."/><br/>
+					</div>
+					<div class="col-sm-6">
+						Page Description:
+						<textarea class="form-control">
+								
+						</textarea><br/>
+					</div>
+					<div class="col-sm-6">
+						Page Keywords:
+						<textarea class="form-control">
+								
+						</textarea><br/>
 					</div>
 					<div class="col-sm-4">
 						<b>JavaScript</b> - <a style="color:blue;" id="btnshowjs">Add New</a><br/>
@@ -340,18 +388,6 @@
 						<hr/>
 					</div>
 					<div class="col-sm-4">
-						Page Description:
-						<textarea class="form-control">
-								
-						</textarea><br/>
-					</div>
-					<div class="col-sm-4">
-						Page Keywords:
-						<textarea class="form-control">
-								
-						</textarea><br/>
-					</div>
-					<div class="col-sm-4">
 						<b>CSS</b> - <a style="color:blue;" id="btnshowcss">Add New</a><br/>
 						<span id="csslist">
 							<select id="cssname" style="padding:3px;">
@@ -373,9 +409,9 @@
 						</span>
 						<hr/>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-5">
 						Layout:
-						<select class="form-control">
+						<select id="layoutname" class="form-control">
 							<?php
 								$dir = FCPATH."/application/views/users";
 								$files1 = scandir($dir);
@@ -390,9 +426,9 @@
 					<div class="col-sm-12">
 						<b>Layout Panels</b>
 						<hr/>
-						<div class="layoutPanels">
-							Please select a layout...
-							<br/><br/>
+						<div id="hint">Please select a layout...</div>
+						<div class="layoutPanels col-sm-6">
+							
 						</div>
 					</div>
 					<div class="col-sm-5">

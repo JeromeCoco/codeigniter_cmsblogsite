@@ -105,7 +105,6 @@
 			$(document).on( "click", "#btnedit", function(){
 				var id = $(this).attr("data-id");
 				var dataid = $(this).attr("data-id");
-				var dataname = $(this).attr("data-name");
 				$.ajax({
 					url: "getpanelcontent",
 			        type: "POST",
@@ -115,8 +114,9 @@
 			        {
 						$('#myModalEdit').modal('toggle');
 						$("#id").val(dataid);
-						$("#panelname").val(dataname);
+						$("#panelname").val($("#panelnames"+id).text());
 						tinyMCE.activeEditor.setContent(data.decoded);
+						$("#err").html("");
 			        }
 				});
 			});
@@ -133,6 +133,33 @@
 				        success: function(data)
 				        {
 							$("#panel"+id).fadeOut('slow');
+				        }
+					});
+				}
+			});
+			$("#btnUpdate").click(function(){
+				var id = $("#id").val();
+				var name = $("#panelname").val();
+				var content = tinyMCE.activeEditor.getContent();
+				if (name == "" || content == "")
+				{
+					$("#err").html("<br/><div class='alert alert-warning errmess' role='alert'><center>Please enter the needed information.</center></div>");
+				}
+				else
+				{
+					$.ajax({
+						url: "updatepanel",
+				        type: "POST",
+				        data: { 
+				        	id:id,
+				        	name:name,
+				        	content:content
+				        },
+				        dataType: "json",
+				        success: function(data)
+				        {
+							$("#panelnames"+id).html(data['name']);
+							$("#err").html("<br/><div class='alert alert-success errmess' role='alert'><center>Panel details successfully updated.</center></div>");
 				        }
 					});
 				}

@@ -18,6 +18,22 @@
 		}
 
             /*Admin links*/
+            public function getsections()
+            {
+                  $data = array();
+                  $data = $this->Cms_model->getpanelsections($_POST);
+                  echo json_encode($data);
+                  exit;
+            }
+
+            public function updatepanel()
+            {
+                  $data = array();
+                  $data = $this->Cms_model->panelupdate($_POST);
+                  echo json_encode($data);
+                  exit;
+            }
+
             public function removepanel()
             {
                   $data = array();
@@ -60,47 +76,6 @@
                   $data = $this->Cms_model->newaddpanel($_POST);
                   echo json_encode($data);
                   exit;
-            }
-
-            public function parselayout()
-            {
-                  $layout = FCPATH."application/views/users/bloglist.php";
-                  $html = file_get_contents($layout);
-                  $panels = array();
-                  $pattern = "/{(.*)}(.*){\\/\\1}/s";
-                  $match_count = preg_match_all($pattern, $html, $matches);
-                  if($match_count)
-                  {
-                        for($ctr = 0; $ctr < $match_count; $ctr++)
-                        {
-                              // $matches[0] full pattern matches
-                              // $matches[1] subpattern name
-                              // $matches[2] sub-view
-                              $sub_key = $matches[0][$ctr];
-                              $sub_tag = $matches[1][$ctr];
-                              $sub_view = $matches[2][$ctr];
-
-                              $panels[] = array('name' => $sub_tag);
-
-                              $html = str_replace($sub_key, "", $html);
-                        }
-                  }
-                  $pattern = "/{(.*)}/";
-                  $match_count = preg_match_all($pattern, $html, $matches);
-                  if($match_count)
-                  {
-                        for($ctr = 0; $ctr < $match_count; $ctr++)
-                        {
-                            // $matches[0] full pattern matches
-                            // $matches[1] subpattern name
-                            // $matches[2] sub-view
-                            $sub_key = $matches[0][$ctr];
-                            $sub_tag = $matches[1][$ctr];
-
-                            $panels[] = array('name' => $sub_tag);
-                        }
-                  }
-                  var_dump($panels);
             }
             
             public function loaddata()
