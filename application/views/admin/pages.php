@@ -247,7 +247,7 @@
 						</div>
 						<div class="col-sm-4">
 							<a href="<?php echo base_url(); ?>index.php/cms/addnewpage" style="float:right;">
-								<input type="button" class="btn btn-primary" value="Add New Page" />
+								<button class="btn btn-primary"><i class="fa fa-plus-square" aria-hidden="true"></i>Add New Page</button>
 							</a>
 						</div>
 						<div class="col-sm-12">

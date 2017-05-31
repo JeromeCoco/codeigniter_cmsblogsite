@@ -414,7 +414,7 @@
 					</div>
 					<div class="col-sm-6">
 						<a href="<?php echo base_url();?>index.php/cms/addnewuser">
-							<input style="float:right;" type="button" class="btn btn-primary" value="Add New User"/>
+							<button class="btn btn-primary" style="float:right;"><i class="fa fa-user-circle" aria-hidden="true"></i>Add New User </button>
 						</a>
 					</div>
 				</div>

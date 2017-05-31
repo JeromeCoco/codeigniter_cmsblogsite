@@ -277,7 +277,7 @@
 					</div>
 					<div class="col-sm-6">
 						<a id="btnviewadding">
-							<button class="btn btn-md btn-primary" style="float:right"> Add New Link </button>
+							<button class="btn btn-md btn-primary" style="float:right"> <i class="fa fa-external-link" aria-hidden="true"></i>Add New Link </button>
 						</a>
 					</div>
 					<div class="col-sm-12">

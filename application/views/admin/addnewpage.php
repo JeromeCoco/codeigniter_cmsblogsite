@@ -129,6 +129,7 @@
 					$("#listofjs").html("");
 					js = [];
 				});
+
 				$("#btnshowcss").click(function(){
 					$("#csslist").fadeIn('slow');
 				});
@@ -136,12 +137,14 @@
 					$("#csslist").fadeOut('slow');
 					$("#listofcss").fadeOut('slow');
 					$("#listofcss").html("");
-					js = [];
+					css = [];
 				});
 
 				var num = 0;
 
 				$("#btnaddjs").click(function(){
+					$("#jslist").fadeIn('slow');
+					$("#listofjs").fadeIn('slow');
 					num++;
 					$("#listofjs").append("<li id='"+num+"' value='"+$("#jsname").val()+"'><i class='fa fa-arrows-v' aria-hidden='true'></i> "+$("#jsname").val()+" <input id='removejs' class='btn btn-sm btn-danger' type='button' value='x' data-yes='"+$("#jsname").val()+"' data-id='"+num+"'> </li>");
 					js.push($("#jsname").val());
@@ -158,6 +161,8 @@
 				});
 
 				$("#btnaddcss").click(function(){
+					$("#csslist").fadeIn('slow');
+					$("#listofcss").fadeIn('slow');
 					num++;
 					$("#listofcss").append("<li id='"+num+"' value='"+$("#cssname").val()+"'><i class='fa fa-arrows-v' aria-hidden='true'></i> "+$("#cssname").val()+" <input id='removecss' class='btn btn-sm btn-danger' type='button' value='x' data-yes='"+$("#cssname").val()+"' data-id='"+num+"'> </li>");
 					css.push($("#cssname").val());
@@ -205,7 +210,6 @@
 							panel_id : $(this).children('.panel-option').val()
 						}
 						panellist.push(data);
-						
 					});
 
 					// To get values of list css and js
