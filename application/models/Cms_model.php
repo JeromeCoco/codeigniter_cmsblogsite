@@ -190,6 +190,26 @@
         return $selek;
     }
 
+    public function newaddpanel($data)
+    {
+        extract($data);
+        $content = htmlentities($mytextarea);
+        $sql = "INSERT INTO tbl_panels(panel_name, panel_content) VALUES(?, ?)";
+        $this->pdo->query($sql, array($panelname, $content));
+    }
+
+    public function getpanels()
+    {
+        $selek = $this->pdo->query("SELECT * FROM tbl_panels");
+        return $selek;
+    }
+
+    public function getcontentpanels($data)
+    {
+        extract($data);
+        $selek = $this->pdo->query("SELECT panel_content FROM tbl_panels WHERE id = '$id' ");
+        return $selek->result();
+    }
     // Users
   }
 ?>

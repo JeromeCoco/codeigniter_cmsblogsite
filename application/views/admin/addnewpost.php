@@ -86,7 +86,7 @@
 				var stat = $("#stat").val();
 				if (title == "" || content == "")
 				{
-					$("#err").html("<br/><div class='alert alert-warning errmess' role='alert'><center>Please enter the needed information.</center></div>");
+					$("#err").html("<br/><div class='alert alert-danger errmess' role='alert'><center>Please enter the needed information.</center></div>");
 				}
 				else
 				{

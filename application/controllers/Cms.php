@@ -18,6 +18,41 @@
 		}
 
             /*Admin links*/
+            public function getpanelcontent()
+            {
+                  $panel = array();
+                  $data = $this->Cms_model->getcontentpanels($_POST);
+                  $panel['decoded'] = html_entity_decode($data[0]->panel_content);
+                  echo json_encode($panel);
+                  exit;  
+            }
+
+            public function panels()
+            {
+                  $data['panel_list'] = $this->getpanellist();
+                  $this->load->view('admin/panels', $data);
+            }
+
+            public function getpanellist()
+            {
+                  $panels = '';
+                  $paneldetails = array();
+                  $paneldetails = $this->Cms_model->getpanels();
+                  foreach ($paneldetails->result() as $row) 
+                  {
+                        $data = (array) $row;
+                        $panels .= $this->load->view('admin/panellist', $data, true);
+                  }
+                  return $panels;
+            }
+
+            public function addpanel()
+            {
+                  $data = array();
+                  $data = $this->Cms_model->newaddpanel($_POST);
+                  echo json_encode($data);
+                  exit;
+            }
 
             public function parselayout()
             {
@@ -345,11 +380,6 @@
             public function addnewpage()
             {
                   $this->load->view('admin/addnewpage');
-            }
-
-            public function panels()
-            {
-                  $this->load->view('admin/panels');
             }
 
             public function links()

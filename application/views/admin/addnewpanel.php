@@ -64,6 +64,32 @@
 		        	$("#activeuser").html(data["uname"]);
 		        }
 			});
+			$("#btnaddpanel").click(function(){
+				var panelname = $("#panelname").val();
+				var mytextarea = tinyMCE.activeEditor.getContent();
+				if (panelname == "" || mytextarea == "")
+				{
+					$("#err").html("<br/><div class='alert alert-danger errmess' role='alert'><center>Please enter the needed information.</center></div>");
+				}
+				else
+				{
+					$.ajax({
+						url: "addpanel",
+				        type: "POST",
+				        data: {
+				        	panelname:panelname,
+				        	mytextarea:mytextarea
+				        },
+				        dataType: "json",
+				        success: function(data)
+				        {
+				        	$("#err").html("<br/><div class='alert alert-success errmess' role='alert'><center>New panel was successfully saved.</center></div>");
+				        	tinyMCE.activeEditor.setContent(" ");
+				        	$("#panelname").val(" ");
+				        }
+					});
+				}
+			});
 			$("#btnlogout").click(function(){
 				$.ajax({
 					url: "removesession",
@@ -253,24 +279,16 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12">
-						<input type="text" class="form-control" placeholder="Panel Name..."/><br/>
+						<input id="panelname" type="text" class="form-control" placeholder="Panel Name..."/><br/>
 						<textarea id="mytextarea">
 						    	
 						</textarea>
 						</form>
 					</div>
 					<div class="col-sm-5">
-						<div id="publishSettings">
-							<b>Publish</b>
-							<hr/>
-							Status: 
-							<select class="form-control">
-								<option>Immediate</option>
-								<option>Pending Panel</option>
-							</select>
-							<br/>
-							<input type="button" value="Add Panel" class="btn btn-success">
-						</div>
+						<br/>
+						<input id="btnaddpanel" type="button" value="Add Panel" class="btn btn-success">
+						<div id="err"></div>
 					</div>
 				</div>
 			</div>

@@ -12,6 +12,8 @@
 		<script src='<?php echo base_url(); ?>js/tinymce/tinymce.min.js'></script>
 		<script src="<?php echo base_url(); ?>js/Chart.js"></script>
 		<script src="<?php echo base_url(); ?>js/jquery-3.1.1.min.js"></script>
+		<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+		<script src="<?php echo base_url(); ?>js/bootstrap.min.js"></script>
 		<style type="text/css">
 			div.sidenavtago{
 				width: 40px;
@@ -76,6 +78,21 @@
 			        }
 				});
 			});
+			$(document).on( "click", "#btnview", function(){
+				var id = $(this).attr("data-id");
+				$.ajax({
+					url: "getpanelcontent",
+			        type: "POST",
+			        data: { id:id },
+			        dataType: "json",
+			        success: function(data)
+			        {
+			        	//console.log(data);
+			        	$('#myModalView').modal('toggle');
+			        	$(".modal-bodyview").html(data.decoded);
+			        }
+				});
+			});
 			$("#btnKolaps").click(function(){
 				$(".sidenav").toggleClass('sidenavtago');
 				$(".linkLabel").toggleClass('linkLabelTago');
@@ -96,6 +113,24 @@
 		</script>
 	</head>
 	<body>
+		<div class="modal fade" id="myModalView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+		    	<div class="modal-content">
+		      		<div class="modal-header">
+			        	<h5 class="modal-title" id="exampleModalLabel"></h5>
+			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          		<span aria-hidden="true">&times;</span>
+			        	</button>
+		      		</div>
+		      		<div class="modal-bodyview" style="padding:10px;">
+		        		
+			      	</div>
+		      		<div class="modal-footer">
+		        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
 		<nav>
 			<ul id="topnavs">
 				<a href="#" id="webname">
@@ -231,11 +266,7 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-inline">
-							Search by: &nbsp;
-							<select class="form-control" placeholder="Search by...">
-								<option>Date</option>
-								<option>Panel Name</option>
-							</select> &nbsp;
+							Search Panel: &nbsp;
 							<input type="text" class="form-control" placeholder="..."/>
 						</div>
 						<br/>
@@ -249,14 +280,12 @@
 						<table class="table table-bordered">
 							<thead>
 								<tr>
-									<th>Date</th>
-									<th>Panel</th>
-									<th>Status</th>
+									<th>Panel Name</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
 							<tbody>
-								
+								<?php echo $panel_list; ?>
 							</tbody>
 							<tfoot>
 								
