@@ -268,7 +268,7 @@
             }
         }
 
-        $selek = $this->pdo->query("SELECT panel_name FROM tbl_panels ");
+        $selek = $this->pdo->query("SELECT * FROM tbl_panels ");
         
         $panelinfo['query'] = $selek->result();
         $panelinfo['sections'] = $panels;

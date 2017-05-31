@@ -173,9 +173,6 @@
 					}
 				});
 				$("#layoutname").change(function(){
-					/*$(".panel-item").each(function(){
-				        		$(this).
-				        	})*/
 					var layout = $("#layoutname").val();
 					$.ajax({
 						url: "getsections",
@@ -188,23 +185,37 @@
 				        	$(".layoutPanels").html("");
 				        	for (var i = 0; i < data.sections.length; i++)
 				        	{
-				        		$(".layoutPanels").append("<div  class='panel-item"+i+" panel-item-container'></div>");
-				        	}
-				        	for (var i = 0; i < data.sections.length; i++)
-				        	{
+				        		$(".layoutPanels").append("<div class='panel-item"+i+" panel-item-container'></div>");
 				        		$(".panel-item"+i).append("<div class='panel-name'>"+data.sections[i]['section']+"</div>");
-				        		$(".panel-item"+i).append("<select id='panel-option' class='form-control'></select>");
+				        		$(".panel-item"+i).append("<select id='panel-option' class='form-control panel-option'></select>");
 				        	}
 				        	for (var j = 0; j < data.query.length; j++)
 				        	{
-				        		$("select#panel-option").append("<option>"+data.query[j]['panel_name']+"</option>");
+				        		$("select#panel-option").append("<option value='"+data.query[j]['id']+"'>"+data.query[j]['panel_name']+"</option>");
 				        	}
 				        }
 				    });
 				});
-				// To get values of list css and js
-				/*var jslist = $( "#listofjs" ).sortable("toArray", {attribute: 'value'});
-				var csslist = $( "#listofcss" ).sortable("toArray", {attribute: 'value'});*/
+				$("#btnaddpage").click(function(){
+					panellist = new Array();
+
+					$('.panel-item-container').each(function(){
+						var data = {
+							panel : $(this).children('.panel-name').html(),
+							panel_id : $(this).children('.panel-option').val()
+						}
+						panellist.push(data);
+						
+					});
+
+					// To get values of list css and js
+					var jslist = $( "#listofjs" ).sortable("toArray", {attribute: 'value'});
+					var csslist = $( "#listofcss" ).sortable("toArray", {attribute: 'value'});
+
+					console.log(panellist);
+					console.log(jslist);
+					console.log(csslist);
+				});
 			});
 		</script>
 	</head>
@@ -441,7 +452,7 @@
 								<option>Pending Page</option>
 							</select>
 							<br/>
-							<input type="button" value="Add Page" class="btn btn-success">
+							<input id="btnaddpage" type="button" value="Add Page" class="btn btn-success">
 						</div>
 					</div>
 				</div>
