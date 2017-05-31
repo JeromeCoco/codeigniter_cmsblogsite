@@ -11,6 +11,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 		<script src='<?php echo base_url(); ?>js/tinymce/tinymce.min.js'></script>
 		<script src="<?php echo base_url(); ?>js/Chart.js"></script>
+		<script src='<?php echo base_url(); ?>js/tinymce/tinymce.min.js'></script>
 		<script src="<?php echo base_url(); ?>js/jquery-3.1.1.min.js"></script>
 		<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
 		<script src="<?php echo base_url(); ?>js/bootstrap.min.js"></script>
@@ -55,6 +56,15 @@
 			}
 		</style>
 		<script type="text/javascript">
+		tinymce.init({
+		    selector: "textarea",
+		    plugins: [
+		        "advlist autolink lists link image charmap print preview anchor",
+		        "searchreplace visualblocks code fullscreen",
+		        "insertdatetime media table contextmenu paste"
+		    ],
+		    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+		});
 		$(document).ready(function(){
 			$.ajax({
 				url: "retrievesession",
@@ -87,11 +97,45 @@
 			        dataType: "json",
 			        success: function(data)
 			        {
-			        	//console.log(data);
 			        	$('#myModalView').modal('toggle');
 			        	$(".modal-bodyview").html(data.decoded);
 			        }
 				});
+			});
+			$(document).on( "click", "#btnedit", function(){
+				var id = $(this).attr("data-id");
+				var dataid = $(this).attr("data-id");
+				var dataname = $(this).attr("data-name");
+				$.ajax({
+					url: "getpanelcontent",
+			        type: "POST",
+			        data: { id:id },
+			        dataType: "json",
+			        success: function(data)
+			        {
+						$('#myModalEdit').modal('toggle');
+						$("#id").val(dataid);
+						$("#panelname").val(dataname);
+						tinyMCE.activeEditor.setContent(data.decoded);
+			        }
+				});
+			});
+			$(document).on( "click", "#btndelete", function(){
+				var id = $(this).attr("data-id");
+				var check = confirm("Are you sure you want to delete this panel?");
+				if (check == true)
+				{
+					$.ajax({
+						url: "removepanel",
+				        type: "POST",
+				        data: { id:id },
+				        dataType: "json",
+				        success: function(data)
+				        {
+							$("#panel"+id).fadeOut('slow');
+				        }
+					});
+				}
 			});
 			$("#btnKolaps").click(function(){
 				$(".sidenav").toggleClass('sidenavtago');
@@ -113,6 +157,38 @@
 		</script>
 	</head>
 	<body>
+		<div class="modal fade" id="myModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+		    	<div class="modal-content">
+		      		<div class="modal-header">
+			        	<h5 class="modal-title" id="exampleModalLabel">Edit Panel</h5>
+			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          		<span aria-hidden="true">&times;</span>
+			        	</button>
+		      		</div>
+		      		<div class="modal-body">
+		        		<div class="row">
+		        			<div class="col-sm-12">
+		        				<input class="form-control" id="id" type="hidden"/>
+		        				Panel Name
+		        				<input id="panelname" type="text" class="form-control" />
+		        			</div>
+		        			<div class="col-sm-12">
+		        				<br/>
+		        				<textarea id="mytextarea">
+						    	</textarea>
+						    	<br/>
+						    	<div id="err"></div>
+		        			</div>
+		        		</div>
+			      	</div>
+		      		<div class="modal-footer">
+		      			<button id="btnUpdate" type="button" class="btn btn-success">Update Panel</button>
+		        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
 		<div class="modal fade" id="myModalView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg" role="document">
 		    	<div class="modal-content">
@@ -277,7 +353,7 @@
 						</a>
 					</div>
 					<div class="col-sm-12">
-						<table class="table table-bordered">
+						<table class="table table-bordered table-striped">
 							<thead>
 								<tr>
 									<th>Panel Name</th>

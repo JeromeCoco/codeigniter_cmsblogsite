@@ -18,6 +18,14 @@
 		}
 
             /*Admin links*/
+            public function removepanel()
+            {
+                  $data = array();
+                  $data = $this->Cms_model->deletepanel($_POST);
+                  echo json_encode($data);
+                  exit;
+            }
+
             public function getpanelcontent()
             {
                   $panel = array();

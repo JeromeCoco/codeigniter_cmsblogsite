@@ -210,6 +210,14 @@
         $selek = $this->pdo->query("SELECT panel_content FROM tbl_panels WHERE id = '$id' ");
         return $selek->result();
     }
+
+    public function deletepanel($data)
+    {
+        extract($data);
+        $sql = "DELETE FROM tbl_panels WHERE id = ?";
+        $this->pdo->query($sql, array($id));
+        return true;
+    }
     // Users
   }
 ?>
