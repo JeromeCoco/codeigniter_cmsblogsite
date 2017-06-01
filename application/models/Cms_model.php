@@ -281,6 +281,44 @@
         $selek = $this->pdo->query("SELECT id, panel_name FROM tbl_panels WHERE panel_name LIKE '%$txtsearch%' ");
         return $selek->result();
     }
+
+    public function addnewpage($data)
+    {
+        extract($data);
+
+        //INSERT TO tbl_pages
+        $insertpage = "INSERT INTO tbl_pages(page_name, page_title, page_desc, page_keywords) VALUES(?, ?, ?, ?)";
+        $this->pdo->query($insertpage, array($pagename, $pagetitle, $pagedesc, $pagekeywords));
+
+        //count pages
+        $pagenum = $this->pdo->query("SELECT id FROM tbl_pages");
+        $countpages = $pagenum->num_rows();
+        
+        //INSERT TO tbl_page_css
+        $css = json_decode($csslists, true);
+        $js = json_decode($jslists, true);
+        $sections = json_decode($listpanels, true);
+        $cssorder = 0;
+        $jsorder = 0;
+        for ($i = 0; $i < count($css); $i++)
+        {
+            $cssorder++;
+            $insertcss = "INSERT INTO tbl_page_css(page_id, css_order, css_name) VALUES(?, ?, ?)";
+            $this->pdo->query($insertcss, array($countpages, $cssorder, $css[$i]));
+        }
+        for ($j = 0; $j < count($js); $j++)
+        {
+            $jsorder++;
+            $insertjs = "INSERT INTO tbl_page_js(page_id, js_order, js_name) VALUES(?, ?, ?)";
+            $this->pdo->query($insertjs, array($countpages, $jsorder, $js[$j]));
+        }
+        for ($k = 0; $k < count($sections); $k++)
+        {
+            $insertsections = "INSERT INTO tbl_sections(page_id, section_label, panel_id, layout) VALUES(?, ?, ?, ?)";
+            $this->pdo->query($insertsections, array($countpages, $sections[$k]['panel'], $sections[$k]['panel_id'], $layoutname));
+        }
+    }
+
     // Users
   }
 ?>

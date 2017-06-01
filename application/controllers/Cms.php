@@ -18,6 +18,14 @@
 		}
 
             /*Admin links*/
+            public function addpage()
+            {
+                  $data = array();
+                  $data = $this->Cms_model->addnewpage($_POST);
+                  echo json_encode($data);
+                  exit;
+            }
+
             public function searchpanel()
             {
                   $data = array();

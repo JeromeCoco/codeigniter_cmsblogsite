@@ -50,6 +50,7 @@
 			}
 		</style>
 		<script src='<?php echo base_url(); ?>js/tinymce/tinymce.min.js'></script>
+		<script src="<?php echo base_url(); ?>js/jquery-3.1.1.min.js"></script>
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script type="text/javascript">
@@ -203,7 +204,6 @@
 				});
 				$("#btnaddpage").click(function(){
 					panellist = new Array();
-
 					$('.panel-item-container').each(function(){
 						var data = {
 							panel : $(this).children('.panel-name').html(),
@@ -212,13 +212,38 @@
 						panellist.push(data);
 					});
 
-					// To get values of list css and js
-					var jslist = $( "#listofjs" ).sortable("toArray", {attribute: 'value'});
-					var csslist = $( "#listofcss" ).sortable("toArray", {attribute: 'value'});
+					var pagename = $("#pagename").val();
+					var pagetitle = $("#pagetitle").val();
+					var pagedesc = $("#pagedesc").val();
+					var pagekeywords = $("#pagekeywords").val();
+					var jslists = JSON.stringify($( "#listofjs" ).sortable("toArray", {attribute: 'value'}));
+					var csslists = JSON.stringify($( "#listofcss" ).sortable("toArray", {attribute: 'value'}));
+					var layoutname = $("#layoutname").val();
+					var listpanels = JSON.stringify(panellist);
 
-					console.log(panellist);
-					console.log(jslist);
-					console.log(csslist);
+					if ()
+					{
+						
+					}
+					$.ajax({
+						url: "addpage",
+				        type: "POST",
+				        data: {
+				        	pagename:pagename,
+				        	pagetitle:pagetitle,
+				        	pagedesc:pagedesc,
+				        	pagekeywords:pagekeywords,
+				        	jslists:jslists,
+				        	csslists:csslists,
+				        	layoutname:layoutname,
+				        	listpanels:listpanels
+				        },
+				        dataType: "json",
+				        success: function(data)
+				        {
+				        	
+				        }
+				    });
 				});
 			});
 		</script>
@@ -363,20 +388,20 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-6">
-						<input type="text" class="form-control" placeholder="Page Name..."/><br/>
+						<input id="pagename" type="text" class="form-control" placeholder="Page Name..."/><br/>
 					</div>
 					<div class="col-sm-6">
-						<input type="text" class="form-control" placeholder="Page Title..."/><br/>
+						<input id="pagetitle" type="text" class="form-control" placeholder="Page Title..."/><br/>
 					</div>
 					<div class="col-sm-6">
 						Page Description:
-						<textarea class="form-control">
+						<textarea id="pagedesc" class="form-control">
 								
 						</textarea><br/>
 					</div>
 					<div class="col-sm-6">
 						Page Keywords:
-						<textarea class="form-control">
+						<textarea id="pagekeywords" class="form-control">
 								
 						</textarea><br/>
 					</div>
@@ -447,17 +472,7 @@
 						</div>
 					</div>
 					<div class="col-sm-5">
-						<div id="publishSettings">
-							<b>Publish</b>
-							<hr/>
-							Status: 
-							<select class="form-control">
-								<option>Immediate</option>
-								<option>Pending Page</option>
-							</select>
-							<br/>
-							<input id="btnaddpage" type="button" value="Add Page" class="btn btn-success">
-						</div>
+						<input id="btnaddpage" type="button" value="Add Page" class="btn btn-success">
 					</div>
 				</div>
 			</div>
