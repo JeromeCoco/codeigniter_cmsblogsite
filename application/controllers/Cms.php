@@ -18,6 +18,25 @@
 		}
 
             /*Admin links*/
+            public function pages()
+            {
+                  $data['page_list'] = $this->getpagelist();
+                  $this->load->view('admin/pages', $data);
+            }
+
+            public function getpagelist()
+            {
+                  $pages = '';
+                  $pagedetails = array();
+                  $pagedetails = $this->Cms_model->getpages();
+                  foreach ($pagedetails->result() as $row) 
+                  {
+                        $data = (array) $row;
+                        $pages .= $this->load->view('admin/pagelist', $data, true);
+                  }
+                  return $pages;
+            }
+
             public function addpage()
             {
                   $data = array();
@@ -369,11 +388,6 @@
 
             public function blogs(){
                   var_dump($GLOBALS['params']);
-            }
-
-            public function pages()
-            {
-                  $this->load->view('admin/pages');
             }
 
             public function addnewpage()

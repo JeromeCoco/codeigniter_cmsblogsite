@@ -322,6 +322,12 @@
         }
     }
 
+    public function getpages()
+    {
+        $selek = $this->pdo->query("SELECT * FROM tbl_pages");
+        return $selek;
+    }
+
     // Users
   }
 ?>

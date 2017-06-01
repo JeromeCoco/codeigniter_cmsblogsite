@@ -252,13 +252,12 @@
 								<thead>
 									<tr>
 										<th>Page ID</th>
-										<th>Page name</th>
-										<th>Status</th>
+										<th>Page Name</th>
 										<th>Actions</th>
 									</tr>
 								</thead>
 								<tbody>
-									
+									<?php echo $page_list; ?>
 								</tbody>
 								<tfoot>
 									
