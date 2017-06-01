@@ -286,36 +286,39 @@
     {
         extract($data);
 
-        //INSERT TO tbl_pages
         $insertpage = "INSERT INTO tbl_pages(page_name, page_title, page_desc, page_keywords) VALUES(?, ?, ?, ?)";
         $this->pdo->query($insertpage, array($pagename, $pagetitle, $pagedesc, $pagekeywords));
 
-        //count pages
-        $pagenum = $this->pdo->query("SELECT id FROM tbl_pages");
-        $countpages = $pagenum->num_rows();
-        
-        //INSERT TO tbl_page_css
+        $pagenum = $this->pdo->query("SELECT id FROM tbl_pages ORDER BY id DESC LIMIT 1");
+        $result = $pagenum->result();
+        $lastpage = $result[0]->id;
+        $current = $lastpage++;
+
         $css = json_decode($csslists, true);
         $js = json_decode($jslists, true);
         $sections = json_decode($listpanels, true);
+
         $cssorder = 0;
         $jsorder = 0;
+
         for ($i = 0; $i < count($css); $i++)
         {
             $cssorder++;
             $insertcss = "INSERT INTO tbl_page_css(page_id, css_order, css_name) VALUES(?, ?, ?)";
-            $this->pdo->query($insertcss, array($countpages, $cssorder, $css[$i]));
+            $this->pdo->query($insertcss, array($current, $cssorder, $css[$i]));
         }
+
         for ($j = 0; $j < count($js); $j++)
         {
             $jsorder++;
             $insertjs = "INSERT INTO tbl_page_js(page_id, js_order, js_name) VALUES(?, ?, ?)";
-            $this->pdo->query($insertjs, array($countpages, $jsorder, $js[$j]));
+            $this->pdo->query($insertjs, array($current, $jsorder, $js[$j]));
         }
+
         for ($k = 0; $k < count($sections); $k++)
         {
             $insertsections = "INSERT INTO tbl_sections(page_id, section_label, panel_id, layout) VALUES(?, ?, ?, ?)";
-            $this->pdo->query($insertsections, array($countpages, $sections[$k]['panel'], $sections[$k]['panel_id'], $layoutname));
+            $this->pdo->query($insertsections, array($current, $sections[$k]['panel'], $sections[$k]['panel_id'], $layoutname));
         }
     }
 

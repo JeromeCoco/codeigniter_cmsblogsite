@@ -237,11 +237,7 @@
 					<div class="row">
 			  			<div class="col-sm-8">
 			  				<div class="form-inline">
-					  			Search by: &nbsp;
-								<select class="form-control" placeholder="Search by...">
-									<option>ID</option>
-									<option>Page Name</option>
-								</select>&nbsp;
+					  			Search Page: &nbsp;
 								<input type="text" class="form-control" placeholder="..."/>
 							</div>
 						</div>
