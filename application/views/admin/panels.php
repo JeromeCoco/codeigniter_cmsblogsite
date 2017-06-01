@@ -164,6 +164,24 @@
 					});
 				}
 			});
+			$("#txtsearch").keyup(function(){
+				var txtsearch = $(this).val();
+				$.ajax({
+					url: "searchpanel",
+			        type: "POST",
+			        data: { txtsearch:txtsearch },
+			        dataType: "json",
+			        success: function(data)
+			        {
+						$("tr").remove();
+			        	$("tbody").append("<tr> <th>Panel Name</th> <th>Actions</th> </tr> ");
+			        	for (var i = 0; i < data.length; i++)
+			        	{
+			        		$("tbody").append("<tr id="+data[i]['id']+"> <td id='panelnames"+data[i]['id']+"'>"+data[i]['panel_name']+"</td> <td> <input id='btnview' data-id="+data[i]['id']+" type='button' class='btn btn-sm btn-default' value='View Content' /> <input id='btnedit' data-name="+data[i]['panel_name']+" data-id="+data[i]['id']+" type='button' class='btn btn-sm btn-default' value='Edit' /> <input id='btndelete' data-id="+data[i]['id']+" type='button' class='btn btn-sm btn-danger' value='Remove' /> </td> </tr> ");
+			        	}
+			        }
+				});
+			});
 			$("#btnKolaps").click(function(){
 				$(".sidenav").toggleClass('sidenavtago');
 				$(".linkLabel").toggleClass('linkLabelTago');
@@ -370,7 +388,7 @@
 					<div class="col-sm-6">
 						<div class="form-inline">
 							Search Panel: &nbsp;
-							<input type="text" class="form-control" placeholder="..."/>
+							<input type="text" id="txtsearch" class="form-control" placeholder="..."/>
 						</div>
 						<br/>
 					</div>

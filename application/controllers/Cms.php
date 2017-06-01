@@ -18,6 +18,14 @@
 		}
 
             /*Admin links*/
+            public function searchpanel()
+            {
+                  $data = array();
+                  $data = $this->Cms_model->getpanelinfo($_POST);
+                  echo json_encode($data);
+                  exit;
+            }
+
             public function getsections()
             {
                   $data = array();

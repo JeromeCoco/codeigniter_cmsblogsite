@@ -274,6 +274,13 @@
         $panelinfo['sections'] = $panels;
         return $panelinfo;
     }
+
+    public function getpanelinfo($data)
+    {
+        extract($data);
+        $selek = $this->pdo->query("SELECT id, panel_name FROM tbl_panels WHERE panel_name LIKE '%$txtsearch%' ");
+        return $selek->result();
+    }
     // Users
   }
 ?>
