@@ -328,6 +328,13 @@
         return $selek;
     }
 
+    public function filtersearchpage($data)
+    {
+        extract($data);
+        $selek = $this->pdo->query("SELECT id, page_name FROM tbl_pages WHERE page_name LIKE '%$txtsearch%' ");
+        return $selek->result();
+    }
+
     // Users
   }
 ?>

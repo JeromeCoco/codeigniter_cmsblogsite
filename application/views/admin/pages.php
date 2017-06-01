@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/font-awesome.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/font-awesome.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+		<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
 		<script src='<?php echo base_url(); ?>js/tinymce/tinymce.min.js'></script>
 		<script src="<?php echo base_url(); ?>js/Chart.js"></script>
 		<script src="<?php echo base_url(); ?>js/jquery-3.1.1.min.js"></script>
@@ -74,6 +75,24 @@
 			        success: function(data)
 			        {
 			        	
+			        }
+				});
+			});
+			$("#txtsearch").keyup(function(){
+				var txtsearch = $(this).val();
+				$.ajax({
+					url: "searchpage",
+			        type: "POST",
+			        data: { txtsearch:txtsearch },
+			        dataType: "json",
+			        success: function(data)
+			        {
+			        	$("tr").remove();
+			        	$("tbody").append("<tr> <th>Page ID</th> <th>Page Name</th> <th>Actions</th> </tr> ");
+			        	for (var i = 0; i < data.length; i++)
+			        	{
+			        		$("tbody").append("<tr id='page"+data[i]['id']+"'> <td>"+data[i]['id']+"</td> <td>"+data[i]['page_name']+"</td> <td> <input id='btnviewpage' data-id='"+data[i]['id']+"' type='button' class='btn btn-sm btn-default' value='View Page'/> &nbsp; <input id='btneditpage' data-id='"+data[i]['id']+"' type='button' class='btn btn-sm btn-default' value='Edit'/> &nbsp; <input id='btnremovepage' data-id='"+data[i]['id']+"' type='button' class='btn btn-sm btn-danger' value='Remove'/> &nbsp; </td> </tr> ");
+			        	}
 			        }
 				});
 			});
@@ -238,7 +257,7 @@
 			  			<div class="col-sm-8">
 			  				<div class="form-inline">
 					  			Search Page: &nbsp;
-								<input type="text" class="form-control" placeholder="..."/>
+								<input id="txtsearch" type="text" class="form-control" placeholder="..."/>
 							</div>
 						</div>
 						<div class="col-sm-4">
@@ -248,7 +267,7 @@
 						</div>
 						<div class="col-sm-12">
 							<br/><br/>
-							<table class="table table-bordered">
+							<table class="table table-bordered table-striped">
 								<thead>
 									<tr>
 										<th>Page ID</th>

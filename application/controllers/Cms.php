@@ -18,6 +18,14 @@
 		}
 
             /*Admin links*/
+            public function searchpage()
+            {
+                  $data = array();
+                  $data = $this->Cms_model->filtersearchpage($_POST);
+                  echo json_encode($data);
+                  exit;
+            }
+
             public function pages()
             {
                   $data['page_list'] = $this->getpagelist();
