@@ -140,9 +140,7 @@
 					$("#listofcss").html("");
 					css = [];
 				});
-
 				var num = 0;
-
 				$("#btnaddjs").click(function(){
 					$("#jslist").fadeIn('slow');
 					$("#listofjs").fadeIn('slow');
@@ -160,7 +158,6 @@
 					    js.splice(index, 1);
 					}
 				});
-
 				$("#btnaddcss").click(function(){
 					$("#csslist").fadeIn('slow');
 					$("#listofcss").fadeIn('slow');
@@ -211,7 +208,6 @@
 						}
 						panellist.push(data);
 					});
-
 					var pagename = $("#pagename").val();
 					var pagetitle = $("#pagetitle").val();
 					var pagedesc = $("#pagedesc").val();
@@ -220,30 +216,43 @@
 					var csslists = JSON.stringify($( "#listofcss" ).sortable("toArray", {attribute: 'value'}));
 					var layoutname = $("#layoutname").val();
 					var listpanels = JSON.stringify(panellist);
-
-					if ()
+					var countjs = $( "#listofjs" ).sortable("toArray", {attribute: 'value'});
+					var countcss = $( "#listofcss" ).sortable("toArray", {attribute: 'value'});
+					if (pagename == "" || pagetitle == "" || pagedesc == "" || pagekeywords == "" || countcss.length == 0 || countjs.length == 0 || panellist.length == 0)
 					{
-						
+						$("#err").html("<br/><div class='alert alert-danger errmess' role='alert'><center>Please enter the needed elements and information.</center></div>");
 					}
-					$.ajax({
-						url: "addpage",
-				        type: "POST",
-				        data: {
-				        	pagename:pagename,
-				        	pagetitle:pagetitle,
-				        	pagedesc:pagedesc,
-				        	pagekeywords:pagekeywords,
-				        	jslists:jslists,
-				        	csslists:csslists,
-				        	layoutname:layoutname,
-				        	listpanels:listpanels
-				        },
-				        dataType: "json",
-				        success: function(data)
-				        {
-				        	
-				        }
-				    });
+					else
+					{
+						$.ajax({
+							url: "addpage",
+					        type: "POST",
+					        data: {
+					        	pagename:pagename,
+					        	pagetitle:pagetitle,
+					        	pagedesc:pagedesc,
+					        	pagekeywords:pagekeywords,
+					        	jslists:jslists,
+					        	csslists:csslists,
+					        	layoutname:layoutname,
+					        	listpanels:listpanels
+					        },
+					        dataType: "json",
+					        success: function(data)
+					        {
+					        	$("#err").html("<br/><div class='alert alert-success errmess' role='alert'><center>New page was successfully saved.</center></div>");
+					        	$("#pagename").val("");
+					        	$("#pagetitle").val("");
+					        	$("#pagedesc").val("");
+					        	$("#pagekeywords").val("");
+					        	js = [];
+					        	css = [];
+					        	panellist = [];
+					        	$("#listofcss").html("");
+					        	$("#listofjs").html("");
+					        }
+					    });
+					}
 				});
 			});
 		</script>
@@ -473,6 +482,8 @@
 					</div>
 					<div class="col-sm-5">
 						<input id="btnaddpage" type="button" value="Add Page" class="btn btn-success">
+						<br/>
+						<div id="err"></div>
 					</div>
 				</div>
 			</div>
