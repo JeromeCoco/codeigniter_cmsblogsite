@@ -341,6 +341,14 @@
         return $selek;
     }
 
+    public function addnewlink($data)
+    {
+        extract($data);
+        $sql = "INSERT INTO tbl_links(link_name, page_id, page_url) VALUES(?, ?, ?)";
+        $this->pdo->query($sql, array($linkname, $pageid, $urlname));
+        return $data;
+    }
+
     // Users
   }
 ?>

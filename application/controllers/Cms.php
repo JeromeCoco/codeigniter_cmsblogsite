@@ -18,6 +18,14 @@
 		}
 
             /*Admin links*/
+            public function addlink()
+            {
+                  $data = array();
+                  $data = $this->Cms_model->addnewlink($_POST);
+                  echo json_encode($data);
+                  exit;
+            }
+
             public function links()
             {
                   $data['pagenames'] = $this->getpagenames();

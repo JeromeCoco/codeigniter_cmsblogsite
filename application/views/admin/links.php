@@ -76,6 +76,34 @@
 			        }
 				});
 			});
+			$("#btnaddpage").click(function(){
+				var linkname = $("#linkname").val();
+				var pageid = $("#pageid").val();
+				var urlname = $("#urlname").val();
+				if (linkname == "" || urlname == "")
+				{
+					$("#err").html("<br/><div class='alert alert-danger errmess' role='alert'><center>Please enter the needed information.</center></div>");
+				}
+				else
+				{
+					$.ajax({
+						url: "addlink",
+				        type: "POST",
+				        data: {
+				        	linkname:linkname,
+				        	pageid:pageid,
+				        	urlname:urlname
+				        },
+				        dataType: "json",
+				        success: function(data)
+				        {
+				        	$("#err").html("<br/><div class='alert alert-success errmess' role='alert'><center>New link was successfully saved.</center></div>");
+				        	$("#linkname").val("");
+				        	$("#urlname").val("");
+				        }
+					});
+				}
+			});
 			$("#btnKolaps").click(function(){
 				$(".sidenav").toggleClass('sidenavtago');
 				$(".linkLabel").toggleClass('linkLabelTago');
@@ -114,18 +142,19 @@
 		      			<div class="container">
 			      			<div class="row">
 			      				Link name:
-		      					<input type="text" class="form-control" placeholder="Link Name..."/>
+		      					<input id="linkname" type="text" class="form-control" placeholder="Link Name..."/>
 		      					Page:
-		      					<select class="form-control">
+		      					<select id="pageid" class="form-control">
 		      						<?php echo $pagenames; ?>
 		      					</select>
 		      					URL:
-		      					<input type="text" class="form-control" placeholder="/sampleurl"/>
+		      					<input id="urlname" type="text" class="form-control" placeholder="/sampleurl"/>
+		      					<div id="err"></div>
 			      			</div>
 		      			</div>
 			      	</div>
 		      		<div class="modal-footer">
-		      			<button type="button" class="btn btn-success">Save</button>
+		      			<button id="btnaddpage" type="button" class="btn btn-success">Save</button>
 		        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 		      		</div>
 		    	</div>

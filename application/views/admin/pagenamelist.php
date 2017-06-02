@@ -1,1 +1,1 @@
-<option id="<?php echo $id; ?>"> <?php echo $page_name; ?> </option>
+<option value="<?php echo $id; ?>"> <?php echo $page_name; ?> </option>
