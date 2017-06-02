@@ -117,8 +117,7 @@
 		      					<input type="text" class="form-control" placeholder="Link Name..."/>
 		      					Page:
 		      					<select class="form-control">
-		      						<option>sample page</option>
-		      						<option>sample page</option>
+		      						<?php echo $pagenames; ?>
 		      					</select>
 		      					URL:
 		      					<input type="text" class="form-control" placeholder="/sampleurl"/>

@@ -18,6 +18,25 @@
 		}
 
             /*Admin links*/
+            public function links()
+            {
+                  $data['pagenames'] = $this->getpagenames();
+                  $this->load->view('admin/links', $data);
+            }
+
+            public function getpagenames()
+            {
+                  $page = '';
+                  $pagename = array();
+                  $pagename = $this->Cms_model->getpagenamelist();
+                  foreach ($pagename->result() as $row) 
+                  {
+                        $data = (array) $row;
+                        $page .= $this->load->view('admin/pagenamelist', $data, true);
+                  }
+                  return $page;
+            }
+
             public function searchpage()
             {
                   $data = array();
@@ -401,11 +420,6 @@
             public function addnewpage()
             {
                   $this->load->view('admin/addnewpage');
-            }
-
-            public function links()
-            {
-                  $this->load->view('admin/links');
             }
 
             public function addnewpanel()

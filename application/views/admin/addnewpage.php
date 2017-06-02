@@ -192,6 +192,7 @@
 				        		$(".panel-item"+i).append("<div class='panel-name'>"+data.sections[i]['section']+"</div>");
 				        		$(".panel-item"+i).append("<select id='panel-option' class='form-control panel-option'></select>");
 				        	}
+				        	$("select#panel-option").append("<option>none</option>");
 				        	for (var j = 0; j < data.query.length; j++)
 				        	{
 				        		$("select#panel-option").append("<option value='"+data.query[j]['id']+"'>"+data.query[j]['panel_name']+"</option>");

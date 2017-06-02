@@ -335,6 +335,12 @@
         return $selek->result();
     }
 
+    public function getpagenamelist()
+    {
+        $selek = $this->pdo->query("SELECT id, page_name FROM tbl_pages");
+        return $selek;
+    }
+
     // Users
   }
 ?>
