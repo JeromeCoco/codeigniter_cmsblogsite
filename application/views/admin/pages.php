@@ -91,7 +91,7 @@
 			        	$("tbody").append("<tr> <th>Page ID</th> <th>Page Name</th> <th>Actions</th> </tr> ");
 			        	for (var i = 0; i < data.length; i++)
 			        	{
-			        		$("tbody").append("<tr id='page"+data[i]['id']+"'> <td>"+data[i]['id']+"</td> <td>"+data[i]['page_name']+"</td> <td> <input id='btnviewpage' data-id='"+data[i]['id']+"' type='button' class='btn btn-sm btn-default' value='View Page'/> &nbsp; <input id='btneditpage' data-id='"+data[i]['id']+"' type='button' class='btn btn-sm btn-default' value='Edit'/> &nbsp; <input id='btnremovepage' data-id='"+data[i]['id']+"' type='button' class='btn btn-sm btn-danger' value='Remove'/> &nbsp; </td> </tr> ");
+			        		$("tbody").append("<tr id='page"+data[i]['id']+"'> <td>"+data[i]['id']+"</td> <td>"+data[i]['page_name']+"</td> <td> <input id='btneditpage' data-id='"+data[i]['id']+"' type='button' class='btn btn-sm btn-default' value='Edit'/> &nbsp; <input id='btnremovepage' data-id='"+data[i]['id']+"' type='button' class='btn btn-sm btn-danger' value='Remove'/> &nbsp; </td> </tr> ");
 			        	}
 			        }
 				});

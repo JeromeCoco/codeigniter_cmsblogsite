@@ -236,7 +236,6 @@
                   $data['recent_posts'] = $this->getrecentpostlist();
                   $data['upload_list'] = $this->getuploadedfiles();
                   $this->load->view('admin/dashboard', $data);
-                  //var_dump($GLOBALS['params']);
             }
 
             public function getuploadedfiles()
