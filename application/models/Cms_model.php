@@ -375,5 +375,11 @@
 
         return $content;
     }
+
+    public function getlinkdetails()
+    {
+        $selek = $this->pdo->query("SELECT * FROM tbl_links");
+        return $selek;
+    }
   }
 ?>

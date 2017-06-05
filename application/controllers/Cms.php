@@ -18,6 +18,7 @@
 		}
 
             /*Admin links*/
+
             public function addlink()
             {
                   $data = array();
@@ -28,8 +29,22 @@
 
             public function links()
             {
+                  $data['linklist'] = $this->getlinks();
                   $data['pagenames'] = $this->getpagenames();
                   $this->load->view('admin/links', $data);
+            }
+
+            public function getlinks()
+            {
+                  $link = '';
+                  $linkdetails = array();
+                  $linkdetails = $this->Cms_model->getlinkdetails();
+                  foreach ($linkdetails->result() as $row)
+                  {
+                        $data = (array) $row;
+                        $link .= $this->load->view('admin/linklist', $data, true);
+                  }
+                  return $link;
             }
 
             public function getpagenames()

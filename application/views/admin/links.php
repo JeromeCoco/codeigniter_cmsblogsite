@@ -148,7 +148,7 @@
 		      						<?php echo $pagenames; ?>
 		      					</select>
 		      					URL:
-		      					<input id="urlname" type="text" class="form-control" placeholder="/sampleurl"/>
+		      					<input id="urlname" type="text" class="form-control" placeholder="sampleurl" />
 		      					<div id="err"></div>
 			      			</div>
 		      			</div>
@@ -296,8 +296,8 @@
 						<div class="form-inline">
 							Search by: &nbsp;
 							<select id="searchcategory" class="form-control" placeholder="Search by...">
-								<option>Name</option>
-								<option>Url</option>
+								<option>link_name</option>
+								<option>page_url</option>
 							</select> &nbsp;
 							<input id="searchtext" type="text" class="form-control" placeholder="..."/>
 						</div>
@@ -313,13 +313,12 @@
 							<thead>
 								<tr>
 									<th>Name</th>
-									<th>Page</th>
 									<th>URL</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
 							<tbody>
-
+								<?php echo $linklist; ?>
 							</tbody>
 							<tfoot>
 
