@@ -13,6 +13,8 @@
 		<script src='<?php echo base_url(); ?>js/tinymce/tinymce.min.js'></script>
 		<script src="<?php echo base_url(); ?>js/Chart.js"></script>
 		<script src="<?php echo base_url(); ?>js/jquery-3.1.1.min.js"></script>
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script src="<?php echo base_url(); ?>js/bootstrap.js"></script>
 		<style type="text/css">
 			div.sidenavtago{
@@ -56,6 +58,11 @@
 		</style>
 		<script type="text/javascript">
 		$(document).ready(function(){
+			$(function(){
+				$("#listofjs, #listofcss").sortable({
+					revert: true
+				});
+			});
 			$.ajax({
 				url: "retrievesession",
 		        type: "POST",
@@ -113,6 +120,97 @@
 					});
 				}
 			});
+			$(document).on( "click", "#btneditpage", function(){
+				var id = $(this).attr("data-id");
+				$('#myModal').modal('toggle');
+				$.ajax({
+					url: "getpagedetails",
+			        type: "POST",
+			        data: { id:id },
+			        dataType: "json",
+			        success: function(data)
+			        {
+			        	console.log(data);
+			        	$("#pagename").val(data.info[0]['page_name']);
+			        	$("#pagetitle").val(data.info[0]['page_title']);
+			        	$("#pagedesc").val(data.info[0]['page_desc']);
+			        	$("#pagekeywords").val(data.info[0]['page_keywords']);
+			        	for (var i = 0; i < data.css.length; i++)
+			        	{
+			        		num++;
+			        		$("#listofcss").append("<li id='"+num+"' value='"+data.css[i]['css_name']+"'><i class='fa fa-arrows-v' aria-hidden='true'></i> "+data.css[i]['css_name']+" <input id='removecss' class='btn btn-sm btn-danger' type='button' value='x' data-yes='"+data.css[i]['css_name']+"' data-id='"+num+"'> </li>");
+			        		css.push(data.css[i]['css_name']);
+			        	}
+			        	for (var j = 0; j < data.js.length; j++)
+			        	{
+			        		num++;
+			        		$("#listofjs").append("<li id='"+num+"' value='"+data.js[j]['js_name']+"'><i class='fa fa-arrows-v' aria-hidden='true'></i> "+data.js[j]['js_name']+" <input id='removejs' class='btn btn-sm btn-danger' type='button' value='x' data-yes='"+data.js[j]['js_name']+"' data-id='"+num+"'> </li>");
+			        		js.push(data.js[j]['js_name']);
+			        	}
+			        	$("#layoutname").html(data.layout[0]['layout']);
+			        	for (var k = 0; k < data.layout.length; k++)
+			        	{
+			        		$(".layoutPanels").append("<div class='panel-item"+k+" panel-item-container'></div>");
+			        		$(".panel-item"+k).append("<div class='panel-name'>"+data.layout[k]['section_label']+"</div>");
+			        		$(".panel-item"+k).append("<select id='panel-option' class='form-control panel-option'></select>");
+			        		$("#panel-option").text(data.layout[k]['panel-name']);
+			        	}
+			        	for (var l = 0; l < data.panels.length; l++)
+			        	{
+			        		$("select#panel-option").append("<option value='"+data.panels[l]['panel_name']+"'>"+data.panels[l]['panel_name']+"</option>");
+			        	}
+			        	/*$(".layoutPanels").html("");
+			        	for (var k = 0; k < data.layout.length; k++)
+			        	{
+			        		console.log(data.layout[k]['section_label']);
+			        		$(".layoutPanels").append("<div class='panel-item"+k+" panel-item-container'></div>");
+				        	$(".panel-item"+k).append("<div class='panel-name'>"+data.layout[k]['section_label']+"</div>");
+				        	$(".panel-item"+k).append("<select id='panel-option' class='form-control panel-option'></select>");
+				        	$("select#panel-option").append("<option value='"+data.layout[k]['panel_name']+"'>"+data.layout[k]['panel_name']+"</option>");
+			        	}
+			        	$("select#panel-option").append("<option>none</option>");*/
+			        }
+				});
+			});
+
+			var js = new Array();
+			var css = new Array();
+			var num = 0;
+
+			$("#btnaddjs").click(function(){
+				$("#jslist").fadeIn('slow');
+				$("#listofjs").fadeIn('slow');
+				num++;
+				$("#listofjs").append("<li id='"+num+"' value='"+$("#jsname").val()+"'><i class='fa fa-arrows-v' aria-hidden='true'></i> "+$("#jsname").val()+" <input id='removejs' class='btn btn-sm btn-danger' type='button' value='x' data-yes='"+$("#jsname").val()+"' data-id='"+num+"'> </li>");
+				js.push($("#jsname").val());
+			});
+			$("#btnaddcss").click(function(){
+				$("#csslist").fadeIn('slow');
+				$("#listofcss").fadeIn('slow');
+				num++;
+				$("#listofcss").append("<li id='"+num+"' value='"+$("#cssname").val()+"'><i class='fa fa-arrows-v' aria-hidden='true'></i> "+$("#cssname").val()+" <input id='removecss' class='btn btn-sm btn-danger' type='button' value='x' data-yes='"+$("#cssname").val()+"' data-id='"+num+"'> </li>");
+				css.push($("#cssname").val());
+			});
+			$(document).on( "click", "#removejs", function(){
+				var id = $(this).attr("data-id");
+				var val = $(this).attr("data-yes");
+				$("#"+id).remove();
+				var index = js.indexOf(val);
+				if (index > -1)
+				{
+				    js.splice(index, 1);
+				}
+			});
+			$(document).on( "click", "#removecss", function(){
+				var id = $(this).attr("data-id");
+				var val = $(this).attr("data-yes");
+				$("#"+id).remove();
+				var index = css.indexOf(val);
+				if (index > -1)
+				{
+				    css.splice(index, 1);
+				}
+			});
 			$("#btnKolaps").click(function(){
 				$(".sidenav").toggleClass('sidenavtago');
 				$(".linkLabel").toggleClass('linkLabelTago');
@@ -136,6 +234,101 @@
 		</script>
 	</head>
 	<body>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+		    	<div class="modal-content">
+		      		<div class="modal-header">
+			        	<h5 class="modal-title" id="exampleModalLabel">
+			        		Edit Page
+			        	</h5>
+			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          		<span aria-hidden="true">&times;</span>
+			        	</button>
+		      		</div>
+		      		<div class="modal-body">
+		      			<div class="container">
+			      			<div class="row">
+			      				<div class="col-sm-6">
+									<input id="pagename" type="text" class="form-control" placeholder="Page Name..."/><br/>
+								</div>
+								<div class="col-sm-6">
+									<input id="pagetitle" type="text" class="form-control" placeholder="Page Title..."/><br/>
+								</div>
+								<div class="col-sm-6">
+									Page Description:
+									<textarea id="pagedesc" class="form-control">
+											
+									</textarea><br/>
+								</div>
+								<div class="col-sm-6">
+									Page Keywords:
+									<textarea id="pagekeywords" class="form-control">
+											
+									</textarea><br/>
+								</div>
+								<div class="col-sm-6">
+									<b>JavaScript</b>
+									<span id="jslists">
+										<select id="jsname" style="padding:3px;">
+											<?php
+												$dir = FCPATH."/js/";
+												$files1 = scandir($dir);
+												for ($i=0; $i < count($files1); $i++)
+												{
+													echo "<option>".$files1[$i]."</option>";
+												}
+											?>
+										</select>
+										<input id="btnaddjs" type="button" value="Add"/>
+										<br/><br/>
+										<ul id="listofjs">
+											
+										</ul>
+									</span>
+									<hr/>
+								</div>
+								<div class="col-sm-6">
+									<b>CSS</b>
+									<span id="csslists">
+										<select id="cssname" style="padding:3px;">
+											<?php
+												$dir = FCPATH."/css/";
+												$files1 = scandir($dir);
+												for ($i=0; $i < count($files1); $i++)
+												{ 
+													echo "<option>".$files1[$i]."</option>";
+												}
+											?>
+										</select>
+										<input id="btnaddcss" type="button" value="Add"/>
+										<br/><br/>
+										<ul id="listofcss">
+											
+										</ul>
+									</span>
+									<hr/>
+								</div>
+								<div class="col-sm-5">
+									Layout: <span id="layoutname"></span>
+									<br/>
+								</div>
+								<div class="col-sm-12">
+									<b>Layout Panels</b>
+									<hr/>
+									<div class="layoutPanels col-sm-6">
+										
+									</div>
+								</div>
+			      			</div>
+		      			</div>
+			      	</div>
+		      		<div class="modal-footer">
+		      			<button id="btnaddpage" type="button" class="btn btn-success">Update Page</button>
+		        		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
 		<nav>
 			<ul id="topnavs">
 				<a href="#" id="webname">
@@ -258,7 +451,6 @@
 						<span class="linkLabel">
 							Log out
 						</span>
-						
 					</div>
 				</a>
 			</div>

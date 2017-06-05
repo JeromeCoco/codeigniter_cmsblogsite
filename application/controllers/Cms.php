@@ -18,6 +18,22 @@
 		}
 
             /*Admin links*/
+            public function getpagedetails()
+            {
+                  $data = array();
+                  $data = $this->Cms_model->getpageinfo($_POST);
+                  echo json_encode($data);
+                  exit;
+            }
+
+            public function updatelink()
+            {
+                  $data = array();
+                  $data = $this->Cms_model->updatelinkdetails($_POST);
+                  echo json_encode($data);
+                  exit;
+            }
+
             public function removelink()
             {
                   $data = array();

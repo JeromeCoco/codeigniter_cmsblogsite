@@ -198,3 +198,7 @@ ul#listofjs, ul#listofcss{
 	list-style: none;
 	cursor: n-resize;
 }
+span#layoutname{
+	border-bottom: 2px solid black;
+	padding: 2px;
+}

@@ -34,11 +34,7 @@
           "js" => $js
       );
 
-      $index = array(
-        "head" => $this->load->view('users/headerBuilder', $headercomp, true)
-      );
-
-      echo $this->load->view('users/index', $index, true);
+      echo $this->load->view('users/index', $headercomp, true);
       exit;
     }
 

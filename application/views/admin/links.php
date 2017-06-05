@@ -104,6 +104,13 @@
 					});
 				}
 			});
+			$(document).on( "click", "#editurl", function(){
+				var id = $(this).attr("data-id");
+				$('#myModalEdit').modal('toggle');
+				$('#linknameedit').val($("#name"+id).text());
+				$('#urlnameedit').val($("#url"+id).text());
+				$('#linkid').val(id);
+			});
 			$(document).on( "click", "#removeurl", function(){
 				var id = $(this).attr("data-id");
 				var check = confirm("Are you sure you want to delete this link?");
@@ -121,7 +128,32 @@
 					});
 				}
 			});
-
+			$("#btnupdatepage").click(function(){
+				var linkid = $("#linkid").val();
+				var linknameedit = $("#linknameedit").val();
+				var urlnameedit = $("#urlnameedit").val();
+				if (linknameedit == "" || urlnameedit == "")
+				{
+					$("#errs").html("<br/><div class='alert alert-warning errmess' role='alert'><center>Please enter the needed information.</center></div>");
+				}
+				else
+				{
+					$.ajax({
+						url: "updatelink",
+				        type: "POST",
+				        data: {
+				        	linkid:linkid,
+				        	linknameedit:linknameedit,
+				        	urlnameedit:urlnameedit
+				        },
+				        dataType: "json",
+				        success: function(data)
+				        {
+				        	$("#errs").html("<br/><div class='alert alert-success errmess' role='alert'><center>Link details successfully updated.</center></div>");
+				        }
+					});
+				}
+			});
 			$("#btnKolaps").click(function(){
 				$(".sidenav").toggleClass('sidenavtago');
 				$(".linkLabel").toggleClass('linkLabelTago');
@@ -176,6 +208,36 @@
 			      	</div>
 		      		<div class="modal-footer">
 		      			<button id="btnaddpage" type="button" class="btn btn-success">Save</button>
+		        		<button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
+		<div class="modal fade" id="myModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+		    	<div class="modal-content">
+		      		<div class="modal-header">
+			        	<h5 class="modal-title" id="exampleModalLabel">
+			        		Edit Link
+			        	</h5>
+			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          		<span aria-hidden="true">&times;</span>
+			        	</button>
+		      		</div>
+		      		<div class="modal-body">
+		      			<div class="container">
+			      			<div class="row">
+			      				<input id="linkid" type="hidden"/>
+			      				Link name:
+		      					<input id="linknameedit" type="text" class="form-control" placeholder="Link Name..."/>
+		      					URL:
+		      					<input id="urlnameedit" type="text" class="form-control" placeholder="sampleurl" />
+		      					<div id="errs"></div>
+			      			</div>
+		      			</div>
+			      	</div>
+		      		<div class="modal-footer">
+		      			<button id="btnupdatepage" type="button" class="btn btn-success">Update</button>
 		        		<button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
 		      		</div>
 		    	</div>
@@ -334,6 +396,7 @@
 							<thead>
 								<tr>
 									<th>Name</th>
+									<th>Page ID</th>
 									<th>URL</th>
 									<th>Actions</th>
 								</tr>

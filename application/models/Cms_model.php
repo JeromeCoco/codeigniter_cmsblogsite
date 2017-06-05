@@ -355,7 +355,7 @@
     {
         $urlname = $data[0];
 
-        $selekid = $this->pdo->query("SELECT id FROM tbl_links WHERE page_url = '$urlname' ");
+        /*$selekid = $this->pdo->query("SELECT id FROM tbl_links WHERE page_url = '$urlname' ");
         $resultid = $selekid->result();
 
         $id = $resultid[0]->id;
@@ -373,7 +373,7 @@
         $content['js'] = $resultjs;
         $content['sections'] = $resultsectionandpanel;
 
-        return $content;
+        return $content;*/
     }
 
     public function getlinkdetails()
@@ -403,6 +403,31 @@
         extract($data);
         $deletelink = "DELETE FROM tbl_links WHERE id = ?";
         $this->pdo->query($deletelink, array($id));
+    }
+
+    public function updatelinkdetails($data)
+    {
+        extract($data);
+        $sql = "UPDATE tbl_links SET link_name = ?, page_url = ? WHERE id = ?";
+        $this->pdo->query($sql, array($linknameedit, $urlnameedit, $linkid));
+        return $data;
+    }
+
+    public function getpageinfo($data)
+    {
+        extract($data);
+        $selekpage = $this->pdo->query("SELECT * FROM tbl_pages WHERE id = '$id' ");
+        $selekcss = $this->pdo->query("SELECT css_order, css_name FROM tbl_page_css WHERE page_id = '$id' ");
+        $selekjs = $this->pdo->query("SELECT js_order, js_name FROM tbl_page_js WHERE page_id = '$id' ");
+        $seleklayout = $this->pdo->query("SELECT ts.page_id, ts.section_label, ts.panel_id, tp.panel_name, ts.layout FROM tbl_sections AS ts INNER JOIN tbl_panels AS tp ON ts.panel_id = tp.id WHERE ts.page_id = '$id' ");
+        $selekpanels = $this->pdo->query("SELECT DISTINCT panel_name FROM tbl_panels");
+        $page['info'] = $selekpage->result();
+        $page['css'] = $selekcss->result();
+        $page['js'] = $selekjs->result();
+        $page['layout'] = $seleklayout->result();
+        $page['panels'] = $selekpanels->result();
+
+        return $page;
     }
   }
 ?>
