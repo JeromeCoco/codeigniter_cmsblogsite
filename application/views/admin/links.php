@@ -104,6 +104,24 @@
 					});
 				}
 			});
+			$(document).on( "click", "#removeurl", function(){
+				var id = $(this).attr("data-id");
+				var check = confirm("Are you sure you want to delete this link?");
+				if (check == true)
+				{
+					$.ajax({
+						url: "removelink",
+				        type: "POST",
+				        data: { id:id },
+				        dataType: "json",
+				        success: function(data)
+				        {
+				        	$("#row"+id).fadeOut('slow');
+				        }
+					});
+				}
+			});
+
 			$("#btnKolaps").click(function(){
 				$(".sidenav").toggleClass('sidenavtago');
 				$(".linkLabel").toggleClass('linkLabelTago');
@@ -122,6 +140,9 @@
 			});
 			$("#btnviewadding").click(function(){
 				$('#myModal').modal('toggle');
+			});
+			$(".close").click(function(){
+				location.reload();
 			});
 		});
 		</script>
@@ -155,7 +176,7 @@
 			      	</div>
 		      		<div class="modal-footer">
 		      			<button id="btnaddpage" type="button" class="btn btn-success">Save</button>
-		        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        		<button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
 		      		</div>
 		    	</div>
 		  	</div>

@@ -18,6 +18,21 @@
 		}
 
             /*Admin links*/
+            public function removelink()
+            {
+                  $data = array();
+                  $data = $this->Cms_model->deletelink($_POST);
+                  echo json_encode($data);
+                  exit;
+            }
+
+            public function removepage()
+            {
+                  $data = array();
+                  $data = $this->Cms_model->deletepage($_POST);
+                  echo json_encode($data);
+                  exit;
+            }
 
             public function addlink()
             {

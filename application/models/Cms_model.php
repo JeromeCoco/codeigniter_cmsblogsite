@@ -345,7 +345,7 @@
     {
         extract($data);
         $sql = "INSERT INTO tbl_links(link_name, page_id, page_url) VALUES(?, ?, ?)";
-        $this->pdo->query($sql, array($linkname, $pageid, $url));
+        $this->pdo->query($sql, array($linkname, $pageid, $urlname));
         return $data;
     }
 
@@ -380,6 +380,29 @@
     {
         $selek = $this->pdo->query("SELECT * FROM tbl_links");
         return $selek;
+    }
+
+    public function deletepage($data)
+    {
+        extract($data);
+        $deletepage = "DELETE FROM tbl_pages WHERE id = ?";
+        $deletelinks = "DELETE FROM tbl_links WHERE page_id = ?";
+        $deletecss = "DELETE FROM tbl_page_css WHERE page_id = ?";
+        $deletejs = "DELETE FROM tbl_page_js WHERE page_id = ?";
+        $deletesections = "DELETE FROM tbl_sections WHERE page_id = ?";
+        $this->pdo->query($deletepage, array($id));
+        $this->pdo->query($deletelinks, array($id));
+        $this->pdo->query($deletecss, array($id));
+        $this->pdo->query($deletejs, array($id));
+        $this->pdo->query($deletesections, array($id));
+        return true;
+    }
+
+    public function deletelink($data)
+    {
+        extract($data);
+        $deletelink = "DELETE FROM tbl_links WHERE id = ?";
+        $this->pdo->query($deletelink, array($id));
     }
   }
 ?>

@@ -96,6 +96,23 @@
 			        }
 				});
 			});
+			$(document).on( "click", "#btnremovepage", function(){
+				var id = $(this).attr("data-id");
+				var check = confirm("Are you sure you want to delete this page?");
+				if (check == true)
+				{
+					$.ajax({
+						url: "removepage",
+				        type: "POST",
+				        data: { id:id },
+				        dataType: "json",
+				        success: function(data)
+				        {
+				        	$("#page"+id).fadeOut('slow');
+				        }
+					});
+				}
+			});
 			$("#btnKolaps").click(function(){
 				$(".sidenav").toggleClass('sidenavtago');
 				$(".linkLabel").toggleClass('linkLabelTago');
