@@ -25,7 +25,7 @@
 				        {
 				        	if (data.length == 1)
 				        	{
-				        		window.location.assign("../../index.php/cms/dashboard");
+				        		window.location.assign("../../cms/dashboard");
 				        	}
 				        	else
 				        	{

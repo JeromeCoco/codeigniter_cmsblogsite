@@ -154,7 +154,7 @@
 						</span>
 					</div>
 				</a>
-				<a href="<?php echo base_url(); ?>index.php/cms/dashboard">
+				<a href="<?php echo base_url(); ?>cms/dashboard">
 					<div class="active" class="sidelink">
 						<span class="linkIcons">
 							<i class="fa fa-dashboard" aria-hidden="true"></i>
@@ -164,7 +164,7 @@
 						</span>
 					</div>
 				</a>
-				<a href="<?php echo base_url(); ?>index.php/cms/posts">
+				<a href="<?php echo base_url(); ?>cms/posts">
 					<div class="sidelink">
 						<span class="linkIcons">
 							<i class="fa fa-bookmark-o" aria-hidden="true"></i>
@@ -174,7 +174,7 @@
 						</span>
 					</div>
 				</a>
-				<a href="<?php echo base_url(); ?>index.php/cms/comments">
+				<a href="<?php echo base_url(); ?>cms/comments">
 					<div class="sidelink">
 						<span class="linkIcons">
 							<i class="fa fa-comment-o" aria-hidden="true"></i> 
@@ -184,7 +184,7 @@
 						</span>
 					</div>
 				</a>
-				<a href="<?php echo base_url(); ?>index.php/cms/pages">
+				<a href="<?php echo base_url(); ?>cms/pages">
 					<div class="sidelink">
 						<span class="linkIcons">
 							<i class="fa fa-map-o" aria-hidden="true"></i>
@@ -194,7 +194,7 @@
 						</span>
 					</div>
 				</a>
-				<a href="<?php echo base_url(); ?>index.php/cms/panels">
+				<a href="<?php echo base_url(); ?>cms/panels">
 					<div class="sidelink">
 						<span class="linkIcons">
 							<i class="fa fa-th-large" aria-hidden="true"></i>
@@ -204,7 +204,7 @@
 						</span>
 					</div>
 				</a>
-				<a href="<?php echo base_url(); ?>index.php/cms/links">
+				<a href="<?php echo base_url(); ?>cms/links">
 					<div class="sidelink">
 						<span class="linkIcons">
 							<i class="fa fa-external-link" aria-hidden="true"></i>
@@ -214,7 +214,7 @@
 						</span>
 					</div>
 				</a>
-				<a href="<?php echo base_url(); ?>index.php/cms/files">
+				<a href="<?php echo base_url(); ?>cms/files">
 					<div class="sidelink">
 						<span class="linkIcons">
 							<i class="fa fa-folder-open-o" aria-hidden="true"></i>
@@ -224,7 +224,7 @@
 						</span>
 					</div>
 				</a>
-				<a href="<?php echo base_url(); ?>index.php/cms/settings">
+				<a href="<?php echo base_url(); ?>cms/settings">
 					<div class="sidelink">
 						<span class="linkIcons">
 							<i class="fa fa-cogs" aria-hidden="true"></i>
@@ -234,7 +234,7 @@
 						</span>
 					</div>
 				</a>
-				<a href="<?php echo base_url(); ?>index.php/cms/accounts">
+				<a href="<?php echo base_url(); ?>cms/accounts">
 					<div class="sidelink">
 						<span class="linkIcons">
 							<i class="fa fa-user-o" aria-hidden="true"></i>
@@ -244,7 +244,7 @@
 						</span>
 					</div>
 				</a>
-				<a href="<?php echo base_url(); ?>index.php/cms/admin">
+				<a href="<?php echo base_url(); ?>cms/admin">
 					<div class="sidelink">
 						<span class="linkIcons">
 							<i class="fa fa-sign-out" aria-hidden="true"></i>
