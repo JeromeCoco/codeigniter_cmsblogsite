@@ -349,33 +349,6 @@
         return $data;
     }
 
-    // Users
-
-    public function getindexdetails($data)
-    {
-        $urlname = $data[0];
-
-        /*$selekid = $this->pdo->query("SELECT id FROM tbl_links WHERE page_url = '$urlname' ");
-        $resultid = $selekid->result();
-
-        $id = $resultid[0]->id;
-
-        $selekcss = $this->pdo->query("SELECT css_order, css_name FROM tbl_page_css WHERE page_id = '$id' ");
-        $resultcss = $selekcss->result();
-
-        $selekjs = $this->pdo->query("SELECT js_order, js_name FROM tbl_page_js WHERE page_id = '$id' ");
-        $resultjs = $selekjs->result();
-        
-        $seleksectionandpanel = $this->pdo->query("SELECT ts.page_id , ts.section_label AS section_name, ts.panel_id, tp.id, tp.panel_content AS content FROM tbl_sections AS ts INNER JOIN tbl_panels AS tp ON ts.panel_id = tp.id WHERE ts.page_id = '$id' ");
-        $resultsectionandpanel = $seleksectionandpanel->result();
-        
-        $content['css'] = $resultcss;
-        $content['js'] = $resultjs;
-        $content['sections'] = $resultsectionandpanel;
-
-        return $content;*/
-    }
-
     public function getlinkdetails()
     {
         $selek = $this->pdo->query("SELECT * FROM tbl_links");
@@ -420,14 +393,90 @@
         $selekcss = $this->pdo->query("SELECT css_order, css_name FROM tbl_page_css WHERE page_id = '$id' ");
         $selekjs = $this->pdo->query("SELECT js_order, js_name FROM tbl_page_js WHERE page_id = '$id' ");
         $seleklayout = $this->pdo->query("SELECT ts.page_id, ts.section_label, ts.panel_id, tp.panel_name, ts.layout FROM tbl_sections AS ts INNER JOIN tbl_panels AS tp ON ts.panel_id = tp.id WHERE ts.page_id = '$id' ");
-        $selekpanels = $this->pdo->query("SELECT DISTINCT panel_name FROM tbl_panels");
+        $selekpanels = $this->pdo->query("SELECT id, panel_name FROM tbl_panels");
         $page['info'] = $selekpage->result();
         $page['css'] = $selekcss->result();
         $page['js'] = $selekjs->result();
         $page['layout'] = $seleklayout->result();
         $page['panels'] = $selekpanels->result();
-
         return $page;
+    }
+
+    public function editpageinfo($data)
+    {
+        extract($data);
+        $newpanels = json_decode($listpanel, true);
+        $cssorder = 0;
+        $jsorder = 0;
+        $newcss = json_decode($listofcss, true);
+        $newjs = json_decode($listofjs, true);
+       
+        $updatepages = "UPDATE tbl_pages SET page_name = ?, page_title = ?, page_desc = ?, page_keywords = ? WHERE id = ?";
+        $this->pdo->query($updatepages, array($pagename, $pagetitle, $pagedesc, $pagekeywords, $pageid));
+        $delcss = "DELETE FROM tbl_page_css WHERE page_id = ?";
+        $this->pdo->query($delcss, array($pageid));
+        $deljs = "DELETE FROM tbl_page_js WHERE page_id = ?";
+        $this->pdo->query($deljs, array($pageid));
+        $delsec = "DELETE FROM tbl_sections WHERE page_id = ?";
+        $this->pdo->query($delsec, array($pageid));
+
+        for ($i = 0; $i < count($newcss); $i++)
+        { 
+            $cssorder++;
+            $insertnewcss = "INSERT INTO tbl_page_css(page_id, css_order, css_name) VALUES(?, ?, ?)";
+            $this->pdo->query($insertnewcss, array($pageid, $cssorder, $newcss[$i]));
+        } 
+        
+        for ($j = 0; $j < count($newjs); $j++)
+        { 
+            $jsorder++;
+            $insertnewjs = "INSERT INTO tbl_page_js(page_id, js_order, js_name) VALUES(?, ?, ?)";
+            $this->pdo->query($insertnewjs, array($pageid, $jsorder, $newjs[$j]));
+        }
+        
+        $panelbase = array();
+        for ($k = 0; $k < count($newpanels); $k++)
+        { 
+            $name = $newpanels[$k]['panel_name'];
+            $selek = $this->pdo->query("SELECT id FROM tbl_panels WHERE panel_name = '$name' ");
+            $row = $selek->result();
+            $panel = array($newpanels[$k]['panel_name']=>$row[0]->id);
+            array_push($panelbase, $panel);
+        }
+
+        for ($l = 0; $l < count($newpanels); $l++)
+        { 
+            $panelid = $panelbase[$l][$newpanels[$l]['panel_name']];
+            $insertnewsections = "INSERT INTO tbl_sections(page_id, section_label, panel_id, layout) VALUES(?, ?, ?, ?)";
+            $this->pdo->query($insertnewsections, array($pageid, $newpanels[$l]['section'], $panelid, $layoutname));
+        }
+    }
+
+    // Users
+
+    public function getindexdetails($data)
+    {
+        $urlname = $data[0];
+
+        /*$selekid = $this->pdo->query("SELECT id FROM tbl_links WHERE page_url = '$urlname' ");
+        $resultid = $selekid->result();
+
+        $id = $resultid[0]->id;
+
+        $selekcss = $this->pdo->query("SELECT css_order, css_name FROM tbl_page_css WHERE page_id = '$id' ");
+        $resultcss = $selekcss->result();
+
+        $selekjs = $this->pdo->query("SELECT js_order, js_name FROM tbl_page_js WHERE page_id = '$id' ");
+        $resultjs = $selekjs->result();
+        
+        $seleksectionandpanel = $this->pdo->query("SELECT ts.page_id , ts.section_label AS section_name, ts.panel_id, tp.id, tp.panel_content AS content FROM tbl_sections AS ts INNER JOIN tbl_panels AS tp ON ts.panel_id = tp.id WHERE ts.page_id = '$id' ");
+        $resultsectionandpanel = $seleksectionandpanel->result();
+        
+        $content['css'] = $resultcss;
+        $content['js'] = $resultjs;
+        $content['sections'] = $resultsectionandpanel;
+
+        return $content;*/
     }
   }
 ?>

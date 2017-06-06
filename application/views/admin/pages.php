@@ -121,6 +121,7 @@
 				}
 			});
 			$(document).on( "click", "#btneditpage", function(){
+				$("#err").html("");
 				$("#pagename").val("");
 	        	$("#pagetitle").val("");
 	        	$("#pagedesc").val("");
@@ -173,7 +174,7 @@
 			        		$(".panel-item"+k).append("<div class='panel-name'>"+section[k]+"</div>");
 			        		$(".panel-item"+k).append("<select id='panel-option' class='form-control panel-option"+k+" panels'></select>");
 			        		for (var j = 0; j < data.panels.length; j++) {
-			        			$(".panel-option"+k).append("<option>"+data.panels[j]['panel_name']+"<option>");
+			        			$(".panel-option"+k).append("<option class='panelid'>"+data.panels[j]['panel_name']+"<option>");
 			        		};
 			        		$(".panel-option"+k).val(panel[k]);
 			        	}
@@ -182,22 +183,51 @@
 			});
 
 			$("#btnupdatepage").click(function(){
-				console.log($( "#listofcss" ).sortable("toArray", {attribute: 'value'}));
-				console.log($( "#listofjs" ).sortable("toArray", {attribute: 'value'}));
-				console.log($('#pageid').val());
-				console.log($('#pagename').val());
-				console.log($('#pagetitle').val());
-				console.log($('#pagedesc').val());
-				console.log($('#pagekeywords').val());
 				panellist = new Array();
+				var pageid = $('#pageid').val();
+				var pagename = $('#pagename').val();
+				var pagetitle = $('#pagetitle').val();
+				var pagedesc = $('#pagedesc').val();
+				var pagekeywords = $('#pagekeywords').val();
+				var listofcss = JSON.stringify($( "#listofcss" ).sortable("toArray", {attribute: 'value'}));
+				var listofjs = JSON.stringify($( "#listofjs" ).sortable("toArray", {attribute: 'value'}));
+				var layoutname = $('#layoutname').html();
 				$('.panel-item-container').each(function(){
 					var data = {
-						panel : $(this).children('.panel-name').html(),
-						panel_id : $(this).children('.panels').val()
+						section : $(this).children('.panel-name').html(),
+						panel_name : $(this).children('.panels').val()
 					}
 					panellist.push(data);
 				});
-				console.log(panellist);
+				var listpanel = JSON.stringify(panellist);
+				
+				if (pagename == "" || pagetitle == "" || pagedesc == "" || pagekeywords == "" || css.length == 0 || js.length == 0 || panellist.length == 0)
+				{
+					$("#err").html("<br/><div class='alert alert-danger errmess' role='alert'><center>Please enter the needed elements and information.</center></div>");
+				}
+				else
+				{
+					$.ajax({
+						url: "editpage",
+				        type: "POST",
+				        data: {
+				        	pageid:pageid,
+				        	pagename:pagename,
+				        	pagetitle:pagetitle,
+				        	pagedesc:pagedesc,
+				        	pagekeywords:pagekeywords,
+				        	listofjs:listofjs,
+				        	listofcss:listofcss,
+				        	layoutname:layoutname,
+				        	listpanel:listpanel
+				        },
+				        dataType: "json",
+				        success: function(data)
+				        {
+				        	$("#err").html("<br/><div class='alert alert-success errmess' role='alert'><center>Page details successfully updated.</center></div>");
+				        }
+				    });
+				}
 			});
 
 			var panel = new Array();
@@ -355,7 +385,9 @@
 		      		<div class="modal-footer">
 		      			<button id="btnupdatepage" type="button" class="btn btn-success">Update Page</button>
 		        		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        		<br/>
 		      		</div>
+		      		<div id="err"></div>
 		    	</div>
 		  	</div>
 		</div>

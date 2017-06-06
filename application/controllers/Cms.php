@@ -18,6 +18,14 @@
 		}
 
             /*Admin links*/
+            public function editpage()
+            {
+                  $data = array();
+                  $data = $this->Cms_model->editpageinfo($_POST);
+                  echo json_encode($data);
+                  exit;
+            }
+
             public function getpagedetails()
             {
                   $data = array();
