@@ -121,6 +121,18 @@
 				}
 			});
 			$(document).on( "click", "#btneditpage", function(){
+				$("#pagename").val("");
+	        	$("#pagetitle").val("");
+	        	$("#pagedesc").val("");
+	        	$("#pagekeywords").val("");
+	        	js = [];
+	        	css = [];
+	        	panel = [];
+	        	section = [];
+	        	panellist = [];
+	        	$("#listofcss").html("");
+	        	$("#listofjs").html("");
+	        	$(".layoutPanels").html("");
 				var id = $(this).attr("data-id");
 				$('#myModal').modal('toggle');
 				$.ajax({
@@ -130,7 +142,7 @@
 			        dataType: "json",
 			        success: function(data)
 			        {
-			        	console.log(data);
+			        	$("#pageid").val(data.info[0]['id']);
 			        	$("#pagename").val(data.info[0]['page_name']);
 			        	$("#pagetitle").val(data.info[0]['page_title']);
 			        	$("#pagedesc").val(data.info[0]['page_desc']);
@@ -148,31 +160,48 @@
 			        		js.push(data.js[j]['js_name']);
 			        	}
 			        	$("#layoutname").html(data.layout[0]['layout']);
-			        	for (var k = 0; k < data.layout.length; k++)
+			        	
+			        	for (var i = 0; i < data.layout.length; i++)
+			        	{
+			        		panel.push(data.layout[i]['panel_name']);
+							section.push(data.layout[i]['section_label']);
+			        	}
+			        	
+			        	for (var k = 0; k < panel.length; k++)
 			        	{
 			        		$(".layoutPanels").append("<div class='panel-item"+k+" panel-item-container'></div>");
-			        		$(".panel-item"+k).append("<div class='panel-name'>"+data.layout[k]['section_label']+"</div>");
-			        		$(".panel-item"+k).append("<select id='panel-option' class='form-control panel-option'></select>");
-			        		$("#panel-option").text(data.layout[k]['panel-name']);
+			        		$(".panel-item"+k).append("<div class='panel-name'>"+section[k]+"</div>");
+			        		$(".panel-item"+k).append("<select id='panel-option' class='form-control panel-option"+k+" panels'></select>");
+			        		for (var j = 0; j < data.panels.length; j++) {
+			        			$(".panel-option"+k).append("<option>"+data.panels[j]['panel_name']+"<option>");
+			        		};
+			        		$(".panel-option"+k).val(panel[k]);
 			        	}
-			        	for (var l = 0; l < data.panels.length; l++)
-			        	{
-			        		$("select#panel-option").append("<option value='"+data.panels[l]['panel_name']+"'>"+data.panels[l]['panel_name']+"</option>");
-			        	}
-			        	/*$(".layoutPanels").html("");
-			        	for (var k = 0; k < data.layout.length; k++)
-			        	{
-			        		console.log(data.layout[k]['section_label']);
-			        		$(".layoutPanels").append("<div class='panel-item"+k+" panel-item-container'></div>");
-				        	$(".panel-item"+k).append("<div class='panel-name'>"+data.layout[k]['section_label']+"</div>");
-				        	$(".panel-item"+k).append("<select id='panel-option' class='form-control panel-option'></select>");
-				        	$("select#panel-option").append("<option value='"+data.layout[k]['panel_name']+"'>"+data.layout[k]['panel_name']+"</option>");
-			        	}
-			        	$("select#panel-option").append("<option>none</option>");*/
 			        }
 				});
 			});
 
+			$("#btnupdatepage").click(function(){
+				console.log($( "#listofcss" ).sortable("toArray", {attribute: 'value'}));
+				console.log($( "#listofjs" ).sortable("toArray", {attribute: 'value'}));
+				console.log($('#pageid').val());
+				console.log($('#pagename').val());
+				console.log($('#pagetitle').val());
+				console.log($('#pagedesc').val());
+				console.log($('#pagekeywords').val());
+				panellist = new Array();
+				$('.panel-item-container').each(function(){
+					var data = {
+						panel : $(this).children('.panel-name').html(),
+						panel_id : $(this).children('.panels').val()
+					}
+					panellist.push(data);
+				});
+				console.log(panellist);
+			});
+
+			var panel = new Array();
+			var section = new Array();
 			var js = new Array();
 			var css = new Array();
 			var num = 0;
@@ -249,6 +278,7 @@
 		      			<div class="container">
 			      			<div class="row">
 			      				<div class="col-sm-6">
+			      					<input type="hidden" id="pageid"/>
 									<input id="pagename" type="text" class="form-control" placeholder="Page Name..."/><br/>
 								</div>
 								<div class="col-sm-6">
@@ -323,7 +353,7 @@
 		      			</div>
 			      	</div>
 		      		<div class="modal-footer">
-		      			<button id="btnaddpage" type="button" class="btn btn-success">Update Page</button>
+		      			<button id="btnupdatepage" type="button" class="btn btn-success">Update Page</button>
 		        		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		      		</div>
 		    	</div>
