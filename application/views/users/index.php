@@ -1,16 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
 		{Header}
 		<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
-		<style>
-			body{
-				background-image: url("<?php echo base_url(); ?>/img/cat.png");
-				background-size: 100%;
-				background-attachment: fixed;
-				background-repeat: no-repeat;
-			}
-		</style>
 	</head>
 	<body>
 		{Navbar}

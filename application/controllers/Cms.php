@@ -13,7 +13,6 @@
                   if ($path[2] != "admin" && $this->session->uname == NULL)
                   {
                         header('Location: admin');
-                        //$this->load->view('admin/admin');
                   }
 		}
 

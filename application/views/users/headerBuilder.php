@@ -1,2 +1,0 @@
-<?php echo $css; ?>
-<?php echo $js; ?>
