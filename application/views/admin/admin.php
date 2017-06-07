@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Web Name</title>
+		<title>writer</title>
 		<link rel="icon" href="#" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/bootstrap.min.css">
