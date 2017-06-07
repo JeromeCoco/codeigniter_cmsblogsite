@@ -30,12 +30,13 @@
                 $js .= $this->load->view('users/scriptBuilder', $script, true);
             }
        
+            
             $content = array(
                 "Header" => $css.$js,
-                "Navbar" => $data["sections"][2]->content,
-                "About" => $data["sections"][0]->content,
-                "Location" => $data["sections"][3]->content,
-                "Contact" => $data["sections"][1]->content,
+                "Navbar" => $data["sections"][0]->content,
+                "About" => $data["sections"][1]->content,
+                "Location" => $data["sections"][2]->content,
+                "Contact" => $data["sections"][3]->content,
                 "Footer" => $data["sections"][4]->content
             );
 

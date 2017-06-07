@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>writer</title>
 		<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
 		{Header}
 		<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
