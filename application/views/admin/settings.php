@@ -403,7 +403,7 @@
 						<hr/>
 						<div class="">
 							Site Title:
-							<input id="sitename" type="text" class="form-control" placeholder="Site name here..."/>
+							<input id="sitename" type="text" class="form-control" placeholder="Site name here..." disabled/>
 							<br/>
 							Tagline:
 							<input id="tagline" type="text" class="form-control" placeholder="Site tagline here..."/>
