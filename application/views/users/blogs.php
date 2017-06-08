@@ -13,9 +13,24 @@
 		</div>
 		<div class="wrapper">
   			<div class="container">
-				<div class="row">
-					<?php echo $bloglisting; ?>
-				</div>
+				<br/><br/>
+				<?php
+					if (isset($title)) {
+						echo "<br/><h3>".$title."</h3><hr/>";
+					}
+					if (isset($date)) {
+						echo $date ." | ". $time ."<br/><br/>";
+					}
+					if (isset($content)) {
+						echo $content;
+					}
+					if (isset($author)) {
+						echo "<br/><i>-".$author."</i><br/>";
+					}
+					if (isset($bloglisting)) {
+						echo "<div class='row'>".$bloglisting."</div>";
+					}
+				?>
   			</div>
 		</div>
 		{Footer}

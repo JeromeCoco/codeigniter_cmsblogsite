@@ -59,7 +59,6 @@
 					<br/>
 					<input type="button" id="btnLogs" style="float:right;" class="btn btn-primary" value="Log In"/>
 					<br/>
-					<a href="#">Forgot password?</a>
 				</div>
 				<br/><br/><hr/>
 			</div>

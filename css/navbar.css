@@ -1,13 +1,14 @@
 ul#navbar{
-	background-color: #212121;
+	background-color: white;
 	position: fixed;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 	z-index: 10;
 	width: 100%;
 	padding-left: 0;
 	margin: 0;
 }
 a.navbar-link{
-	color: white;
+	color: black;
 	list-style-type: none;
 	display: inline-block;
 	padding: 13px;

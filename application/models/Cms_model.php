@@ -482,13 +482,17 @@
     public function getblogsdetails($data)
     {
         $urlname = $data[0];
+
         $selekid = $this->pdo->query("SELECT page_id FROM tbl_links WHERE page_url = '$urlname' ");
         $resultid = $selekid->result();
+
         $id = $resultid[0]->page_id;
         $selekcss = $this->pdo->query("SELECT css_order, css_name FROM tbl_page_css WHERE page_id = '$id' ");
         $resultcss = $selekcss->result();
+
         $selekjs = $this->pdo->query("SELECT js_order, js_name FROM tbl_page_js WHERE page_id = '$id' ");
         $resultjs = $selekjs->result();
+
         $seleksectionandpanel = $this->pdo->query("SELECT ts.page_id , ts.section_label AS section_name, ts.panel_id, tp.id, tp.panel_content AS content FROM tbl_sections AS ts INNER JOIN tbl_panels AS tp ON ts.panel_id = tp.id WHERE ts.page_id = '$id' ");
         $resultsectionandpanel = $seleksectionandpanel->result();
        
@@ -500,8 +504,35 @@
 
     public function getpostlist()
     {
-        $selek = $this->pdo->query("SELECT id, post_title, post_content, date_posted, time_posted FROM tbl_posts");
+        $selek = $this->pdo->query("SELECT post_title, post_content, date_posted, time_posted, post_url FROM tbl_posts WHERE post_status = 'Immediate' ");
         return $selek;
+    }
+
+    public function getactivepost($data)
+    {
+        $urlname = $data[0];
+
+        $resultcss = array('bootstrap.css', 'bootstrap.min.css', 'navbar.css', 'footer.css');
+        $resultjs = array('jquery-3.1.1.min.js', 'bootstrap.js', 'bootstrap.min.js');
+
+        $selekcss = $this->pdo->query("SELECT css_order, css_name FROM tbl_page_css WHERE css_name = 'bootstrap.css' OR css_name = 'bootstrap.min.css' OR css_name = 'navbar.css' OR css_name = 'footer.css' GROUP BY css_name");
+        $resultcss = $selekcss->result();
+
+        $selekjs = $this->pdo->query("SELECT js_order, js_name FROM tbl_page_js WHERE js_name = 'jquery-3.1.1.min.js' OR js_name = 'bootstrap.js' OR js_name = 'bootstrap.min.js' GROUP BY js_name");
+        $resultjs = $selekjs->result();
+
+        $selekpost = $this->pdo->query("SELECT author_name, post_title, post_content, date_posted, time_posted FROM tbl_posts WHERE post_url = '$urlname' ");
+        $post = $selekpost->result();
+
+        $seleknavbarfooter = $this->pdo->query("SELECT panel_content FROM tbl_panels WHERE panel_name = 'navbar' OR panel_name = 'footer' ");
+        $navfoot = $seleknavbarfooter->result();
+
+        $content['css'] = $resultcss;
+        $content['js'] = $resultjs;
+        $content['blogcontent'] = $post;
+        $content['navfooter'] = $navfoot;
+
+        return $content;
     }
   }
 ?>
