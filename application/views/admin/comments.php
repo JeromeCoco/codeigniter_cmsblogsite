@@ -232,9 +232,9 @@
 						<div class="form-inline">
 							Search by: &nbsp;
 							<select class="form-control" placeholder="Search by...">
-								<option>Date</option>
-								<option>Post</option>
-								<option>Author</option>
+								<option>date</option>
+								<option>post_id</option>
+								<option>comment_author</option>
 							</select> &nbsp;
 							<input type="text" class="form-control" placeholder="..."/>
 						</div>
@@ -245,9 +245,8 @@
 							<thead>
 								<tr>
 									<th>Date</th>
-									<th>In response to</th>
+									<th>Post ID</th>
 									<th>Author</th>
-									<th>Content</th>
 									<th>Actions</th>
 								</tr>
 							</thead>

@@ -29,7 +29,6 @@
                 $script = (array) $row;
                 $js .= $this->load->view('users/scriptBuilder', $script, true);
             }
-       
             
             $content = array(
                 "Header" => $css.$js,
@@ -46,5 +45,54 @@
             echo html_entity_decode($data);
             exit;
       	}
+
+        public function blogs()
+        {
+            //$this->load->view('users/blogs', true);
+            $urlname = $GLOBALS['params'];
+
+            $data = array();
+            $data = $this->Cms_model->getblogsdetails($urlname);
+
+            $css = '';
+            foreach ($data["css"] as $row)
+            {
+                $style = (array) $row;
+                $css .= $this->load->view('users/cssBuilder', $style, true);
+            }
+       
+            $js = '';
+            foreach ($data["js"] as $row)
+            {
+                $script = (array) $row;
+                $js .= $this->load->view('users/scriptBuilder', $script, true);
+            }
+            
+            $content = array(
+                "Header" => $css.$js,
+                "Navbar" => $data["sections"][0]->content,
+                "Footer" => $data["sections"][1]->content
+            );
+
+            $data = array();
+            $blogs['bloglisting'] = $this->getpostlist();
+            $views = $this->load->view('users/blogs', $blogs, true);
+            $data = $this->tools->LoadViewParser($views, $content, true);
+            echo html_entity_decode($data);
+            exit;
+        }
+
+        public function getpostlist()
+        {
+            $post = '';
+            $postdetails = array();
+            $postdetails = $this->Cms_model->getpostlist();
+            foreach ($postdetails->result() as $row)
+            {
+                $data = (array) $row;
+                $post .= $this->load->view('users/postlist', $data, true);
+            }
+            return $post;
+        }
 	}
 ?>

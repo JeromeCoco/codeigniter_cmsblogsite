@@ -7,7 +7,7 @@
 	         $this->ci =& get_instance(); 
 	    }
 
-	    public function LoadViewParser($view, $data, $bool=false)
+	    public function LoadViewParser($view, $data)
 	    {
 	    	foreach ($data as $key => $val)
 	    	{

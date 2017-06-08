@@ -280,6 +280,7 @@
 					<div class="col-sm-3"><br/>
 						<div id="recentActivities">
 							<i class="fa fa-check-square-o" aria-hidden="true"></i> Pages <hr/>
+							<?php echo $page_list; ?>
 						</div>
 						<br/>
 						<div id="uploadedFiles">

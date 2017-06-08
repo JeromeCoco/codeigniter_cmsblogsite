@@ -17,6 +17,7 @@
 		}
 
             /*Admin links*/
+
             public function editpage()
             {
                   $data = array();
@@ -288,7 +289,21 @@
             {
                   $data['recent_posts'] = $this->getrecentpostlist();
                   $data['upload_list'] = $this->getuploadedfiles();
+                  $data['page_list'] = $this->getuploadedpages();
                   $this->load->view('admin/dashboard', $data);
+            }
+
+            public function getuploadedpages()
+            {
+                  $list = '';
+                  $pages = array();
+                  $pages = $this->Cms_model->getpagenamelistlimit();
+                  foreach ($pages->result() as $row)
+                  {
+                        $data = (array) $row;
+                        $list .= $this->load->view('admin/pagelistuploaded', $data, true);
+                  }
+                  return $list;
             }
 
             public function getuploadedfiles()

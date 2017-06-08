@@ -452,6 +452,12 @@
         }
     }
 
+    public function getpagenamelistlimit()
+    {
+        $selek = $this->pdo->query("SELECT id, page_name FROM tbl_pages LIMIT 5");
+        return $selek;
+    }
+
     // Users
 
     public function getindexdetails($data)
@@ -471,6 +477,31 @@
         $content['js'] = $resultjs;
         $content['sections'] = $resultsectionandpanel;
         return $content;
+    }
+
+    public function getblogsdetails($data)
+    {
+        $urlname = $data[0];
+        $selekid = $this->pdo->query("SELECT page_id FROM tbl_links WHERE page_url = '$urlname' ");
+        $resultid = $selekid->result();
+        $id = $resultid[0]->page_id;
+        $selekcss = $this->pdo->query("SELECT css_order, css_name FROM tbl_page_css WHERE page_id = '$id' ");
+        $resultcss = $selekcss->result();
+        $selekjs = $this->pdo->query("SELECT js_order, js_name FROM tbl_page_js WHERE page_id = '$id' ");
+        $resultjs = $selekjs->result();
+        $seleksectionandpanel = $this->pdo->query("SELECT ts.page_id , ts.section_label AS section_name, ts.panel_id, tp.id, tp.panel_content AS content FROM tbl_sections AS ts INNER JOIN tbl_panels AS tp ON ts.panel_id = tp.id WHERE ts.page_id = '$id' ");
+        $resultsectionandpanel = $seleksectionandpanel->result();
+       
+        $content['css'] = $resultcss;
+        $content['js'] = $resultjs;
+        $content['sections'] = $resultsectionandpanel;
+        return $content;
+    }
+
+    public function getpostlist()
+    {
+        $selek = $this->pdo->query("SELECT id, post_title, post_content, date_posted, time_posted FROM tbl_posts");
+        return $selek;
     }
   }
 ?>
