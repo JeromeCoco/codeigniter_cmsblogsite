@@ -50,7 +50,7 @@
 			}
 		</style>
 		<script src="<?php echo base_url(); ?>js/jquery-3.1.1.min.js"></script>
-		<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+		<script src="<?php echo base_url(); ?>js/tether.min.js"></script>
 		<script src="<?php echo base_url(); ?>js/bootstrap.min.js"></script>
 		<script type="text/javascript">
 		$(document).ready(function(){

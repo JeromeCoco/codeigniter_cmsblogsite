@@ -9,12 +9,12 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/font-awesome.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/font-awesome.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-		<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+		<script src="<?php echo base_url(); ?>js/tether.min.js"></script>
 		<script src='<?php echo base_url(); ?>js/tinymce/tinymce.min.js'></script>
 		<script src="<?php echo base_url(); ?>js/Chart.js"></script>
 		<script src="<?php echo base_url(); ?>js/jquery-3.1.1.min.js"></script>
-		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script src="<?php echo base_url(); ?>js/jquery-1.12.4.js"></script>
+		<script src="<?php echo base_url(); ?>js/jquery-ui.js"></script>
 		<script src="<?php echo base_url(); ?>js/bootstrap.js"></script>
 		<style type="text/css">
 			div.sidenavtago{

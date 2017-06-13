@@ -71,7 +71,7 @@
 		        dataType: "json",
 		        success: function(data)
 		        {
-		        	$("#sitename").val(data[0]['site_title']);
+		        	
 		        	$("#tagline").val(data[0]['site_tagline']);
 		        	$("#emailadd").val(data[0]['email_address']);
 		        	$("#dateformat").val(data[0]['date_format']);
@@ -202,7 +202,7 @@
 				$(".col-sm-3").fadeIn('slow');
 			});
 			$("#btnsavechanges").click(function(){
-				var sitename = $("#sitename").val();
+				
 				var tagline = $("#tagline").val();
 				var emailadd = $("#emailadd").val();
 				var dateformat = $("#dateformat").val();
@@ -235,7 +235,7 @@
 					timecustom = "Yes";
 				}
 				
-				if (sitename == "" || tagline == "" || emailadd == "" || finaldate == "" || finaltime == "")
+				if (tagline == "" || emailadd == "" || finaldate == "" || finaltime == "")
 				{
 					$("#err").html("<br/><div class='alert alert-danger' role='alert'><center>Please enter complete information. <b>Try again.</b></center></div>");
 				}
@@ -245,7 +245,6 @@
 						url: "updatesettingschanges",
 				        type: "POST",
 				        data: {
-				        	sitename:sitename,
 				        	tagline:tagline,
 				        	emailadd:emailadd,
 				        	finaldate:finaldate,
@@ -401,10 +400,7 @@
 					<div class="col-sm-6">
 						<h4>General Settings</h4>
 						<hr/>
-						<div class="">
-							Site Title:
-							<input id="sitename" type="text" class="form-control" placeholder="Site name here..." disabled/>
-							<br/>
+						<div>
 							Tagline:
 							<input id="tagline" type="text" class="form-control" placeholder="Site tagline here..."/>
 							<br/>
