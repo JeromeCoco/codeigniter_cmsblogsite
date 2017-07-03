@@ -228,30 +228,19 @@
 			</ol>
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-6">
-						<div class="form-inline">
-							Search by: &nbsp;
-							<select class="form-control" placeholder="Search by...">
-								<option>date</option>
-								<option>post_id</option>
-								<option>comment_author</option>
-							</select> &nbsp;
-							<input type="text" class="form-control" placeholder="..."/>
-						</div>
-						<br/>
-					</div>
 					<div class="col-sm-12">
 						<table class="table table-bordered">
 							<thead>
 								<tr>
-									<th>Date</th>
 									<th>Post ID</th>
 									<th>Author</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
 							<tbody>
-								
+								<tr>
+									<td><?php $comment_list; ?></td>
+								</tr>
 							</tbody>
 							<tfoot>
 								

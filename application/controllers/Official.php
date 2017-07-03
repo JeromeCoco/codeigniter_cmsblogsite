@@ -114,8 +114,8 @@
                 $conts['time'] = $data["blogcontent"][0]->time_posted;
                 $conts['content'] = $data['blogcontent'][0]->post_content;
                 $conts['author'] = $data["blogcontent"][0]->author_name;
-                //$conts['commentauthor'] = $data[""]
-                //here....................
+                $conts['comments'] = $comments;
+                
                 $views = $this->load->view('users/blogs', $conts , true);
                 $parse = $this->tools->LoadViewParser($views, $content, true);
 

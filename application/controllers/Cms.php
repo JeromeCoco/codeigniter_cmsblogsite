@@ -367,6 +367,11 @@
                   }
                   return $list;
             }
+
+            public function comments()
+            {
+                  $this->load->view('admin/comments');
+            }
             
             public function removesession()
             {
@@ -481,11 +486,6 @@
             public function addnewpost()
             {
                   $this->load->view('admin/addnewpost');
-            }
-
-            public function comments()
-            {
-                  $this->load->view('admin/comments');
             }
 
             public function blogs(){

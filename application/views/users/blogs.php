@@ -29,6 +29,7 @@
 					        success: function(data)
 					        {
 					        	$("#error").html("<span style='color:green'>Your comment was successfully posted...</span>");
+					        	$("#commsection").before("<div style='border:1px solid black;background-color:#ecf0f1;padding:10px;border-radius:3px;'>"+"<i>"+comment+"</i>"+ "<br/>"+"by "+author+ "</div> <br/> ");
 					        }
 						});
 					}
@@ -77,6 +78,20 @@
 					}
 					if (isset($bloglisting)) {
 						echo "<div class='row'>".$bloglisting."</div>";
+					}
+					echo "<h3>Comments</h3><hr/>";
+					if (isset($comments)) {
+						echo "<div id='commsection'>";
+						for ($i = 0; $i < count($comments); $i++) {
+							echo "
+								<div style='border:1px solid black;background-color:#ecf0f1;padding:10px;border-radius:3px;'>"
+									."<i>".$comments[$i]->comment_content."</i>".
+								"<br/>"
+									."by ".$comments[$i]->comment_author.
+								"</div>
+								<br/>";
+						}
+						echo "</div>";
 					}
 				?>
   			</div>

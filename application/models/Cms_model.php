@@ -551,8 +551,14 @@
         $resultid = $selekid->result();
         $id = $resultid[0]->id;
 
-        $selekcomment = $this->pdo->query("SELECT comment_author, comment_content FROM tbl_comments WHERE post_id = '$id' ");
+        $selekcomment = $this->pdo->query("SELECT comment_author, comment_content FROM tbl_comments WHERE post_id = '$id' ORDER BY id DESC ");
         return $selekcomment->result();
+    }
+
+    public function getcommentslist()
+    {
+        $seleks = $this->pdo->query("SELECT * FROM tbl_comments");
+        return $seleks;
     }
   }
 ?>
