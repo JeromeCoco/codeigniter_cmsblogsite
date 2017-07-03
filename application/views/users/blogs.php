@@ -1,9 +1,40 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>writer</title>
-		<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
 		{Header}
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#btncomment").click(function(){
+					var postid = $("#postid").val();
+					var author = $("#author").val();
+					var comment = $("#comment").val();
+					$("#error").html("");
+					if (author == "" || comment == "") 
+					{
+						$("#error").html("<span style='color:red'>Please enter valid information...</span>");
+					}
+					else
+					{
+						$.ajax({
+							url: "../addcomment",
+					        type: "POST",
+					        data: { 
+					        	postid:postid,
+					        	author:author,
+					        	comment:comment
+					        },
+					        dataType: "json",
+					        success: function(data)
+					        {
+					        	$("#error").html("<span style='color:green'>Your comment was successfully posted...</span>");
+					        }
+						});
+					}
+				});
+			});
+		</script>
 		<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
 	</head>
 	<body>
@@ -16,7 +47,8 @@
 				<br/><br/>
 				<?php
 					if (isset($title)) {
-						echo "<br/><h3>".$title."</h3><hr/>";
+						echo "<input type='hidden' value='$id' id='postid'>";
+						echo "<br/><h3><i>'".$title."'</i></h3><hr/>";
 					}
 					if (isset($date)) {
 						echo $date ." | ". $time ."<br/><br/>";
@@ -26,6 +58,22 @@
 					}
 					if (isset($author)) {
 						echo "<br/><i>-".$author."</i><br/>";
+						echo "
+							<hr/>
+							<h5>Add a comment...</h5>
+							<div class='row'>
+								<div class='col-sm-5'>
+									<span id='error'></span>
+									<input type='text' id='author' class='form-control' placeholder='Your name...'/><br/>
+								</div>
+								<div class='col-sm-12'>
+									<textarea style='height:100px;resize:none;' id='comment' class='form-control' placeholder='Write your ideas here...'></textarea>
+									<br/>
+									<input id='btncomment' type='button' class='btn btn-md btn-success' value='Post'/>
+									<br/><br/>
+								</div>
+							</div>
+						";
 					}
 					if (isset($bloglisting)) {
 						echo "<div class='row'>".$bloglisting."</div>";

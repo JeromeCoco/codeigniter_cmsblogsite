@@ -219,7 +219,7 @@
 					var listpanels = JSON.stringify(panellist);
 					var countjs = $( "#listofjs" ).sortable("toArray", {attribute: 'value'});
 					var countcss = $( "#listofcss" ).sortable("toArray", {attribute: 'value'});
-					if (pagename == "" || pagetitle == "" || pagedesc == "" || pagekeywords == "" || countcss.length == 0 || countjs.length == 0 || panellist.length == 0)
+					if (pagename == "" || pagetitle == "" || pagedesc == "" || pagekeywords == "" || panellist.length == 0)
 					{
 						$("#err").html("<br/><div class='alert alert-danger errmess' role='alert'><center>Please enter the needed elements and information.</center></div>");
 					}

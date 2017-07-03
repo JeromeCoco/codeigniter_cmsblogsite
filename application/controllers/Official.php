@@ -31,7 +31,7 @@
             }
             
             $content = array(
-                "Header" => $css.$js,
+                "Header" => $js.$css,
                 "Navbar" => $data["sections"][0]->content,
                 "About" => $data["sections"][1]->content,
                 "Location" => $data["sections"][2]->content,
@@ -69,7 +69,7 @@
                 }
                 
                 $content = array(
-                    "Header" => $css.$js,
+                    "Header" => $js.$css,
                     "Navbar" => $data["sections"][0]->content,
                     "Footer" => $data["sections"][1]->content
                 );
@@ -84,6 +84,7 @@
             else
             {
                 $data = $this->Cms_model->getactivepost($urlname);
+                $comments = $this->Cms_model->getcomment($urlname);
 
                 $js = '';
                 foreach ($data["js"] as $row)
@@ -100,20 +101,21 @@
                 }
                 
                 $content = array(
-                    "Header" => $css.$js,
+                    "Header" => $js.$css,
                     "Navbar" => $data['navfooter'][0]->panel_content,
                     "Footer" => ''
                 );
 
-                //var_dump();
                 $parse = array();
-                
-                
+
+                $conts['id'] = $data["blogcontent"][0]->id;
                 $conts['title'] = $data["blogcontent"][0]->post_title;
                 $conts['date'] = $data["blogcontent"][0]->date_posted;
                 $conts['time'] = $data["blogcontent"][0]->time_posted;
                 $conts['content'] = $data['blogcontent'][0]->post_content;
                 $conts['author'] = $data["blogcontent"][0]->author_name;
+                //$conts['commentauthor'] = $data[""]
+                //here....................
                 $views = $this->load->view('users/blogs', $conts , true);
                 $parse = $this->tools->LoadViewParser($views, $content, true);
 
@@ -133,6 +135,14 @@
                 $post .= $this->load->view('users/postlist', $data, true);
             }
             return $post;
+        }
+
+        public function addcomment()
+        {
+            $data = array();
+            $data = $this->Cms_model->addnewcomment($_POST);
+            echo json_encode($data);
+            exit; 
         }
 	}
 ?>

@@ -173,10 +173,13 @@
 			        		$(".layoutPanels").append("<div class='panel-item"+k+" panel-item-container'></div>");
 			        		$(".panel-item"+k).append("<div class='panel-name'>"+section[k]+"</div>");
 			        		$(".panel-item"+k).append("<select id='panel-option' class='form-control panel-option"+k+" panels'></select>");
-			        		for (var j = 0; j < data.panels.length; j++) {
+			        		for (var j = 0; j < data.panels.length; j++)
+			        		{
 			        			$(".panel-option"+k).append("<option class='panelid'>"+data.panels[j]['panel_name']+"<option>");
-			        		};
+			        		}
+			        		
 			        		$(".panel-option"+k).val(panel[k]);
+
 			        	}
 			        }
 				});
@@ -201,7 +204,7 @@
 				});
 				var listpanel = JSON.stringify(panellist);
 				
-				if (pagename == "" || pagetitle == "" || pagedesc == "" || pagekeywords == "" || css.length == 0 || js.length == 0 || panellist.length == 0)
+				if (pagename == "" || pagetitle == "" || pagedesc == "" || pagekeywords == "" || panellist.length == 0)
 				{
 					$("#err").html("<br/><div class='alert alert-danger errmess' role='alert'><center>Please enter the needed elements and information.</center></div>");
 				}

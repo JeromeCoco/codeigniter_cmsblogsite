@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>writer</title>
-		<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+		<script src="<?php echo base_url(); ?>js/tether.min.js"></script>
 		{Header}
 		<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
 	</head>

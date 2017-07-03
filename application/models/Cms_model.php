@@ -97,11 +97,12 @@
     public function addpost($data)
     {
     	extract($data);
-    	$sql = "INSERT INTO tbl_posts(author_name, post_title, post_content, date_posted, time_posted, post_status) VALUES(?, ?, ?, ?, ?, ?)";
+    	$sql = "INSERT INTO tbl_posts(author_name, post_title, post_content, date_posted, time_posted, post_status, post_url) VALUES(?, ?, ?, ?, ?, ?, ?)";
     	$realdate = date($dates);
     	$realtime = date($times);
     	$tagcontent = htmlentities($content);
-    	$this->pdo->query($sql, array($author, $title, $tagcontent, $realdate, $realtime, $stat));
+        $url = str_replace(" ", "-", $title);
+    	$this->pdo->query($sql, array($author, $title, $tagcontent, $realdate, $realtime, $stat, $url));
     	return $data;
     }
 
@@ -521,7 +522,7 @@
         $selekjs = $this->pdo->query("SELECT js_order, js_name FROM tbl_page_js WHERE js_name = 'jquery-3.1.1.min.js' OR js_name = 'bootstrap.js' OR js_name = 'bootstrap.min.js' GROUP BY js_name");
         $resultjs = $selekjs->result();
 
-        $selekpost = $this->pdo->query("SELECT author_name, post_title, post_content, date_posted, time_posted FROM tbl_posts WHERE post_url = '$urlname' ");
+        $selekpost = $this->pdo->query("SELECT id, author_name, post_title, post_content, date_posted, time_posted FROM tbl_posts WHERE post_url = '$urlname' ");
         $post = $selekpost->result();
 
         $seleknavbarfooter = $this->pdo->query("SELECT panel_content FROM tbl_panels WHERE panel_name = 'navbar' OR panel_name = 'footer' ");
@@ -533,6 +534,25 @@
         $content['navfooter'] = $navfoot;
 
         return $content;
+    }
+
+    public function addnewcomment($data)
+    {
+        extract($data);
+        $sql = "INSERT INTO tbl_comments(post_id, comment_author, comment_content) VALUES(?, ?, ?)";
+        $this->pdo->query($sql, array($postid, $author, $comment));
+        return $data;
+    }
+
+    public function getcomment($data)
+    {
+        $title = str_replace("-", " ", $data[0]);
+        $selekid = $this->pdo->query("SELECT id FROM tbl_posts WHERE post_title = '$title' ");
+        $resultid = $selekid->result();
+        $id = $resultid[0]->id;
+
+        $selekcomment = $this->pdo->query("SELECT comment_author, comment_content FROM tbl_comments WHERE post_id = '$id' ");
+        return $selekcomment->result();
     }
   }
 ?>

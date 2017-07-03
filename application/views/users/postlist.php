@@ -1,6 +1,3 @@
-<?php
-	
-?>
 <div class="col-sm-6">
 	<h3>
 		<i class="fa fa-newspaper-o" aria-hidden="true"></i> <?php echo $post_title ;?>
